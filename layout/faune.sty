@@ -1,0 +1,17 @@
+\ProvidesPackage{./layout/faune}
+
+\RequirePackage{fontspec}
+\newfontfamily{\Faune}[
+  NFSSFamily=Faune-Text,
+  Path=./layout/fonts/,
+  Extension = .ttf,
+  Ligatures = TeX,
+  UprightFont = *_Regular,
+  BoldFont = *_Bold,
+  ItalicFont = *_Italic,
+]{Faune}
+
+\DeclareOption{default}{%
+  \renewcommand{\familydefault}{Faune}%
+}
+\ProcessOptions\relax

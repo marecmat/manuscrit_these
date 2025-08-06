@@ -43,6 +43,12 @@
 \setlength{\headheight}{15pt}
 \RequirePackage[no-math]{fontspec}
 
+\geometry{a4paper, left=2.5cm, right=2cm, top=2cm, bottom=2cm}
+\definecolor{accent}{HTML}{a33c34}
+
+\RequirePackage{./layout/faune}
+\newfontfamily\titlestyle{Faune}
+
 \titleformat{\chapter}[block]
     {\flushleft}
     {\thechapter\tikzexternaldisable
@@ -188,6 +194,8 @@
            and there is no fallback driver either}}}}
 \makeatother
 
+
+\tikzexternalize[optimize=true, optimize command away=\includepdf, prefix=tikzbuild/]
 
 %% MATH COMMANDS 
 \renewcommand{\transp}{\mathsf T}

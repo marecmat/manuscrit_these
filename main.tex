@@ -1,15 +1,9 @@
 \documentclass{layout/thesis}
 
-\geometry{a4paper, left=2.5cm, right=2cm, top=2cm, bottom=2cm}
 \addbibresource[datatype=bibtex]{biblio.bib}
-\definecolor{accent}{HTML}{a33c34}
-\newfontfamily\titlestyle{Faune}
-\newfontfamily\largetitlestyle{Arial}
-
 \title{le long titre de ma thèse}
 \author{Mathieu Maréchal}
 
-\tikzexternalize[optimize=true, optimize command away=\includepdf, prefix=tikzbuild/]
 
 \begin{document}
 \renewcommand{\thepage}{\roman{page}}
@@ -24,7 +18,7 @@
 \newpage 
 \pagenumbering{arabic}
 \input{chapitres/chap1/chap1.tex}
-% \input{chapitres/template_article.tex}
+\input{chapitres/template_article.tex}
 \input{chapitres/article_JAP/multilayer.tex}
 \input{chapitres/conclusion.tex}
 \renewcommand{\thesubsection}{\thesection.\arabic{subsection}}
