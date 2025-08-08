@@ -2,7 +2,7 @@
 \ProvidesClass{layout/thesis}[phd thesis template]
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{book}}
 \ProcessOptions\relax
-\LoadClass[11pt,twoside]{book}
+\LoadClass[12pt,twoside]{book}
 
 \RequirePackage{geometry}   
 \RequirePackage{xcolor}     
@@ -18,7 +18,9 @@
     eprint=false,
     url=false,
     maxbibnames=2,
-    refsection=chapter]{biblatex}
+    defernumbers=true,
+    % refsection=chapter
+]{biblatex}
 \RequirePackage[labelfont=bf,justification=centering,footnotesize]{caption}
 \RequirePackage[explicit]{titlesec}   
 \RequirePackage[
@@ -34,6 +36,7 @@
 \RequirePackage{tabularx}   
 \RequirePackage{graphicx}  
 \RequirePackage{pdfpages}
+\RequirePackage{enumitem}
 
 \RequirePackage{tikz}       
 \usetikzlibrary{patterns, patterns.meta, calc, arrows.meta, 
@@ -48,6 +51,20 @@
 
 \RequirePackage{./layout/faune}
 \newfontfamily\titlestyle{Faune}
+
+
+\RequirePackage{etoolbox}
+\RequirePackage{epigraph}
+\makeatletter
+\newlength\epitextskip
+\pretocmd{\@epitext}{\em}{}{}
+\apptocmd{\@epitext}{\em}{}{}
+\patchcmd{\epigraph}{\@epitext{#1}\\}{\@epitext{#1}\\[\epitextskip]}{}{}
+\makeatother
+\setlength\epigraphrule{0pt}
+\setlength\epitextskip{2ex}
+\setlength\epigraphwidth{.35\textwidth}
+
 
 \titleformat{\chapter}[block]
     {\flushleft}
@@ -121,33 +138,48 @@
 \renewcommand{\maketitle}{%
     \thispagestyle{empty}
   \begin{flushleft}
-    {\fontsize{32}{32}\titlestyle  {\LARGE Thèse de doctorat:}
+    {\fontsize{18}{18}\selectfont  
+        {Le Mans Université, Le Mans, France}
 
-        {\fontsize{42}{42}\titlestyle \@title\par}
+        {École Doctorale Sciences de l’Ingénierie et des Systèmes}
+        \vskip .5em
+
+        {Doctoral thesis \, -- \, Speciality: acoustics}
+
     }%
-    \vskip 1.5em%
+    \vskip 2em%
     
-    \lineskip .5em%
-    {\fontsize{32}{32}\selectfont \@author}
-    \vskip 1em%
+    {\fontsize{18}{18}\selectfont Presented by: }
+
+    {\fontsize{26}{26}\titlestyle \@author}\\[.2em]
+
+    {\fontsize{18}{18}\selectfont submitted for the Doctoral degree}
+    \vskip 2.5cm
     \end{flushleft}
-  \begin{center}%
-
-    \vskip 8cm
-
-    {\fontsize{18}{18}\selectfont
-    \begin{tabular}{ll}
-        {\it President:}            & name, position \\
-        {\it Examiner:}             & name, position \\
-        {\it Examiner:}             & name, position \\
-        {\it Main supervisor:}      & name, position \\
-        {\it Main supervisor:}      & name, position \\
-        {\it supervisor:}           & name, position \\
+        
+    \begin{center}
+        \fontsize{32}{32}\titlestyle\@title
+    \end{center}
+    
+    \begin{center}%
+    \vfill
+    Defense scheduled on the ??\\[2em]
+    Members of the defense committed:\\[1em]
+    {\centering \fontsize{11}{11}\selectfont
+    \begin{tabular}{lll}
+        Name, Surname          & name, position                                  &{\it Reviewer}\\       
+        Name, Surname          & name, position                                  &{\it Reviewer}\\[1em]       
+        Name, Surname          & name, position                                  &{\it Examiner}\\       
+        Name, Surname          & name, position                                  &{\it Examiner}\\       
+        Name, Surname          & name, position                                  &{\it Examiner}\\[1em]       
+        J.-P. Groby            & Directeur de Recherche CNRS, LAUM UMR CNRS 6613 &{\it Main supervisor}\\
+        O. Dazel               & Professeur des universités, Le Mans Université  &{\it Supervisor}     \\
+        V. Romero-Garcìa   & Professeur, Universitat Politécnica de Valencia &{\it Co-supervisor}  \\
     \end{tabular}}
     %{\large \@date}%
   \end{center}%
   \par
-  \vskip 1.5em}
+  \vskip 4em}
 \makeatother
 
 
@@ -164,8 +196,33 @@
 \RequirePackage{amsthm}
 \RequirePackage[ebgaramond,vvarbb,subscriptcorrection]{newtxmath}
 
+\defbibenvironment{mespublis}
+  {\enumerate[label={P\arabic*.}]
+     {}
+     {\setlength{\labelwidth}{\labelnumberwidth}%
+      \setlength{\leftmargin}{\labelwidth}%
+      \setlength{\labelsep}{\biblabelsep}%
+      \addtolength{\leftmargin}{\labelsep}%
+      \setlength{\itemsep}{\bibitemsep}%
+      \setlength{\parsep}{\bibparsep}}%
+      \renewcommand*{\makelabel}[1]{\hss##1}}
+  {\endenumerate}
+  {\item}
 
 % \AtEveryBibitem{\clearfield{title}}
+\defbibenvironment{bibliography}
+  {\enumerate[label={\arabic*.}]
+     {}
+     {\setlength{\labelwidth}{\labelnumberwidth}%
+      \setlength{\leftmargin}{\labelwidth}%
+      \setlength{\labelsep}{\biblabelsep}%
+      \addtolength{\leftmargin}{\labelsep}%
+      \setlength{\itemsep}{\bibitemsep}%
+      \setlength{\parsep}{\bibparsep}}%
+      \renewcommand*{\makelabel}[1]{\hss##1}}
+  {\endenumerate}
+  {\item}
+
 \DeclareFieldFormat{pages}{#1}
 \renewbibmacro{in:}{%
   \ifentrytype{article}
@@ -194,6 +251,12 @@
            and there is no fallback driver either}}}}
 \makeatother
 
+% \renewbibmacro*{issue+date}{%
+%   \printtext[]{%
+%     \printfield{issue}%
+%     \setunit*{\addspace}%
+%     \usebibmacro{date}}%
+%   \newunit}
 
 \tikzexternalize[optimize=true, optimize command away=\includepdf, prefix=tikzbuild/]
 

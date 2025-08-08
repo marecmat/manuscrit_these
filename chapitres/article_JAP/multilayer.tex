@@ -1,11 +1,12 @@
 \chapter{A general spectral collocation method for computing the dispersion relations of guided acoustic waves in multilayer dissipative structures}
 \chaptermark{SCM for computing the dispersion relations of guided acoustic waves }
+Authored by: \textit{Mathieu Maréchal, Alan Geslain, Jean-Philippe Groby and Vicent Romero-Garc\'ia}. 
 
 \begin{center}
-    {\color{gray}\textsc{This chapter is based on the material published in REF and authored by Mathieu Maréchal, Alan Geslain, Jean-Philippe Groby and Vicent Romero-Garc\'ia. Minor modifications to the text and figures have been made to fit the format and notation of this thesis.}}
+    {\color{gray}\textsc{This chapter is based on the material published in \cite{marechal2025}. Minor modifications to the text and figures have been made to fit the format and notation of this thesis.}}
 \end{center}
 
-\section{abstract}
+\section{Abstract}
 A spectral collocation method is proposed to compute the complex wavenumber-real frequency dispersion relations of guided acoustic waves in multilayer structures involving dissipative materials. The nature of these dissipative materials is initially considered to be arbitrary, i.e., poroelastic, viscoelastic, or viscoacoustic. For a given frequency, the complex wavenumbers as well as the physical fields, which are further used to evaluate the Poynting vectors and analyze the energy flux, are obtained by solving a generalized eigenvalue problem. The latter arises from a set of discretized equations of motion and appropriate boundary (coupling) conditions. These equations of motion and boundary (coupling) conditions are imposed by the nature of the material composing each layer of the structure. A focus is made on poroelastic layers. The dispersion relation of a two-layer elastic-poroelastic structure is analyzed, as well as the energy flows in the structure. The results as calculated with the present spectral collocation method are validated against those obtained with a classical complex root-finding (M\"uller) method and experiments.
 
 %    \modif{Keywords: Spectral collocation method, poroelastic material, Complex dispersion relation, guided waves}
@@ -383,37 +384,37 @@ A spectral collocation method (SCM) is proposed to calculate dispersion relation
 
 This method paves the way of complex wavenumber-real frequency dispersion relation calculation and analysis of more complex structures, like layers with embedded periodic inclusions (elastic or resonant), i.e. metaporolastic surfaces.      
 
-\section*{Conflict of interest}
-The authors have no conflicts to disclose
-\section*{Author Contributions}
-\textbf{Mathieu Maréchal}
-Formal analysis (lead); 
-Investigation (equal); 
-Methodology (equal); 
-Software (lead); 
-Visualization (lead); 
-Writing – original draft (lead).
-\textbf{Alan Geslain}
-Writing – review \& editing (supporting); Investigation (equal). 
-\textbf{Jean-Philippe Groby}
-Formal analysis (equal);
-Methodology (equal);
-Supervision (equal);
-Writing – review \& editing (lead).
-\textbf{Vicent Romero-Garcìa}
-Formal analysis (supporting);
-Methodology (supporting);
-Supervision (equal);
-Writing – review \& editing (equal).
-\textbf{Olivier Dazel}
-Formal analysis (equal);
-Investigation (equal);
-Methodology (equal);
-Supervision (equal);
-Writing – review \& editing (equal).
+% \section*{Conflict of interest}
+% The authors have no conflicts to disclose
+% \section*{Author Contributions}
+% \textbf{Mathieu Maréchal}
+% Formal analysis (lead); 
+% Investigation (equal); 
+% Methodology (equal); 
+% Software (lead); 
+% Visualization (lead); 
+% Writing – original draft (lead).
+% \textbf{Alan Geslain}
+% Writing – review \& editing (supporting); Investigation (equal). 
+% \textbf{Jean-Philippe Groby}
+% Formal analysis (equal);
+% Methodology (equal);
+% Supervision (equal);
+% Writing – review \& editing (lead).
+% \textbf{Vicent Romero-Garcìa}
+% Formal analysis (supporting);
+% Methodology (supporting);
+% Supervision (equal);
+% Writing – review \& editing (equal).
+% \textbf{Olivier Dazel}
+% Formal analysis (equal);
+% Investigation (equal);
+% Methodology (equal);
+% Supervision (equal);
+% Writing – review \& editing (equal).
 
-\section*{Data Availability Statement}
-The data that support the findings of this study are available from the corresponding author upon reasonable request. 
+% \section*{Data Availability Statement}
+% The data that support the findings of this study are available from the corresponding author upon reasonable request. 
 
 \section{Appendices}
 \renewcommand{\thesubsection}{\thesection.\Alph{subsection}}
@@ -562,6 +563,5 @@ When a multi-layer configuration is considered, the latter velocity is averaged 
     \overline U = \sum_n \frac{1}{h_n} \int_{h_{n-1}}^{h_n} \langle U^{(n)} \rangle  ~dx_2.
     \label{eq:mean_energy}
 \end{equation}
-
-\printbibliography[heading=subbibnumbered]
+% \printbibliography[heading=subbibnumbered]
 % \end{document}

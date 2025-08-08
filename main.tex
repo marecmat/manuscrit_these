@@ -1,7 +1,7 @@
 \documentclass{layout/thesis}
 
 \addbibresource[datatype=bibtex]{biblio.bib}
-\title{le long titre de ma thèse}
+\title{Numerical methods for the computation of scattering and dispersion properties in metaporous layers}
 \author{Mathieu Maréchal}
 
 
@@ -23,10 +23,11 @@
 \input{chapitres/conclusion.tex}
 \renewcommand{\thesubsection}{\thesection.\arabic{subsection}}
 
-\appendix
 \chapter*{Appendices}
+\renewcommand{\chaptermark}[1]{\markboth{#1}{}}
 \addcontentsline{toc}{chapter}{Appendices}
-\chaptermark{}
+\setcounter{section}{0}
+\chaptermark{Appendices}
 {\hypersetup{linkcolor=black}
 \vspace*{-20pt}{\color{accent}\titlerule\vspace*{1pc}}%
 \startcontents\vbox{\Large\contentsname}\vskip1ex
@@ -34,6 +35,9 @@
 \renewcommand{\theequation}{\thesection.\arabic{equation}}}
 \input{chapitres/annexes/safe_lamb.tex}
 \input{chapitres/annexes/muller.tex}
+\input{chapitres/annexes/thesis_overview_extended_abstract.tex}
 
-\printbibliography[heading=subbibnumbered]
-\end{document}
+\newpage
+\chapter*{References}
+\printbibliography[heading=none,notkeyword=mespapiers]
+\end{document}  
