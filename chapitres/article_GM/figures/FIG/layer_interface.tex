@@ -1,0 +1,50 @@
+\documentclass{standalone}
+\usepackage{tikz}
+\usepackage{tikz-3dplot}
+\usetikzlibrary{calc,patterns,decorations.pathmorphing,decorations.markings}
+\usetikzlibrary{decorations.pathmorphing,patterns}
+\usetikzlibrary{positioning}
+\usepackage[OT2, T1]{fontenc}
+\usepackage{pgfplots}
+\usepackage{xcolor}
+\pgfplotsset{compat=1.14}
+\usepgfplotslibrary{fillbetween}
+\tikzset{>=stealth}
+\usepackage{amsmath}
+\newcommand{\vc}[1]{\boldsymbol{#1}}
+\newcommand{\mat}[1]{\boldsymbol{[#1]}}
+\begin{document}
+
+\def\d{4}
+
+\def\ycore{1}
+\def\yxaxis{-4}
+\def\gaps{0.1}
+
+
+\begin{tikzpicture}
+
+%% Geometrical axes 
+
+% \draw [thin, ->] (-1.1*\d, \yxaxis)  -- (1.1*\d,   \yxaxis) node [right] {$x$};
+
+% %% FEM Core
+\draw [thick] (-1.15*\d, \ycore)  -- (1.1*\d, \ycore) node [right] {$i$};;
+\draw [thick] (-1.15*\d, -\ycore)  -- (1.1*\d, -\ycore) node [right] {$i-1$};;
+
+
+
+\draw [thin, dashed] (-1.1*\d,  \ycore+\gaps)  -- (1.1*\d,  \ycore+\gaps) node [above,midway] {$\vc{\Sigma_i^+}=\mat{\Omega_i^+}\vc{X^+_i}$} ;
+\draw [thin, dashed] (-1.1*\d,  \ycore-\gaps)  -- (1.1*\d,  \ycore-\gaps) node [below,midway] {$\vc{\Sigma_i^-}=\mat{\Omega_i^-}\vc{X^-_i}$};
+\draw [thin, dashed] (-1.1*\d, -\ycore+\gaps)  -- (1.1*\d, -\ycore+\gaps) node [above,midway] {$\vc{\Sigma_{i-1}^+}=\mat{\Omega_{i-1}^+}\vc{X_{i-1}^+}$};
+\draw [thin, dashed] (-1.1*\d, -\ycore-\gaps)  -- (1.1*\d, -\ycore-\gaps);%node [below,midway] {$\vc{T}'$};
+
+
+% # Arrow epsilon
+\draw [>-<] (-1.15*\d,\ycore+\gaps) -- (-1.15*\d,\ycore-2*\gaps) node [left] {$\varepsilon$};
+
+
+
+\end{tikzpicture}
+\end{document}
+

@@ -1,14 +1,23 @@
-\documentclass{layout/thesis}
+\documentclass[pretty]{layout/thesis}
+\hbadness=20000
 
 \addbibresource[datatype=bibtex]{biblio.bib}
+\addbibresource[datatype=bibtex]{chapitres/article_GM/comparison.bib}
+\graphicspath{
+    {chapitres/article_JAP/figures/}
+    {chapitres/annexes/figs}
+    {chapitres/article_GM/figures}
+    {chapitres/article_DISP}
+}
+
 \title{Numerical methods for the computation of scattering and dispersion properties in metaporous layers}
 \author{Mathieu Maréchal}
 
 
 \begin{document}
 \renewcommand{\thepage}{\roman{page}}
-\maketitle
-\input{chapitres/abstract_ack.tex}
+% \maketitle
+% \input{chapitres/abstract_ack.tex}
 \setcounter{tocdepth}{1}
 {\hypersetup{linkcolor=black}\tableofcontents}
 \addcontentsline{toc}{chapter}{Contents}
@@ -19,7 +28,9 @@
 \pagenumbering{arabic}
 \input{chapitres/chap1/chap1.tex}
 \input{chapitres/template_article.tex}
+\input{chapitres/article_GM/main.tex}
 \input{chapitres/article_JAP/multilayer.tex}
+\input{chapitres/article_DISP/main.tex}
 \input{chapitres/conclusion.tex}
 \renewcommand{\thesubsection}{\thesection.\arabic{subsection}}
 
@@ -33,9 +44,10 @@
 \startcontents\vbox{\Large\contentsname}\vskip1ex
 \printcontents{l}{1}{\setcounter{tocdepth}{3}}\vspace*{1pc}{\color{accent}\titlerule}
 \renewcommand{\theequation}{\thesection.\arabic{equation}}}
-\input{chapitres/annexes/safe_lamb.tex}
+
+% \input{chapitres/annexes/safe_lamb.tex}
 \input{chapitres/annexes/muller.tex}
-\input{chapitres/annexes/thesis_overview_extended_abstract.tex}
+% \input{chapitres/annexes/thesis_overview_extended_abstract.tex}
 
 \newpage
 \chapter*{References}

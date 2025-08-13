@@ -1,0 +1,84 @@
+\documentclass{standalone}
+\usepackage{tikz}
+\usepackage{tikz-3dplot}
+\usetikzlibrary{calc,patterns,decorations.pathmorphing,decorations.markings}
+\usetikzlibrary{decorations.pathmorphing,patterns}
+\usetikzlibrary{positioning}
+\usepackage[OT2, T1]{fontenc}
+\usepackage{pgfplots}
+\usepackage{xcolor}
+\pgfplotsset{compat=1.14}
+\usepgfplotslibrary{fillbetween}
+\tikzset{>=stealth}
+
+
+\begin{document}
+
+\def\d{4}
+\def\ycore{1}
+\def\yone{1.1}
+\def\ytwo{1.3}
+\def\ythree{1.5}
+\def\ytop{1.8}
+\def\nyone{-1.2}
+\def\nytwo{-1.45}
+\def\nythree{-1.6}
+\def\ybottom{-1.8}
+\def\yarrow{1}
+\def\xarrow{2.5}
+\def\xbloch{0.9}
+
+\def\yxaxis{-4}
+\renewcommand{\arraystretch}{1.5}
+\begin{tikzpicture}
+
+%% Geometrical axes 
+
+\draw [thin, ->] (-1.1*\d, \yxaxis)  -- (1.1*\d,   \yxaxis) node [right] {$x$};
+\draw [thin] (-\d, \yxaxis)  -- (-\d, \yxaxis-0.1) node [below] {$0$};
+\draw [thin] (\d, \yxaxis+0.1)  -- (\d, \yxaxis-0.1) node [below] {$D$};
+\draw [thin,->] (-\d, \yxaxis)  -- (-\d, \yxaxis+0.5) node [above] {$y$};
+%% FEM Core
+\draw [thick] (-1.1*\d, -\ycore) -- (1.1*\d, -\ycore);
+\draw [thick] (-1.1*\d, \ycore)  -- (1.1*\d, \ycore);
+\node at (-1.50,0) {Periodic};
+\node at (1.10,0) {cell};
+\node at (0,0) {\includegraphics[width=1.5cm]{LOGO_RS_IAGS.png}};
+%% Layers 
+\draw [-] [gray, thin] (-1.1*\d, \yone)  -- (1.1*\d,   \yone) ;
+\draw [-] [gray, thin] (-1.1*\d, \nyone)  -- (1.1*\d,  \nyone) ;
+\draw [-] [gray, thin] (-1.1*\d, \ytwo)  -- (1.1*\d,   \ytwo) ;
+\draw [-] [gray, thin] (-1.1*\d, \nytwo)  -- (1.1*\d,  \nytwo) ;
+\draw [-] [gray, thin] (-1.1*\d, \ythree)  -- (1.1*\d,   \ythree) ;
+\draw [-] [gray, thin] (-1.1*\d, \nythree)  -- (1.1*\d,  \nythree) ;
+
+%% Periodic boundaries
+\draw [dashed] (-\d, \ybottom) -- (-\d, \ytop);
+\draw [dashed] ( \d, \ybottom) -- ( \d, \ytop);
+
+%% Top and bottom boundaries
+\draw [-] [thick] (-1.1*\d, \ytop) -- (1.1*\d, \ytop) node [above, midway]{Termination condition};
+\draw [-] [thick] (-1.1*\d, \ybottom) -- (1.1*\d, \ybottom);
+\node at (-\d, \ytop) [above, gray] {Termination interface};
+\node at (-\d, \ybottom) [below, gray] {Incident interface};
+
+% \draw [-] (-\d, \ybottom) -- (\d, \ybottom);
+% \draw [dashed] (-\d, 0) -- (-\d, \ycore);
+% \draw [dashed] ( \d, 0) -- ( \d, \ycore);
+\begin{scope}[shift={(0,\ybottom)}]
+\draw [->] (-\xarrow, -\yarrow) -- (0, 0) ;
+\draw [->]  (0, 0) -- (\xarrow, -\yarrow) node [below] {$R_0$} ;
+\draw [dashed, ->]  (0, 0) -- (\xarrow+\xbloch, -\yarrow) node [below] {$R_1$};
+\draw [dashed, ->]  (0, 0) -- (\xarrow-\xbloch, -\yarrow) node [below] {$R_{-1}$};
+\draw [dashed, ->]  (0, 0) -- (\xarrow+2*\xbloch, -\yarrow) node [below] {$R_2$};
+\draw [dashed, ->]  (0, 0) -- (\xarrow-2*\xbloch, -\yarrow) node [below] {$R_{-2}$};
+\draw [thin, gray]  (0, 0) -- (0, -2*\yarrow);
+
+
+\node at (-\d/2, -\yarrow-0.3) {Incident wave};
+\node at ( \d/2, -\yarrow-0.65) {Reflected Bloch waves};
+\end{scope}
+
+\end{tikzpicture}
+\end{document}
+

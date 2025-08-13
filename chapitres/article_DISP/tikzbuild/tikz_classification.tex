@@ -1,0 +1,100 @@
+\tikzset{node_quadrant/.style = {text width=1.5cm, align=center}}
+\def\len{2} \def\hei{1} \def\pad{.3} \def\arrowlen{1}
+
+\begin{tikzpicture}
+    % \begin{scope}[scale=.5, shift={(-14,-1)}]
+    %     \def\len{9} \def\hh{2} \def\pad{.4}
+    %     \draw[top color = white, bottom color=fluid, draw=none] (0, \hh) rectangle ++ (\len, 4*\pad);
+    %     \draw[white, fill=porous] (0, 0) rectangle ++ (\len, \hh);
+    %     \draw[white, pattern={Lines[distance=2mm, angle=45, line width=0.4mm ]}, pattern color=black] (0, 0) rectangle ++ (\len, -\pad);
+
+    %     \draw (0, 0) -- ++ (\len, 0);
+    %     \draw (0, \hh) -- ++ (\len, 0);
+    %     \draw[->] (1.5, \hh/2) -- ++(3*\pad, -\pad) node[midway, above right] {$e^{-ik_1 x_1} e^{\pm k_{2, eq} x_2}$};
+    %     \draw[->] (.8, \hh+\pad) -- ++(4*\pad, \pad) node[right] {$e^{-ik_1 x_1} e^{-ik_{2,0} (x_2-h)}$};
+
+    %     % \draw[->] (\len/4 - 2*\pad, -2*\pad) -- ++ (4*\pad, -\pad) node[right] {$e^{-ik_1 x_1} e^{+ik_{2,0} x_2}$};
+    %     \draw[->, thick] (0, 0) -- ++ (0, 2*\pad) node[left] {$x_2$};
+    %     \draw[->, thick] (0, 0) -- ++ (2*\pad, 0) node[above] {$x_1$};
+    %     \draw node at (-1, 2*2.3+1) {a)};
+    % \end{scope}
+    \begin{scope}[shift={(-5, 0)}]
+        \def\side{1.8}
+        \def\pad{.2}
+        %  [pattern={Lines[distance=2mm, angle=45, line width=0.5mm ]}, pattern color=red!20!white]
+        % \fill[red!40!white] (0,0) rectangle (-\side,+\side);
+        % \fill[red!40!white] (0,0) rectangle (\side,\side);
+        % \fill[blue!40!white] (0,0) rectangle (-\side,-\side);
+        % \fill[green!40!white] (0,0) rectangle (\side,-\side);
+        \draw node[node_quadrant] at (\side/2, \side/2+\pad)   {\small forward growing};
+        \draw node[node_quadrant] at (\side/2, -\side/2+\pad)  {\small forward atten.};
+        \draw node[node_quadrant] at (-\side/2, -\side/2+\pad) {\small backward atten.};
+        \draw node[node_quadrant] at (-\side/2, +\side/2+\pad) {\small backward growing};
+        \draw[->] (-\side-\pad, 0) -- (\side+\pad, 0) node[right] {$k_1'$}; 
+        \draw[->] (0, -\side-\pad) -- (0, \side+\pad) node[above] {$k_1''$}; 
+        \draw node at (-2, 2.5) {a)};
+        \node at (\side/2, 2*\pad) {II};
+        \node at (\side/2, -\side + 2*\pad) {I\:\:III};
+        % \draw[<->] (-3*\pad, -\side-2*\pad) node[left] {backward} -- ++ (6*\pad, 0) node[right] {forward};
+        % \draw[<->] (-\side-2*\pad, -\pad) node[rotate=90, left] {attenuated} -- ++ (0, 2*\pad) node[rotate=90, right] {growing};
+    \end{scope}
+    \begin{scope}[shift={(0, 0)}]
+        \def\side{1.8} \def\pad{.2}
+        % \fill[red!40!white] (0,0) rectangle (-\side,+\side);
+        % \fill[red!40!white] (0,0) rectangle (\side,\side);
+        % \fill[green!40!white] (0,0) rectangle (-\side,-\side);
+        % \fill[blue!40!white] (0,0) rectangle (\side,-\side);
+        \draw node[node_quadrant] at(\side/2, \side/2+\pad)   {\small outgoing growing};
+        \draw node[node_quadrant] at(\side/2, -\side/2+\pad)  {\small outgoing atten.};
+        \draw node[node_quadrant] at(-\side/2, -\side/2+\pad) {\small ingoing atten.};
+        \draw node[node_quadrant] at(-\side/2, +\side/2+\pad) {\small ingoing growing};
+        \draw[->] (-\side-\pad, 0) -- (\side+\pad, 0) node[right] {$k_{2}'$}; 
+        \draw[->] (0, -\side-\pad) -- (0, \side+\pad) node[above] {$k_{2}''$}; 
+        \draw node at (-2, 2.5) {b)};
+        \node at (\side/2, 2*\pad) {III};
+        \node at (-\side/2, 2*\pad) {II};
+        \node at (-\side/2, -\side + 2*\pad) {I};
+        % \draw[<->] (-3*\pad, -\side-2*\pad) node[left] {ingoing} -- ++ (6*\pad, 0) node[right] {outgoing};
+    \end{scope}
+
+    \begin{scope}[shift={(3.5, 1)}]
+          \draw node at (-.5, 1.5) {c)};
+
+        \node at (\len/10, \hei+2*\pad) {I};
+        \draw (0, 0) -- ++ (\len, 0);
+        \draw (0, \hei) -- ++ (\len, 0);
+  \draw[blue!60!black, thick,samples=100,smooth,variable=\t,domain=0:\len/2]
+    plot(\t+\len/5,{(\hei-\pad)/2*exp(-\t/.5)*cos(800*\t)+\hei/2});
+\draw[thick, Latex-] (6.5*\len/10, \hei+\pad) -- ++ (40:.6*\arrowlen);
+\draw[thick, Latex-] (5*\len/10, \hei+\pad) -- ++ (40:.8*\arrowlen);
+\draw[thick, Latex-] (3.5*\len/10, \hei+\pad) -- ++ (40:1.*\arrowlen);
+\draw[->] (0, 0) -- ++ (\hei/2, 0) node[below right] {$x_1$};
+\draw[->] (0, 0) -- ++ (0, \hei/2) node[above left] {$x_2$};
+\end{scope}
+    \begin{scope}[shift={(7, 1)}]
+          \draw node at (-.5, 1.5) {d)};
+        \node at (\len/10, \hei+2*\pad) {II};
+        \draw (0, 0) -- ++ (\len, 0);
+        \draw (0, \hei) -- ++ (\len, 0);
+  \draw[blue!60!black, thick,samples=100,smooth,variable=\t,domain=0:\len/2]
+    plot(-\t+\len/5+2*\len/3,{(\hei-\pad)/2*exp(-\t/.5)*cos(800*\t)+\hei/2});
+\draw[thick, Latex-] (3.5*\len/10, \hei+\pad) -- ++ (40:.6*\arrowlen);
+\draw[thick, Latex-] (5*\len/10, \hei+\pad) -- ++ (40:.8*\arrowlen);
+\draw[thick, Latex-] (6.5*\len/10, \hei+\pad) -- ++ (40:1.*\arrowlen);
+\draw[->] (0, 0) -- ++ (\hei/2, 0) node[below right] {$x_1$};
+\draw[->] (0, 0) -- ++ (0, \hei/2) node[above left] {$x_2$};
+\end{scope}
+    \begin{scope}[shift={(5.25, -2)}]
+          \draw node at (-.5, 1.5) {e)};
+        \node at (\len/10, \hei+2*\pad) {III};
+        \draw (0, 0) -- ++ (\len, 0);
+        \draw (0, \hei) -- ++ (\len, 0);
+  \draw[blue!60!black, thick,samples=100,smooth,variable=\t,domain=0:\len/2]
+    plot(\t+\len/5,{(\hei-\pad)/2*exp(-\t/.5)*cos(800*\t)+\hei/2});
+\draw[thick, -Latex] (3.5*\len/10, \hei+\pad) -- ++ (40:.6*\arrowlen);
+\draw[thick, -Latex] (5*\len/10, \hei+\pad) -- ++ (40:.8*\arrowlen);
+\draw[thick, -Latex] (6.5*\len/10, \hei+\pad) -- ++ (40:1.*\arrowlen);
+\draw[->] (0, 0) -- ++ (\hei/2, 0) node[below right] {$x_1$};
+\draw[->] (0, 0) -- ++ (0, \hei/2) node[above left] {$x_2$};
+\end{scope}
+\end{tikzpicture}    
