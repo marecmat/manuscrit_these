@@ -1,12 +1,13 @@
 \NeedsTeXFormat{LaTeX2e}
 \newif\ifshowpretty 
 \showprettyfalse
-
 \ProvidesClass{layout/thesis}[phd thesis template]
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{book}}
 \DeclareOption{pretty}{\showprettytrue}
 \ProcessOptions\relax
-\LoadClass[12pt,twoside]{book}
+\LoadClass[12pt,oneside]{book}
+
+%% PACKAGES
 \RequirePackage{geometry}   
 \RequirePackage{xcolor}     
 \RequirePackage[
@@ -32,6 +33,7 @@
     citecolor=accent,
     linkcolor=accent,
     ]{hyperref}
+
 \RequirePackage{titletoc}   
 \RequirePackage{fancyhdr}  
 \RequirePackage{amssymb}  
@@ -50,20 +52,16 @@
 \RequirePackage{microtype}  
 \RequirePackage{etoolbox}
 \RequirePackage{epigraph}
-
-\setlength{\headheight}{15pt}
 \RequirePackage[no-math]{fontspec}
-\definecolor{accent}{HTML}{a33c34}
-
 
 %% FOR CHAPTER GM
 \RequirePackage{cleveref}
 \RequirePackage{subcaption}
 \RequirePackage{chapitres/article_GM/od}
 %% CHAPTER DISP
-\newenvironment{widetext}{\begin{center}}{\end{center}}
+\newenvironment*{widetext}{}{}
 
-\geometry{a4paper, left=2.5cm, right=2cm, top=2cm, bottom=2cm}
+%% epigraph config
 \makeatletter
 \newlength\epitextskip
 \pretocmd{\@epitext}{\em}{}{}
@@ -75,10 +73,16 @@
 \setlength\epigraphwidth{.35\textwidth}
 
 
+%% Some parameters
+\setlength{\headheight}{15pt}
+\definecolor{accent}{HTML}{a33c34}
+\geometry{a4paper, left=2.5cm, right=2cm, top=2cm, bottom=2cm}
+\RequirePackage{./layout/faune}
+\newfontfamily\titlestyle{Faune}
+
 \ifshowpretty
-            \typeout{JOLIE MISE EN PAGE}
-        \RequirePackage{./layout/faune}
-        \newfontfamily\titlestyle{Faune}
+    % Formatage des titres de chapitres, section ... seulement si l'option pretty est passée au package
+        \typeout{JOLIE MISE EN PAGE}
         \titleformat{\chapter}[block]
             {\flushleft}
             {\thechapter\tikzexternaldisable
@@ -141,13 +145,27 @@
                 \end{tabular}
             }
         \titlespacing*{\section}{0pt}{\baselineskip}{20pt}
-        \titleformat{\subsection}{\fontsize{16}{16}\color{accent}\titlestyle\bfseries}{\thesubsection.}{5pt}{\color{black}#1}
+        \titleformat{name=\section, numberless}[block]
+            {}
+            {}
+            {0pt}
+            {%
+                \vspace{2pt}
+                \begin{tabular}[t]{@{}>{\color{accent}\fontsize{18}{18}\titlestyle}p{2.5em}@{\hspace{10pt}}@{\color{accent}\vrule width 2pt\hspace{20pt}}>{\raggedright\arraybackslash}p{0.8\textwidth}@{}}
+                     & {\fontsize{18}{18}\titlestyle\color{black}#1}
+                \end{tabular}
+            }
+
+        \titleformat{\subsection}
+            {\fontsize{16}{16}\color{accent}\titlestyle\bfseries}
+            {\thesubsection.}{5pt}{\color{black}#1}
         \titlespacing*{\subsection}{0pt}{\baselineskip}{10pt}
         \titleformat{\subsubsection}{\color{accent}\titlestyle\bfseries}{\thesubsubsection.}{5pt}{#1}
         \titlespacing*{\subsubsection}{0pt}{\bigskipamount}{5pt}
         \dottedcontents{chapter}[1.5em]{\vspace{0.5\baselineskip}\bfseries}{1.5em}{0pt}
 
         \makeatletter
+        % PAGE DE GARDE
         \renewcommand{\maketitle}{%
             \thispagestyle{empty}
         \begin{flushleft}
@@ -195,6 +213,16 @@
         \vskip 4em}
         \makeatother
 
+        % Write chapters as chapters in the toc
+        \titlecontents{chapter}
+        [0pt]
+        {\bfseries}
+        {\textsc{\chaptername}\ \thecontentslabel:\quad}
+        {} %numberless format if needed
+        {\hfill\contentspage}
+
+
+        % Fancy page formatting
         \fancyhf{}
         \fancyhead[LE,RO]{\titlestyle}
         \fancyhead[RE]{\titlestyle\nouppercase{\leftmark}}
@@ -206,20 +234,6 @@
         \RequirePackage[lining,semibold,scaled=1.05]{ebgaramond}
         \RequirePackage[scale=0.85]{sourcecodepro}
         \RequirePackage[ebgaramond,vvarbb,subscriptcorrection]{newtxmath}
-
-
-        \defbibenvironment{mespublis}
-        {\enumerate[label={P\arabic*.}]
-            {}
-            {\setlength{\labelwidth}{\labelnumberwidth}%
-            \setlength{\leftmargin}{\labelwidth}%
-            \setlength{\labelsep}{\biblabelsep}%
-            \addtolength{\leftmargin}{\labelsep}%
-            \setlength{\itemsep}{\bibitemsep}%
-            \setlength{\parsep}{\bibparsep}}%
-            \renewcommand*{\makelabel}[1]{\hss##1}}
-        {\endenumerate}
-        {\item}
 
         % \AtEveryBibitem{\clearfield{title}}
         \defbibenvironment{bibliography}
@@ -269,21 +283,36 @@
 
 \fi
 
+\defbibenvironment{mespublis}
+{\enumerate[label={P\arabic*.}]
+    {}
+    {\setlength{\labelwidth}{\labelnumberwidth}%
+    \setlength{\leftmargin}{\labelwidth}%
+    \setlength{\labelsep}{\biblabelsep}%
+    \addtolength{\leftmargin}{\labelsep}%
+    \setlength{\itemsep}{\bibitemsep}%
+    \setlength{\parsep}{\bibparsep}}%
+    \renewcommand*{\makelabel}[1]{\hss##1}}
+{\endenumerate}
+{\item}
+
 % \renewbibmacro*{issue+date}{%
 %   \printtext[]{%
 %     \printfield{issue}%
 %     \setunit*{\addspace}%
 %     \usebibmacro{date}}%
 %   \newunit}
-\tikzexternalize[optimize=true, optimize command away=\includepdf, prefix=tikzbuild/]
 
-%% MATH COMMANDS 
-\renewcommand{\transp}{\mathsf T}
-\newcommand{\mbf}{\boldsymbol}
-\renewcommand{\etal}{\emph{et al.}~}
-\newcommand{\inputikz}[1]{\tikzsetnextfilename{#1}\input{figures/#1.tex}}
-\newcommand{\numvec}[1]{\underline{#1}}
-\newcommand{\nummat}[1]{\underline{\underline{#1}}}
-\renewcommand{\im}{\mathrm i}
-\renewcommand{\exp}[1]{e^{#1}}
-% \newcommand{\modif}[1]{\textcolor{red!80!black}{#1}}
+\makeatletter
+\renewcommand\listoffigures{%
+  \section*{\listfigurename}%
+  \@mkboth{\MakeUppercase\listfigurename}{\MakeUppercase\listfigurename}%
+  \@starttoc{lof}%
+}
+\renewcommand\listoftables{%
+  \section*{\listtablename}%
+  \@mkboth{\MakeUppercase\listtablename}{\MakeUppercase\listtablename}%
+  \@starttoc{lot}%
+}
+\makeatother
+\tikzexternalize[optimize=true, optimize command away=\includepdf, prefix=tikzbuild/]

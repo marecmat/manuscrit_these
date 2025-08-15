@@ -1,25 +1,41 @@
-\chapter*{Introduction}
-\addcontentsline{toc}{chapter}{Introduction}
-\begin{itemize}
-    \item motivations
-    \item contexte de l'étude
-    \item démarche
-    \item détail du contenu de chaque chapitre
-    \item grand schéma du plan de la thèse: un schéma par chapitre
-\end{itemize}
-\subsubsection{Motivations \& Context}
-\subsubsection{Objectifs du travail}
-\subsubsection{Organisation of the thesis}
- 
+\chapter{Theoretical aspects}
+This introductory chapter lays the foundation for the thesis, giving some notions of the theoretical aspects in order to guide the reader through the various chapters that will follow. At first, a state of the art of the literature is proposed, covering the topics of guided waves in dissipative layers, leaky modes in structures, metaporous configurations, ...
 
-\chapter{Metamaterials using lossy media for acoustic absorption}
 The present chapter is intended as an introduction to the fundamental concepts deemed necessary for the good understanding of the manuscript. Some theoretical aspects will be presented as well as some bibliography elements, which are useful for the context the present research takes place in. 
-
-\section{Acoustic scattering of a porous layer}
-\subsection{Poroelastic materials}
+\section{Guided waves formalism for dispersion computation vs. scattering problem ?}
+\subsection{Reflection and transmission coefficient, scattering from a structure}
+\subsection{Guided waves: formalism in layers/guides}
+\subsection{Energy radiation to a surrounding medium: leaky waves}
+\subsubsection{petit état de l'art: électromag, et situation en acoustique}
+\subsubsection{illustration dans un cas simple: visco lamb ?}
+\section{Analytical models for the description of porous materials}
 historique ? DBM -> JCA -> Biot
 dissipation mechanisms in porous layers
-\subsection{Writing the problem}
+focus on the attenuation of the waves
+\subsection{Rigid-frame: DBM to JCA}
+\subsubsection{Elastic motion of the skeleton: Biot theory with various formulation}
+
+\section{Numerics}
+\subsection{Plane wave modelling}
+\subsection{TMM and variations}
+\subsection{Numerics for homogeneous layers}
+\subsection{FEM for more complex geometries}
 
 
-thèses: natacha aberkane-gauthier, théo cavalieri, macaglione ? 
+\newpage
+\section*{Brouillon à partir de là }
+thèses: natacha aberkane-gauthier, théo cavalieri, macaglione, mathieu gaborit, 
+
+\textbf{Context and Motivation}
+This thesis is dedicated to the numerical modeling of wave propagation in complex metaporous and poroelastic multilayered structures. These materials combine the dissipative characteristics of porous media with geometric or structural features typical of acoustic metamaterials, offering advanced control over sound transmission, reflection, and absorption.
+
+Understanding and predicting the acoustic behavior of such systems is essential for designing efficient sound absorbers, acoustic coatings, and noise-reducing structures. In particular, this work focuses on the role of guided and leaky wave modes in shaping scattering properties, and on the development of efficient numerical strategie
+
+\begin{itemize}
+    \item example of a porous layer with a rigid-backing, computed using pw.
+    \item attenuation of waves in layers generally ?
+    \item schéma guided modes, leaky modes
+    \item poroelasticity models
+    \item numerical methods
+    \item various structures
+\end{itemize}

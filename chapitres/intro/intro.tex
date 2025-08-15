@@ -1,0 +1,83 @@
+\chapter*{Introduction}
+\addcontentsline{toc}{chapter}{Introduction}
+
+\section*{Context}
+{\phantomsection\addcontentsline{toc}{section}{Context}}
+Noise is a major issue in our modern societies, ranging from everyday life inconveniences, work comfort problems to an actual pollution problem in severly affected areas. 
+
+impact du bruit, enjeux psycho-santé / biodiversité / indus / travail ? rapport au bruit dans les cultures
+
+voir la taille de la partie ?
+
+\section*{State of art}
+\addcontentsline{toc}{section}{State of art}
+
+\begin{enumerate}
+    \item State of art 
+    \begin{itemize}
+        \item Acoustic isolation strategies
+        \item Insulation using foams 
+        \item Rise of metamaterials: court historique
+        \item Classical metamaterials
+        \item multilayer, gradient index, controlled anisotropy etc.
+        \item metaporous
+        \item others
+    \end{itemize}
+\end{enumerate}
+
+\begin{figure}
+    \centering
+    \caption{Image d'un poreux ?}
+\end{figure}
+
+\begin{itemize}
+    \item porous / fibrous materials  \cite{allard2009, bruneau2006, auriault2002, liu2014porous, bourbie1986acoustique, coussy2011mechanics}. Largely used in the industry, they are efficient at frequencies starting close to the quarter wavelength resonance frequency of the layer and have been extensively analyzed in the literature %\cite{lafarge1993propag, lafarge1993, lafarge1997, duclos2006multiple, brouard1995general}
+    \item tuning of the microstructure, gradient properties, anisotropic materials: Recently, with the increase of new fabrication techniques based on 3D printing, the structure of the porous materials can be controlled and tuned to design materials with better absorption capabilities at low frequencies, based on gradient properties \cite{boulvert2019, boulvert2020, boulvert2020-1}, or on anisotropic materials \cite{cavalieri2019, cavalieri2020, cavalieri2021, terroir2019}
+    \item metamaterials in general, with periodic structures, \dots
+\end{itemize}
+
+\begin{figure}
+    \centering
+    \caption{Figure exemple de métamatériau}
+\end{figure}
+
+In order to increase the capabilities of acoustic absorption of porous materials, some studies involving porous layers embedding periodic arrays of inclusions were done \cite{groby2010, groby2011, lagarrigue2013, groby2014}. These inclusions can have either resonances or not and they allow for an increased dissipation in the viscous regime. These structures are refered to as metaporous surfaces when used in reflection problems. The first works involving metaporous surfaces or interfaces were developed for transmission problems \cite{groby2008acoustic, de2007acoustic}. In case of more than one inclusion per spatial period, several absorption peaks can be obtained for a particular arrangement along the porous thickness \cite{groby2011}. Nevertheless, this rapidly leads to a thick structure. Near the inclusion resonance frequency, chosen to be in the viscous regime, an absorption peak occurs \cite{groby2015}. The resonance frequency of the inclusions depends on the orientation of the resonators relative to the rigid boundary \cite{lagarrigue2013, groby2015}. Recently, 3D printed porous materials with embedded split-ring resonators have been modeled \cite{cavalieri2021}, designed and experimentally characterized showing perfect absorption peaks. Figure~\ref{fig:fig1biblio}(a) shows an example of 3D printed sample with its corresponding absorption coefficient. Previous metaporous materials consider rigid frame porous as host medium. Extensions of these materials to consider poroelastic materials have been done (see Fig.~\ref{fig:fig2biblio}(b)) \cite{weisser2016}. Interesting properties were exhibited for thin elastic shell inclusions, and particularly the coupling between the trapped and the first volume mode leading to a high wide band absorption. It is worth noting here that different modelings based on Finite Element Methods (FEM) and Multiple Scattering Theory (MST) have been validated for the case of poroelastic waves saturated by air \cite{gaborit2018coupling}. 
+
+Acoustic metamaterials are structured materials made of resonant building blocks with resonance frequencies in the sub-wavelength regime (i.e., for frequencies which wavelength is much bigger than the typical size of the material) \cite{Romero19, deymier2013acoustic, jimenezacoustic}. These resonances introduce strong dispersion and the properties of the system are dramatically affected. Together with the unavoidable losses, the resonant behaviour of metamaterials make them perfect candidates to design efficient absorbers at low frequencies with reduced dimensions \cite{jimenez2016, li2016}. Balancing the dissipation and leakage of each resonance yields the recently described critical coupling. In this case, the reflection drops to zero \cite{bliokh2008colloquium}. Perfect absorbers can thus be designed for reflection problems for both monochromatic waves \cite{jimenez2016, groby2016use} and broad range of frequencies \cite{jimenez2017rainbow, groby2016use,Romero16JASA, Romero2016SCI}. Recently, resonators filled with 3D printed porous materials have been developed to design perfect and broadband absorption (see Fig.~\ref{fig:fig1biblio}(d)) \cite{boulvert2020folded}.
+
+\begin{figure}
+    \centering
+    \caption{Figure de biblio métamatériaux, prendre qq configs}
+\end{figure}
+
+One of the initial interests of the acoustic metamaterials community was the possibility of producing deeps in the transmission spectra at very low frequencies. This has been tremendously developed in the literature and we cannot cite the full list of works developing such approach \cite{auregan2016low, yang2018slow, leng2019limits, lardeau2016broadband}. Metamaterials are based on resonant building blocks and the transmission is zero in the lossless case at their resonance frequency. In reality, losses cannot be avoided and there is always a small amount of the energy that is transmitted. Membrane type acoustic metamaterials \cite{yang2015, wang2018acoustic, romero2016}, or acoustic metamaterials made by Helmholtz resonators \cite{romero2020perfect, long2017asymmetric, long2020tunable} have been used to develop systems with high values of transmission loss for audible acoustics. Attached resonators to walls have been also used to reduce the transmission loss of panels considering the vibroacoustic coupling \cite{yang2013, yang2008}.
+
+For the case of mirror-symmetric structures, it is worth noting here that if only a monopolar resonator (Helmholtz) or a dipolar resonator (membrane) is used to absorb waves, only 50\% of energy can be absorbed as shown in several articles \cite{merkel2015,jimenez2017PRB}. However, using a material made of slits loaded by an array of identical resonators creates an accumulation point close to the resonance frequency of the resonators allowing the accumulation of the resonances of the slit, thus placing together symmetric and antisymmetric resonances \cite{romero2020perfect, yang2015, piper2014}, although requiring for a compromise between absorption and thickness. A more complex approach consists in designing degenerate resonators. By using combinations of membrane and cavity resonators \cite{yang2015, fu2017hybrid} and with slits loaded with Helmholtz resonators \cite{jimenez2017PRB}, quasi-total absorption can be reached. In these systems, each resonator manages half of the problem, absorbing each one half of the energy and allowing a perfect absorption peak: all the energy that impinges on the system is dissipated within the system, i.e., the energy is neither reflected nor transmitted. The other alternative to obtain perfect absorption consists in breaking the symmetry of the system. These systems can achieve unidirectional perfect absorption, i.e., perfect absorption can be obtained from one of the two incidence sides \cite{merkel2015}. The principle of these systems consists in using two resonators, one that is used to reduce as much as possible the transmission and the other that impedance matches the system from one side \cite{romero2016, groby2016use, jimenez2016}. This concept has been exploited to develop broadband perfect absorbers using a cascade of the previous process giving rise to a rainbow absorber \cite{jimenez2017rainbow} (see Fig.\ref{fig:fig1biblio}(d)).
+
+
+\section*{Motivations \& Work Objectives}
+\addcontentsline{toc}{section}{Motivations \& Work Objectives}
+
+\begin{itemize}
+        \item modal behaviour, band structure 
+        \item impact of the surrounding radiating media
+    \end{itemize}
+- démarches, etc.
+
+\section*{Organisation and contents of the thesis}
+\addcontentsline{toc}{section}{Organisation and contents of the thesis}
+
+Introduction has set the context as well as an overview of the literature in which this work is situated. We saw that acoustic metamaterials have emerged in the last decades and propose noise mitigation structures that are much more efficient that the traditional foams used for sound insulation. Overall, a focus area has been identified towards identifying more precisely the modal behaviour of metaporous structures. 
+
+Chapter 1 targets the study of the propagation of guided waves in multilayer arbitrary structures with dissipative layers. A simple numerical method, the \acrfull{scm} is implemented and allows for the computation of the dispersion relation for these configurations. 
+
+Chapter 2 is focused on several numerical strategies for the modelling of scattering properties of metaporous/metaporoelastic structures. A global method is coupled to a \acrfull{fem}.
+
+In Chapter 3, the modal behaviour of metaporous structure is studied. The fem method from the previous chapter is adapted to describe this problem.  Results are presented for a rigid inclusion, as well as with embedded \acrfull{srr}
+
+\begin{figure}
+    \centering
+    \input{chapitres/intro/figures/diagram.tex}
+    \caption{Diagram presenting the various tackled configurations in the chapters}
+    \label{fig:intro_diagram}
+\end{figure}

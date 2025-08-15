@@ -1,36 +1,49 @@
-\documentclass[pretty]{layout/thesis}
+\documentclass[
+    % pretty
+]{layout/thesis} % [pretty]
 \hbadness=20000
 
-\addbibresource[datatype=bibtex]{biblio.bib}
-\addbibresource[datatype=bibtex]{chapitres/article_GM/comparison.bib}
 \graphicspath{
-    {chapitres/article_JAP/figures/}
-    {chapitres/annexes/figs}
     {chapitres/article_GM/figures}
+    {chapitres/article_JAP/figures/} 
     {chapitres/article_DISP}
+    {chapitres/annexes/figs}
 }
 
-\title{Numerical methods for the computation of scattering and dispersion properties in metaporous layers}
+\addbibresource[datatype=bibtex]{chapitres/article_GM/comparison.bib}
+\addbibresource[datatype=bibtex]{biblio.bib}
+\addbibresource[datatype=bibtex]{biblio_biblio.bib}
+
+
+\input{other_files/glossaries.tex}
+\input{other_files/commands.tex}
+
+\title{Titre de la thèse}
 \author{Mathieu Maréchal}
-
-
 \begin{document}
 \renewcommand{\thepage}{\roman{page}}
-% \maketitle
+\maketitle
 % \input{chapitres/abstract_ack.tex}
 \setcounter{tocdepth}{1}
-{\hypersetup{linkcolor=black}\tableofcontents}
+\chapter*{Contents}
 \addcontentsline{toc}{chapter}{Contents}
+\renewcommand{\contentsname}{Table of Contents}
+{\let\chapter\section {\hypersetup{linkcolor=black}\tableofcontents}}
+{\phantomsection \addcontentsline{toc}{section}{Table of Contents}}
+\printnoidxglossary[type=\acronymtype,nonumberlist,title=List of Acronyms]
 {\hypersetup{linkcolor=black}\listoffigures}
-\addcontentsline{toc}{chapter}{List of Figures}
+\addcontentsline{toc}{section}{List of Figures}
+% {\hypersetup{linkcolor=black}\listoftables}
+% \addcontentsline{toc}{section}{List of Tables}
 
-\newpage 
+\clearpage
 \pagenumbering{arabic}
+\input{chapitres/intro/intro.tex}
 \input{chapitres/chap1/chap1.tex}
-\input{chapitres/template_article.tex}
-\input{chapitres/article_GM/main.tex}
-\input{chapitres/article_JAP/multilayer.tex}
-\input{chapitres/article_DISP/main.tex}
+% \input{chapitres/template_article.tex}
+% \input{chapitres/article_GM/main.tex}
+% \input{chapitres/article_JAP/multilayer.tex}
+% \input{chapitres/article_DISP/main.tex}
 \input{chapitres/conclusion.tex}
 \renewcommand{\thesubsection}{\thesection.\arabic{subsection}}
 
@@ -46,7 +59,7 @@
 \renewcommand{\theequation}{\thesection.\arabic{equation}}}
 
 % \input{chapitres/annexes/safe_lamb.tex}
-\input{chapitres/annexes/muller.tex}
+% \input{chapitres/annexes/muller.tex}
 % \input{chapitres/annexes/thesis_overview_extended_abstract.tex}
 
 \newpage

@@ -8,44 +8,22 @@ equations, iterative scheme etc.
 
 \begin{equation}
     \begin{aligned}
-        f(x_0)&=a(x_0-x_2)^2+b(x_0-x_2)\\
-        f(x_1)&=a(x_1-x_2)^2+b(x_1-x_2)\\
-        f(x_2)&=a(x_2-x_2)^2+b(x_2-x_2)
+        \Sigma_x &= \prod_{0 \le i < j \le 2} (x_j - x_i) = (x_0 - x_2)(x_1 - x_2)(x_0 - x_1) \\
+        a &= \frac{(x_1 - x_2)(f_0 - f_2) - (x_0 - x_2)(f_1 - f_2)}{\Sigma_x}\\
+        b &= \frac{(x_0 - x_2)^2 (f_1 - f_2)-(x_1 - x_2)^2(f_0 - f_2)}{\Sigma_x}\\
+        c &= f_2
     \end{aligned}
 \end{equation}
 
-Note that we have dropped the subscript“2” from the function for conciseness. Because we have three equations, we can solve for the three unknown coefficients, $a,b$,and $c.$ Because two of the terms in Eq. (7.20) are zero, it can be immediately solved for $c=f(x_{2}).$ Thus, the coefficient $c$ is merely equal to the function value evaluated at the third guess, $x_2.$ This result can then be substituted into Eqs. (7.18) and (7.19) to yield two equations with two unknowns:
-
-$$\begin{aligned}
-    f(x_0)-f(x_2)&=a(x_0-x_2)^2+b(x_0-x_2)\\
-    f(x_1)-f(x_2)&=a(x_1-x_2)^2+b(x_1-x_2)\end{aligned}$$
-
-Algebraic manipulation can then be used to solve for the remaining coefficients, $a$ and $b.$
-One way to do this involves defining a number of differences,
-
-$$\begin{aligned}h_0&=x_1-x_0&h_1&=x_2-x_1\\\delta_0&=\frac{f(x_1)-f(x_0)}{x_1-x_0}&\delta_1&=\frac{f(x_2)-f(x_1)}{x_2-x_1}\end{aligned}$$
-
-
-These can be substituted into Eqs.(7.21) and (7.22) to give
-$$\begin{aligned}(h_0+h_1)b-(h_0+h_1)^2a&=h_0\delta_0+h_1\delta_1\\h_1\quad b-\quad h_1^2\quad a&=\quad h_1\delta_1\end{aligned}$$
-
-which can be solved for $a$ and $b.$The results can be summarized as
-(7.24)
-$$\begin{aligned}&a=\frac{\delta_{1}-\delta_{0}}{h_{1}+h_{0}}\\&b=ah_{1}+\delta_{1}\\&c=f(x_{2})\end{aligned}$$
-(7.25) (7.26)
-To find the root, we apply the quadratic formula to Eq. (7.17). However, because of potential round-off error, rather than using the conventional form, we use the alternative formulation [Eq.(3.13)] to yield
-$$x_3-x_2=\frac{-2c}{b\pm\sqrt{b^2-4ac}}$$
-
-or isolating the unknown $x_3$ on the left side of the equal sign,
-
-$$x_3=x_2+\frac{-2c}{b\pm\sqrt{b^2-4ac}}$$
-
-
-Note that the use of the quadratic formula means that both real and complex roots can be
-located. This is a major benefit of the method.
-In addition, Eq. $(7.27a)$ provides a neat means to determine the approximate error. Because the left side represents the difference between the present $(x_3)$ and the previous $(x_2)$ root estimate, the error can be calculated as
-
-$$\varepsilon_a=\left|\frac{x_3-x_2}{x_3}\right|100\%$$
+\begin{equation}
+    f(x_3) = ax_3^2 + bx_3 + c
+\end{equation}
+\begin{equation}
+    x_3 = x_2 - \cfrac{2c}{b + \mathrm{sign}(b) \sqrt{b^2 - 4 a c}}
+\end{equation}
+\begin{equation}
+    \varepsilon_a=\left|\frac{x_3-x_2}{x_3}\right|
+\end{equation}
 \begin{figure}[ht!]
     \centering
     \begin{tikzpicture}[scale=1.5,domain=-.5:1.2]
