@@ -5,11 +5,18 @@
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{book}}
 \DeclareOption{pretty}{\showprettytrue}
 \ProcessOptions\relax
-\LoadClass[12pt,oneside]{book}
+\LoadClass[12pt,twoside]{book}
+
+%% Some parameters
+\setlength{\headheight}{15pt}
+\RequirePackage{xcolor}     
+\definecolor{accent}{HTML}{620059} %{685494}% {a33c34}
+\RequirePackage{geometry}   
+\geometry{a4paper, left=2.5cm, right=2cm, top=2cm, bottom=2cm}
+\RequirePackage{./layout/faune}
+\newfontfamily\titlestyle{Faune}
 
 %% PACKAGES
-\RequirePackage{geometry}   
-\RequirePackage{xcolor}     
 \RequirePackage[
     natbib,
     backend=biber, 
@@ -25,6 +32,8 @@
     defernumbers=true,
     % refsection=chapter
 ]{biblatex}
+\renewcommand{\cite}{\supercite}
+
 \RequirePackage[labelfont=bf,justification=centering,footnotesize]{caption}
 \RequirePackage[explicit]{titlesec}   
 \RequirePackage[
@@ -52,7 +61,7 @@
 \RequirePackage{microtype}  
 \RequirePackage{etoolbox}
 \RequirePackage{epigraph}
-\RequirePackage[no-math]{fontspec}
+\RequirePackage{indentfirst}
 
 %% FOR CHAPTER GM
 \RequirePackage{cleveref}
@@ -70,15 +79,7 @@
 \makeatother
 \setlength\epigraphrule{0pt}
 \setlength\epitextskip{2ex}
-\setlength\epigraphwidth{.35\textwidth}
-
-
-%% Some parameters
-\setlength{\headheight}{15pt}
-\definecolor{accent}{HTML}{a33c34}
-\geometry{a4paper, left=2.5cm, right=2cm, top=2cm, bottom=2cm}
-\RequirePackage{./layout/faune}
-\newfontfamily\titlestyle{Faune}
+\setlength\epigraphwidth{.45\textwidth}
 
 \ifshowpretty
     % Formatage des titres de chapitres, section ... seulement si l'option pretty est passée au package
@@ -163,12 +164,14 @@
         \titleformat{\subsubsection}{\color{accent}\titlestyle\bfseries}{\thesubsubsection.}{5pt}{#1}
         \titlespacing*{\subsubsection}{0pt}{\bigskipamount}{5pt}
         \dottedcontents{chapter}[1.5em]{\vspace{0.5\baselineskip}\bfseries}{1.5em}{0pt}
-
+                
         \makeatletter
+        \providecommand{\subtitle}[1]{\apptocmd{\@title}{\par \vspace*{.5em} {\fontsize{20}{20}\titlestyle #1 \par}}{}{}}
+        \providecommand{\footer}[1]{\apptocmd{\@title}{\vfill {\fontsize{11}{11}\rmfamily\mdseries #1 \par} \vspace*{-.5em}}{}{}}
         % PAGE DE GARDE
         \renewcommand{\maketitle}{%
             \thispagestyle{empty}
-        \begin{flushleft}
+        \begin{center}
             {\fontsize{18}{18}\selectfont  
                 {Le Mans Université, Le Mans, France}
 
@@ -186,41 +189,18 @@
 
             {\fontsize{18}{18}\selectfont submitted for the Doctoral degree}
             \vskip 2.5cm
-            \end{flushleft}
-                
-            \begin{center}
-                \fontsize{32}{32}\titlestyle\@title
-            \end{center}
-            
-            \begin{center}%
-            \vfill
-            Defense scheduled on the ??\\[2em]
-            Members of the defense committed:\\[1em]
-            {\centering \fontsize{11}{11}\selectfont
-            \begin{tabular}{lll}
-                Name, Surname          & name, position                                  &{\it Reviewer}\\       
-                Name, Surname          & name, position                                  &{\it Reviewer}\\[1em]       
-                Name, Surname          & name, position                                  &{\it Examiner}\\       
-                Name, Surname          & name, position                                  &{\it Examiner}\\       
-                Name, Surname          & name, position                                  &{\it Examiner}\\[1em]       
-                J.-P. Groby            & Directeur de Recherche CNRS, LAUM UMR CNRS 6613 &{\it Main supervisor}\\
-                O. Dazel               & Professeur des universités, Le Mans Université  &{\it Supervisor}     \\
-                V. Romero-Garcìa   & Professeur, Universitat Politécnica de Valencia &{\it Co-supervisor}  \\
-            \end{tabular}}
-            %{\large \@date}%
+
+            {\fontsize{32}{32}\titlestyle\@title\par}
         \end{center}%
         \par
         \vskip 4em}
         \makeatother
 
         % Write chapters as chapters in the toc
-        \titlecontents{chapter}
-        [0pt]
-        {\bfseries}
-        {\textsc{\chaptername}\ \thecontentslabel:\quad}
+        \titlecontents{chapter}[0pt]
+        {\bfseries}{\textsc{\chaptername}\ \thecontentslabel:\quad}
         {} %numberless format if needed
         {\hfill\contentspage}
-
 
         % Fancy page formatting
         \fancyhf{}
@@ -276,6 +256,8 @@
                 '\abx@field@entrytype'\MessageBreak
                 and there is no fallback driver either}}}}
         \makeatother
+        \setlength{\itemindent}{0pt}
+        \renewcommand\labelitemi{{\color{accent}---}}
 
 \else
         \typeout{PAS DE MISE EN PAGE, MODE DRAFT}
@@ -296,14 +278,16 @@
 {\endenumerate}
 {\item}
 
+
 % \renewbibmacro*{issue+date}{%
 %   \printtext[]{%
 %     \printfield{issue}%
 %     \setunit*{\addspace}%
 %     \usebibmacro{date}}%
 %   \newunit}
-
+\renewcommand{\figurename}{Fig.}
 \makeatletter
+\renewcommand{\thefigure}{\arabic{chapter}.\arabic{figure}}
 \renewcommand\listoffigures{%
   \section*{\listfigurename}%
   \@mkboth{\MakeUppercase\listfigurename}{\MakeUppercase\listfigurename}%

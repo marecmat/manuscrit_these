@@ -1,41 +1,96 @@
-\chapter{Theoretical aspects}
+\chapter{Introductory concepts on guided waves, overview on numerical methods}
+\label{chap:chap1}
 This introductory chapter lays the foundation for the thesis, giving some notions of the theoretical aspects in order to guide the reader through the various chapters that will follow. At first, a state of the art of the literature is proposed, covering the topics of guided waves in dissipative layers, leaky modes in structures, metaporous configurations, ...
 
 The present chapter is intended as an introduction to the fundamental concepts deemed necessary for the good understanding of the manuscript. Some theoretical aspects will be presented as well as some bibliography elements, which are useful for the context the present research takes place in. 
-\section{Guided waves formalism for dispersion computation vs. scattering problem ?}
-\subsection{Reflection and transmission coefficient, scattering from a structure}
-\subsection{Guided waves: formalism in layers/guides}
-\subsection{Energy radiation to a surrounding medium: leaky waves}
-\subsubsection{petit état de l'art: électromag, et situation en acoustique}
-\subsubsection{illustration dans un cas simple: visco lamb ?}
-\section{Analytical models for the description of porous materials}
-historique ? DBM -> JCA -> Biot
-dissipation mechanisms in porous layers
-focus on the attenuation of the waves
-\subsection{Rigid-frame: DBM to JCA}
-\subsubsection{Elastic motion of the skeleton: Biot theory with various formulation}
 
-\section{Numerics}
+\section{Modelling of porous media}
+Porous materials are constituted of two distinct domains: an elastic matrix $\Omega_s$ with a pore network $\Omega_f$, which is filled by some saturating fluid, they are biphasic. A diagram of their structure is shown in Fig.~\ref{fig:poro_struct}. The porosity is defined as the fraction of fluid over the total volume of the material, as $\phi = V(\Omega_f)/V(\Omega)$. In the limit case, $\phi = 0$ the material becomes purely a solid while at $\phi = 1$, it becomes a fluid. The geometry of the fluid phase forms a complex microstructure at a microscopic level. Fortunately, at acoustic scales, these materials can often be considered at a meso-/macroscopic scale and therefore models have been developed to describe the large-scale motion of these materials. In this context, they can be regarded as homogeneous and described by a set of effective parameters that account for their complex inner geometry. The porous structure of these materials causes the incoming acoustic energy to be dissipated through friction (viscous losses), thermal exchanges and elastic dissipation when the skeleton and the fluid are coupled. These losses are varying with the change of the porosity, pore size and geometry, and mechanical parameters among others \comment{[cite something]}. 
+
+\begin{figure}[h!]
+    \centering
+    \input{chapitres/chap1/figs/porous_schema.tex}
+    \caption{Porous material structure}
+    \label{fig:poro_struct}
+\end{figure}
+
+
+\subsection{Rigid-frame approximation}
+
+In the so-called rigid-frame case, the skeleton of the porous material is motionless. Therefore, the pore walls are rigid walls and the material can be modeled as an \emph{equivalent fluid} which possesses complex effective properties in order to model the losses mechanisms. Acoustic propagation is governed by the Helmholtz equation,
+
+\begin{equation}
+    (\nabla^2 + k_{eq}^2) p(\mbf x) = 0
+\end{equation}
+
+
+In the case where porous or fibrous materials have a porosity close to 1 and the frequency range of interest is limited, the Delany-Bazley model was originally developed in 1970 to propose empirical expressions for the values of the complex wavenumber and characteristic impedances \cite{delany1970, allard2009} and later improved by Miki \cite{miki1990}. Although limited in accuracy and validity domain, these models has been widely used since it only required the flow resistivity of the porous material. Later on, a more precise semi-phenomenological model additionnaly accounting for the viscous and inertial dissipative effects was developed from 1987 to 1991. It is the \acrfull{jca} model which models the complex effective density $
+\rho_{eq}(\omega)$ and bulk modulus of the material as, 
+\begin{equation}
+\begin{aligned}
+ \rho_{\text{eq}}(\omega) &= \frac{\rho_{f} \alpha_{\infty}}{\phi}\left(1+\frac{\im R_f \phi}{\rho_f \alpha_\infty\omega} \sqrt{1- \im  \omega  \rho_{f} \mu_f \left(\frac{ 2\alpha_{\infty}}{R_f \phi \Lambda}\right)^2 }\right),\\
+K_{\text{eq}} &=\frac{\kappa P_{0}}{\phi}\left(\kappa-(\kappa-1)/\left(1+ \cfrac{\im R_f \phi}{\rho_f \alpha_\infty\text{Pr} \omega} \sqrt{1- \im\text{Pr} \omega \rho_{f} \mu_f\left( \frac{ 2\alpha_{\infty}}{R_f \phi \Lambda^{\prime}}\right)^2 }\right)\right)^{-1}, 
+\end{aligned}
+\end{equation}
++biot frequency. 
+
+\subsection{Elastic motion of the skeleton: Biot theory with various formulation}
+
+While the equivalent fluid formalism is able to accurately model porous material, the rigid-wall assumption remains limited in cases where of a heavy saturating fluid, e.g. coupling between an exterior fluid and the pore fluid or when the acoustic radiation has a wavelength comparable to the pore scale. In this case, the full elastic motion should be modeled, so that to account for the coupling between the solid matrix and its fluid filling. The Biot theory \cite{biot1954,biot1956-1,biot1956,biot1956a}is a formalism that encompasses the theory of the deformation of porous material saturated by an incompressible fluid, used both in geophysics and acoustics. For sake of conciseness, this model won't be derived in this manuscript since it is out of scope and has been done in a few textbooks \cite{allard2009}.
+
+\begin{itemize}
+    \item elastic motion accounted using Biot theory + passage rapide d'une à l'autre formulation
+    \item us, uf -> us, p
+    \item us, uf -> us, ut 
+    \item dissipation mechanisms in porous layers
+    \item focus on the attenuation of the waves
+\end{itemize}
+
+
+\section{Wave propagation elements}
+\subsection{Scattering from a porous layer}
+\begin{itemize}
+    \item Reflection and transmission coefficient of a porous layer ? should involve some numerics
+\end{itemize}
+
+\subsection{Wave propagation in homogeneous layers}
+\begin{itemize}
+    \item guided waves formalism
+    \item Lamb modes 
+    \item leaky modes, energy radiation: relevance of the imposition of a local coupling contrary to a full modelling of the surrounding media with some termination condition satisfying the Sommerfeld condition, PML or analogous. 
+\end{itemize}
+\section{Wave propagation in periodic structures}
+\begin{itemize}
+    \item periodic boundary conditions and periodic fields
+    \item brillouin zone 
+    \item bragg bandgaps
+\end{itemize}
+
+
+\section{Numerical tools for the modeling of the various problem types}
 \subsection{Plane wave modelling}
-\subsection{TMM and variations}
-\subsection{Numerics for homogeneous layers}
-\subsection{FEM for more complex geometries}
+\begin{itemize}
+    \item ok for homogeneous layers 
+    \item complicated to solve dispersion relations
+    \item requires \acrshort{mst} for complex geometries
+\end{itemize}
 
+\subsection{TMM and variations}
+\begin{itemize}
+    \item easy to implement
+    \item but unstable :(
+\end{itemize}
+\cite{doutresTransferMatrixModeling2015}
+
+\subsection{Numerics for homogeneous layers}
+\begin{itemize}
+    \item 1D discretization: SCM, SAFE, etc. 
+\end{itemize}
+\subsection{FEM for more complex geometries}
+\begin{itemize}
+    \item FEM, discretization of surrounding media.
+\end{itemize}
 
 \newpage
 \section*{Brouillon à partir de là }
-thèses: natacha aberkane-gauthier, théo cavalieri, macaglione, mathieu gaborit, 
-
-\textbf{Context and Motivation}
-This thesis is dedicated to the numerical modeling of wave propagation in complex metaporous and poroelastic multilayered structures. These materials combine the dissipative characteristics of porous media with geometric or structural features typical of acoustic metamaterials, offering advanced control over sound transmission, reflection, and absorption.
-
-Understanding and predicting the acoustic behavior of such systems is essential for designing efficient sound absorbers, acoustic coatings, and noise-reducing structures. In particular, this work focuses on the role of guided and leaky wave modes in shaping scattering properties, and on the development of efficient numerical strategie
-
-\begin{itemize}
-    \item example of a porous layer with a rigid-backing, computed using pw.
-    \item attenuation of waves in layers generally ?
-    \item schéma guided modes, leaky modes
-    \item poroelasticity models
-    \item numerical methods
-    \item various structures
-\end{itemize}
+thèses à mentionner:  natacha aberkane-gauthier, théo cavalieri, magliacano, mathieu gaborit, 
