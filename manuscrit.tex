@@ -1,85 +1,26 @@
-\documentclass[pretty]{layout/thesis}
+\documentclass[pretty]{src/thesis}
 \hbadness=20000
 
-\graphicspath{
-    {chapitres/article_GM/figures}
-    {chapitres/article_JAP/figures/} 
-    {chapitres/article_DISP}
-    {chapitres/annexes/figs}
-    {chapitres/intro/figures}
-}
+\input{src/header.tex}
 
-\addbibresource[datatype=bibtex]{chapitres/article_GM/comparison.bib}
-\addbibresource[datatype=bibtex]{other_files/biblio.bib}
-\addbibresource[datatype=bibtex]{other_files/biblio_biblio.bib}
-\input{other_files/glossaries.tex}
-\input{other_files/commands.tex}
+\input{src/glossaries.tex}
+\input{src/commands.tex}
 
 \begin{document}
-\title{Numerical modeling of metaporous layers}
-\author{Mathieu Maréchal}
-\subtitle{Computation of scattering and dispersion properties of stacks and periodic arrangements of porous layers}
-\footer{            
-    Defense scheduled on the ??\\[2em]
-    Members of the defense committed:\\[1em]
-            {
-                \centering \fontsize{11}{11}\selectfont
-            \begin{tabular}{lll}
-                Name, Surname          & name, position                                  &{\it Reviewer}\\       
-                Name, Surname          & name, position                                  &{\it Reviewer}\\[1em]       
-                Name, Surname          & name, position                                  &{\it Examiner}\\       
-                Name, Surname          & name, position                                  &{\it Examiner}\\       
-                Name, Surname          & name, position                                  &{\it Examiner}\\[1em]       
-                J.-P. Groby            & Directeur de Recherche CNRS, LAUM UMR CNRS 6613 &{\it Main supervisor}\\
-                O. Dazel               & Professeur des universités, Le Mans Université  &{\it Supervisor}     \\
-                V. Romero-Garcìa   & Professeur, Universitat Politécnica de Valencia &{\it Co-supervisor}  \\
-            \end{tabular}
-            }
-}
 
-
-\renewcommand{\thepage}{\roman{page}}
-\maketitle
+% \input{chapitres/title.tex}
+\input{chapitres/contents.tex}
 % \input{chapitres/abstract_ack.tex}
-\setcounter{tocdepth}{1}
-\chapter*{Contents}
-\addcontentsline{toc}{chapter}{Contents}
-\renewcommand{\contentsname}{Table of Contents}
-{\let\chapter\section {\hypersetup{linkcolor=black}\tableofcontents}}
-{\phantomsection \addcontentsline{toc}{section}{Table of Contents}}
-\renewcommand{\contentsname}{Contents}
-\setglossarystyle{mcolindex}\printnoidxglossary[type=\acronymtype,nonumberlist,nogroupskip,numberedsection=false,title=List of Acronyms]
-{\hypersetup{linkcolor=black}\listoffigures} {\phantomsection \addcontentsline{toc}{section}{List of Figures}}
 
-\clearpage
-\pagenumbering{arabic}
 \input{chapitres/intro/intro.tex}
-% \input{chapitres/chap1/chap1.tex}
-% \input{chapitres/template_article.tex}
+\input{chapitres/chap1/chap1.tex}
+
 % \input{chapitres/article_GM/main.tex}
 % \input{chapitres/article_JAP/multilayer.tex}
 % \input{chapitres/article_DISP/main.tex}
+
 % \input{chapitres/conclusion.tex}
-\renewcommand{\thesubsection}{\thesection.\arabic{subsection}}
+% \input{chapitres/annexes/main_appendix.tex}
+\input{chapitres/refs.tex}
 
-\chapter*{Appendices}
-\renewcommand{\chaptermark}[1]{\markboth{#1}{}}
-\addcontentsline{toc}{chapter}{Appendices}
-\setcounter{section}{0}
-\chaptermark{Appendices}
-{
-    \hypersetup{linkcolor=black} \vspace*{-20pt}{\color{accent}\titlerule\vspace*{1pc}}%
-    \startcontents\vbox{\Large\contentsname}\vskip1ex
-    \printcontents{l}{1}{\setcounter{tocdepth}{3}}\vspace*{1pc}{\color{accent}\titlerule}
-}
-
-% \input{chapitres/annexes/safe_lamb.tex}
-% \input{chapitres/annexes/muller.tex}
-\input{chapitres/annexes/thesis_overview_extended_abstract.tex}
-
-\newpage
-\newrefcontext[labelprefix= ]
-\chapter*{References\markboth{References}{References}}
-\printbibliography[heading=none,notkeyword=mespapiers]
-\endrefcontext
 \end{document}  

@@ -1,0 +1,26 @@
+%%%% CONTENTS 
+\setcounter{tocdepth}{1}
+\chapter*{Contents}
+\addcontentsline{toc}{chapter}{Contents}
+
+\begingroup
+    \renewcommand{\contentsname}{Table of Contents}
+    {
+        \let\chapter\section {\hypersetup{linkcolor=black}\tableofcontents}
+    }
+    {\phantomsection \addcontentsline{toc}{section}{Table of Contents}}
+\endgroup
+
+\vspace*{2em}
+
+\setglossarystyle{mcolindex}
+\printnoidxglossary[
+    type=\acronymtype,nonumberlist,nogroupskip,
+    numberedsection=false,title=List of Acronyms
+]
+
+\vspace*{2em}
+
+{
+    \fontsize{9}{9}\selectfont \hypersetup{linkcolor=black}\listoffigures
+} {\phantomsection \addcontentsline{toc}{section}{List of Figures}}

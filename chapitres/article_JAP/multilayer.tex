@@ -1,12 +1,9 @@
 \chapter{A general spectral collocation method for computing the dispersion relations of guided acoustic waves in multilayer dissipative structures}
 \chaptermark{SCM for computing the dispersion relations of guided acoustic waves }
 \label{chap:jap}
-Authored by: \textit{Mathieu Maréchal, Alan Geslain, Jean-Philippe Groby, Vicent Romero-Garc\'ia and Olivier Dazel}. 
 
-\begin{center}
-    {\color{gray}\textsc{This chapter is based on the material published in \cite{marechal2025}. Minor modifications to the text and figures have been made to fit the format and notation of this thesis.}}
-\end{center}
-
+    {\color{gray}\textsc{This chapter is based on the material published in \cite{marechal2025}, authored by \textit{Mathieu Maréchal, Alan Geslain, Jean-Philippe Groby, Vicent Romero-Garc\'ia and Olivier Dazel}. Minor modifications to the text and figures have been made to fit the format and notation of this thesis}}\footnote{While the remaining of the manuscript assumes a positive harmonic time-dependance, the reader should bear in mind that this entire chapter is written using a negative time-dependance, i.e. $e^{-\im \omega t}$.}
+    
 \section{Abstract}
 A spectral collocation method is proposed to compute the complex wavenumber-real frequency dispersion relations of guided acoustic waves in multilayer structures involving dissipative materials. The nature of these dissipative materials is initially considered to be arbitrary, i.e., poroelastic, viscoelastic, or viscoacoustic. For a given frequency, the complex wavenumbers as well as the physical fields, which are further used to evaluate the Poynting vectors and analyze the energy flux, are obtained by solving a generalized eigenvalue problem. The latter arises from a set of discretized equations of motion and appropriate boundary (coupling) conditions. These equations of motion and boundary (coupling) conditions are imposed by the nature of the material composing each layer of the structure. A focus is made on poroelastic layers. The dispersion relation of a two-layer elastic-poroelastic structure is analyzed, as well as the energy flows in the structure. The results as calculated with the present spectral collocation method are validated against those obtained with a classical complex root-finding (M\"uller) method and experiments.
 
@@ -91,9 +88,9 @@ To numerically solve the problem, the spatial Laplace transform of the physical 
     where $\alpha_m$ are coefficients of the polynomial expansion, $\numvec \psi_m$ are the Chebyshev polynomial of order $m$, and $\xi^{(n)} = 2(x_2-\sum_{j=1}^{n-1}h^{(j)})/h^{(n)} - 1,~\in[-1,1]$. Underlined variables represent discrete vectors and double-underlined variables discrete matrices. The goal of this approximation is to discretize the differential operators in $x_2$ appearing in the problem. To do so, the SCM is employed. $\xi^{(n)}$ is discretized on the roots of the Chebyshev polynomials, $\numvec \xi_j^{(n)} = \cos\left(\frac{j\pi}{M^{(n)}}\right)$ with $j=0\ldots M^{(n)}$. Please note that $\numvec \xi_j^{(n)}$ discretely runs from 1 to -1 with increasing $j$, while $\xi^{(n)}$ continuously runs over the same interval but in the opposite direction, i.e. from -1 to 1. These collocation points/nodes form a non-uniform grid along the thickness of each layer. This discretization is usually preferred because the collocation points are clustered at the interfaces~\cite{trefethen2000}. The locations of these nodes are presented in Fig.~\ref{fig:schema_multilayer}b for the $n$-th layer with an arbitrary value $M^{(n)}=8$. The differential operators in the $n$-th layer are thus represented by differentiation matrices (DMs), such that
     \begin{equation}
         \begin{aligned}
-            \mbf s^{(n)} (x_2) & \rightarrow \nummat I \:\numvec s^{(n)} (\numvec\xi_j), \quad \quad
-            \partial_2 \mbf s^{(n)} (x_2) \rightarrow \left( \frac{ 2}{ h^{(n)}} \right) \nummat{ D_2} \: \numvec s^{(n)}(\numvec \xi_j)= \nummat{ D_2}^{(n)} \: \numvec s^{(n)}(\numvec \xi_j), \\
-            & \partial_{22} \mbf s^{(n)} (x_2) \rightarrow \left( \frac{ 2}{ h^{(n)}} \right)^2 \nummat D_{22} \:\numvec s^{(n)}(\numvec \xi_j)= \nummat D_{22}^{(n)} \:\numvec s^{(n)}(\numvec \xi_j). \\
+            \mbf s^{(n)} (x_2) & \rightarrow \nummat I \,\numvec s^{(n)} (\numvec\xi_j), \quad \quad
+            \partial_2 \mbf s^{(n)} (x_2) \rightarrow \left( \frac{ 2}{ h^{(n)}} \right) \nummat{ D_2} \, \numvec s^{(n)}(\numvec \xi_j)= \nummat{ D_2}^{(n)} \, \numvec s^{(n)}(\numvec \xi_j), \\
+            & \partial_{22} \mbf s^{(n)} (x_2) \rightarrow \left( \frac{ 2}{ h^{(n)}} \right)^2 \nummat D_{22} \,\numvec s^{(n)}(\numvec \xi_j)= \nummat D_{22}^{(n)} \,\numvec s^{(n)}(\numvec \xi_j). \\
         \end{aligned}
         \label{eq:diff_matrices}
     \end{equation}
@@ -102,7 +99,7 @@ where $\nummat I$ is the identity matrix and $\nummat D_2$ and $\nummat D_{22}$ 
 The linear operator $\mathcal L^{(n)}$ is discretized as a matrix $\nummat L^{(n)}$ with size $(P^{(n)} (M^{(n)} - 1), P^{(n)} (M^{(n)} + 1))$, where $P^{(n)}$ is the number of physical fields required to describe the wave propagation in the layer and again depends on the nature of the material this layer is composed of. The first and the last rows of the DMs are removed because they are used to apply the interface conditions at $\Gamma^{(n+1)}$ and $\Gamma^{(n)}$ respectively. The interface operators $\mathcal C^{(n)\pm}$ are effectively expressed in terms of this first row of the DMs of the $n$-th layer and this last row of the DMs of the $(n+1)$-th layer. These rows respectively correspond to the first, i.e. $\numvec\xi_{M^{(n)}}=-1$ and $\xi^{(n)}=1$, and last collocation nodes of the $n$-th and $(n+1)$-th layers, i.e. $\numvec\xi_0=1$ and $\xi^{(n+1)}=-1$.  These vectors are subsequently denoted $\numvec I^{(n+1)-}$, $\numvec I^{(n)+}$, $\numvec D_{2}^{(n+1)-}$, $\numvec D_{2}^{(n)+}$, $\numvec D_{22}^{(n+1)-}$, and $\numvec D_{22}^{(n)+}$. The interface matrix $\nummat C^{(n)^-}$ is of size $(P^{(n)}+P^{(n+1)},P^{(n)}(M^{(n)}+1))$ and the interface matrix $\nummat C^{(n)^+}$ is of size $(P^{(n)}+P^{(n+1)},P^{(n+1)}(M^{(n+1)}+1))$.
     
 Finally, the full $(\sum_{n=0}^N M^{(n)} P^{(n)} + 2,\sum_{n=0}^N M^{(n)} P^{(n)} + 2)$-matrix  system for the general multilayer system is
-    \begin{equation} \nummat K \: \numvec S = 
+    \begin{equation} \nummat K \, \numvec S = 
         \begin{pmatrix}
             \nummat C^{(0^-)} & -\nummat C^{(0^+)} & 0 & \\
             0 & \nummat L^{(1)} & 0 &  \\
@@ -190,7 +187,7 @@ Introducing $ \mbf s^{(1)} =(\tilde u_1^s, \tilde u_2^s, \tilde p )^\transp$, th
             \end{pmatrix},\textrm{ and }
                  \mathcal L_2^{(1)}  = 
             \begin{pmatrix}
-                \hat P & 0 & 0 \\
+                \hat{P} & 0 & 0 \\
                 0 &  N_s & 0 \\
                 0 & 0 & 1/( \rho_{22} \omega^2)
             \end{pmatrix}.
@@ -201,11 +198,11 @@ Introducing $ \mbf s^{(1)} =(\tilde u_1^s, \tilde u_2^s, \tilde p )^\transp$, th
 Finally, the discretized equations of motion read as
     \begin{equation}   
         \nummat L^{(1)} \numvec s^{(1)} = \begin{pmatrix}
-            (\omega^2 \hat \rho - k_1^2 \hat P) \nummat I +  N_s \nummat D_{22}
-            & \im  k_1 (\hat P -  N_s) \nummat D_{22} 
+            (\omega^2 \hat {\rho} - k_1^2 \hat {P}) \nummat I +  N_s \nummat D_{22}
+            & \im  k_1 (\hat{P} -  N_s) \nummat D_{22} 
                 & -\im k_1 \beta \nummat I \\
-                \im  k_1 (\hat P -  N_s) \nummat D_2 
-                & \hat P \nummat D_{22} +(\omega^2 \hat \rho -  k_1^2   N_s) \nummat I
+                \im  k_1 (\hat{P} -  N_s) \nummat D_2 
+                & \hat{P} \nummat D_{22} +(\omega^2 \hat{\rho} -  k_1^2   N_s) \nummat I
                 & \beta \nummat D_2 \\
 
                 \displaystyle \frac{-\im  \beta \omega^2}{\phi^2} \nummat I &\displaystyle \frac{-\beta \omega^2}{\phi^2} \nummat D_2 & 
@@ -280,7 +277,7 @@ the discretized form of which is,
             -\im  k_1 \hat A \numvec I^+ & -\hat P \numvec D_{2}^+ & \phi \left(1 + \cfrac{ Q}{ R}\right) \numvec I^+ & \im  k_1 \lambda\numvec I^- & (\lambda + 2\mu )\numvec D_{2}^-  \\
             \numvec 0 & -\numvec I^+ & \numvec 0 & \numvec I^- & \numvec 0  \\
             \numvec 0 & \numvec 0 & -\numvec I^+ & \numvec 0 & \numvec I^-  \\
-            -\cfrac{\phi}{ \rho_{22}} \:\numvec D_{2}^+ & \left( 1 +\displaystyle\frac{ \rho_{12}} { \rho_{22}} \right)\omega^2\numvec I^+ & \numvec 0 & \numvec 0 & \numvec 0 \\
+            -\cfrac{\phi}{ \rho_{22}} \,\numvec D_{2}^+ & \left( 1 +\displaystyle\frac{ \rho_{12}} { \rho_{22}} \right)\omega^2\numvec I^+ & \numvec 0 & \numvec 0 & \numvec 0 \\
         \end{array} \right),
         \label{eq:poro_elastic_cont_matrix}
     \end{equation}
@@ -570,7 +567,7 @@ When a multi-layer configuration is considered, the latter velocity is averaged 
 \subsection{Reminder of the SLaTCoW method for obtaining complex-valued wavenumbers.}
 \label{app:slatcow}
 
-\begin{figure}
+\begin{figure}[h!]
     \centering
     \includegraphics{slatcow_annexe.pdf}
     \caption{Description of the procedure of the SLaTCoW method: a) Spatial Laplace transform from the experimental data, b) Spatial Laplace transform of the reconstructed wave fields. Real c) and imaginary d) parts of the experimentally retrieved wavenumbers (crosses) compared to the SCM (black-to-grey dots). The frequency at which the Laplace transforms are represented corresponds to the magenta dashed line in the graph.}

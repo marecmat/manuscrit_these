@@ -1,0 +1,31 @@
+%% MATH (and other) COMMANDS
+\renewcommand{\etal}{\emph{et al.}~}
+% numvec and nummat are only required for chap2
+\newcommand{\numvec}[1]{\underline{#1}}
+\newcommand{\nummat}[1]{\underline{\underline{#1}}}
+
+\renewcommand{\transp}{\mathsf T}
+\newcommand{\mbf}{\boldsymbol}
+\renewcommand{\im}{\mathrm i}
+\renewcommand{\exp}[1]{e^{#1}}
+
+\newcommand{\inputikz}[1]{\tikzsetnextfilename{#1}\input{figures/#1.tex}}
+\newcommand{\comment}[1]{\textcolor{red!80!black}{#1}} % commentaire
+\newcommand{\medpt}{\kern-.25em\textperiodcentered} % point médian
+
+% ebgaramond font fucks up the hat and tilde so we need to redefine those :(
+\usepackage{accents}
+\usepackage{trimclip}
+\newcommand{\stretchedbar}{\scalebox{.9}[.85]{\trimbox{0pt .55ex}{\textminus}}}
+\newcommand{\stretchedtilde}{\scalebox{1}[1]{\trimbox{5pt .6ex}{\textasciitilde}}}
+\newcommand{\stretchedhat}{\scalebox{1.2}[.82]{\trimbox{1pt .8ex}{\textasciicircum}}}
+\renewcommand{\bar}[1]{\accentset{\stretchedbar}{#1}}
+\renewcommand{\tilde}[1]{\accentset{\stretchedtilde}{#1}}
+\renewcommand{\hat}[1]{\accentset{\stretchedhat}{#1}}
+
+% colors pour les schémas
+\definecolor{pem}{HTML}{ffc042}
+\definecolor{steel}{HTML}{ffffff}
+\definecolor{fluid}{HTML}{99c2f0}
+\definecolor{rubber}{HTML}{d15700}
+

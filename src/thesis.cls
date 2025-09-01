@@ -1,11 +1,15 @@
 \NeedsTeXFormat{LaTeX2e}
 \newif\ifshowpretty 
 \showprettyfalse
-\ProvidesClass{layout/thesis}[phd thesis template]
+\ProvidesClass{src/thesis}[phd thesis template]
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{book}}
 \DeclareOption{pretty}{\showprettytrue}
 \ProcessOptions\relax
-\LoadClass[12pt,twoside]{book}
+\LoadClass[
+    12pt,
+    oneside
+    %twoside
+]{book}
 
 %% Some parameters
 \setlength{\headheight}{15pt}
@@ -13,7 +17,7 @@
 \definecolor{accent}{HTML}{620059} %{685494}% {a33c34}
 \RequirePackage{geometry}   
 \geometry{a4paper, left=2.5cm, right=2cm, top=2cm, bottom=2cm}
-\RequirePackage{./layout/faune}
+\RequirePackage{./src/faune}
 \newfontfamily\titlestyle{Faune}
 
 %% PACKAGES
@@ -28,7 +32,7 @@
     doi=false,  
     eprint=false,
     url=false,
-    maxbibnames=2,
+    maxbibnames=6,
     defernumbers=true,
     % refsection=chapter
 ]{biblatex}
@@ -62,6 +66,9 @@
 \RequirePackage{etoolbox}
 \RequirePackage{epigraph}
 \RequirePackage{indentfirst}
+\RequirePackage{multicol}
+
+% \RequirePackage{layout/jabbrv} % https://github.com/compholio/jabbrv
 
 %% FOR CHAPTER GM
 \RequirePackage{cleveref}
@@ -212,20 +219,15 @@
 
         \pagestyle{fancy} 
         \RequirePackage[lining,semibold,scaled=1.05]{ebgaramond}
-        \RequirePackage[scale=0.85]{sourcecodepro}
-        \RequirePackage[ebgaramond,vvarbb,subscriptcorrection]{newtxmath}
+        % \RequirePackage[scale=0.85]{sourcecodepro}
+        % \RequirePackage[ebgaramond,vvarbb,subscriptcorrection]{newtxmath}
+        \RequirePackage[ebgaramond]{newtxmath}
 
         % \AtEveryBibitem{\clearfield{title}}
+        \renewcommand*{\bibfont}{\fontsize{9}{9}\selectfont}
         \defbibenvironment{bibliography}
-        {\enumerate[label={\arabic*.}]
-            {}
-            {\setlength{\labelwidth}{\labelnumberwidth}%
-            \setlength{\leftmargin}{\labelwidth}%
-            \setlength{\labelsep}{\biblabelsep}%
-            \addtolength{\leftmargin}{\labelsep}%
-            \setlength{\itemsep}{\bibitemsep}%
-            \setlength{\parsep}{\bibparsep}}%
-            \renewcommand*{\makelabel}[1]{\hss##1}}
+        {\enumerate[label={\color{accent}\arabic*.}]
+        \setlength{\leftmargin}{-50pt}}
         {\endenumerate}
         {\item}
 
@@ -260,6 +262,10 @@
         \renewcommand\labelitemi{{\color{accent}---}}
 
 \else
+        \makeatletter
+        \providecommand{\subtitle}[1]{\apptocmd{\@title}{\par \vspace*{.5em} {\fontsize{20}{20}\titlestyle #1 \par}}{}{}}
+        \providecommand{\footer}[1]{\apptocmd{\@title}{\vfill {\fontsize{11}{11}\rmfamily\mdseries #1 \par} \vspace*{-.5em}}{}{}}
+        \makeatother
         \typeout{PAS DE MISE EN PAGE, MODE DRAFT}
         \RequirePackage{newtxmath}
 
@@ -299,4 +305,4 @@
   \@starttoc{lot}%
 }
 \makeatother
-\tikzexternalize[optimize=true, optimize command away=\includepdf, prefix=tikzbuild/]
+\tikzexternalize[optimize=true, optimize command away=\includepdf]%prefix=./tikzbuild/]

@@ -1,0 +1,18 @@
+\chapter*{Appendices}
+\renewcommand{\chaptermark}[1]{\markboth{#1}{}}
+\renewcommand{\thesection}{\Alph{section}}
+
+\addcontentsline{toc}{chapter}{Appendices}
+\setcounter{section}{0}
+\chaptermark{Appendices}
+{
+    \hypersetup{linkcolor=black} \vspace*{-20pt}
+    {\color{accent}\titlerule\vspace*{1pc}}%
+    \startcontents\vbox{\Large\contentsname}\vskip1ex
+    \printcontents{l}{1}{\setcounter{tocdepth}{3}}
+        \vspace*{1pc}{\color{accent}\titlerule}
+}
+
+\input{chapitres/annexes/safe_lamb.tex}
+\input{chapitres/annexes/muller.tex}
+\input{chapitres/annexes/thesis_overview_extended_abstract.tex}
