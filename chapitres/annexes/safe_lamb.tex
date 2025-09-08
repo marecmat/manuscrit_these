@@ -89,11 +89,13 @@ Analytical results are obtained by applying the root-finding approach using the 
 
 \begin{figure}[ht!]
     \centering
-    \includegraphics[width=\textwidth]{./chapitres/annexes/figs/figure.pdf}
+    \includegraphics{conv_safe_lamb.pdf}
     \caption{a) Dispersion relation for the Lamb modes with the root-finding results, alongside the spectral collocation and semi-analytical finite elements solutions. b) Convergence curve of the 2 methods at a given frequency $f=4$ kHz. The multiple lines depicts the convergence of each wavenumber.}
     \label{fig:conv_scm_safe_lamb}
 \end{figure}
 
-The convergence curve of the results given in Fig.~\ref{fig:conv_scm_safe_lamb}b) is unsurprisingly in agreement with the literature. It is calculated at a frequency $f=4$ kHz: the solutions along the dashed line in Fig~\ref{fig:conv_scm_safe_lamb}a) are selected. The parameter $n$ used for the discretization is shared between the two methods and corresponds to the number of elements taken for the discretization in each method. SAFE matrices have a size $2(2n+ 1)$, with while SCM matrices have a size $2n$. The discretization is swept from $n=3$ to $n=50$.
+The convergence curve of the results given in Fig.~\ref{fig:conv_scm_safe_lamb}b) is unsurprisingly in agreement with the literature. It is calculated at a frequency $f=4$ kHz: the solutions along the dashed line in Fig~\ref{fig:conv_scm_safe_lamb}a) are selected. The parameter $n$ used for the discretization is shared between the two methods and corresponds to the number of elements taken for the discretization in each method. SAFE matrices have a size $2(2n+ 1)$, with while SCM matrices have a size $2n$. The discretization is swept from a number of nodes $n=3$ to $n=50$.
+
+Matrix size for scm $4n$ while safe is $4(o \cdot n + 1)$ with o the order of Lobatto shape functions
 
 The SCM convergence shows a steep slope and reaches a plateau around $n = 20$, while the SAFE curve follows the expected slope of a finite elements method that use second-order shape functions. When comparing at a given discretization order, the error from the SAFE is much lower that that of SAFE by several order of magnitudes. In order to see comparable convergence, it would require to use higher-order shape functions or use spectral elements instead.
