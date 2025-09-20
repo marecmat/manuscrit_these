@@ -1,11 +1,11 @@
-\chapter{Introductory concepts on guided waves, overview on numerical methods}
+\chapter{Analytical and numerical modelling of wave propagation in (meta)poro(elastic) layers}
 \label{chap:chap1}
-This theoretical chapter lays the foundation for the thesis, giving some notions of the fundamental necessary aspects, in order to guide the reader through the various chapters that will follow. At first, an overview of the modelling in porous media is proposed. 
 
+This chapter lays the foundation for the thesis by providing the fundamental theoretical notions and methods used in this work, in order to guide the reader through the various chapters that will follow. At first, an overview of the acoustic modelling of porous media is proposed. Following the presentation of the state of art in the introduction and of the areas of focus that have been identified from the latter, the key notions and methods for the computation of the scattering of waves by metaporous structures will be presented. From there, the formalism for the calculation of dispersion curves will be presented along with an overview of the methods used for such computations. Both of these topics will be illustrated with preliminary results in simple configurations. 
 
 \section{Modelling of porous media}
 \label{sec:porous_models}
-Porous materials are constituted of two distinct domains: an elastic matrix $\Omega_s$ with a pore network $\Omega_f$, which is filled by some saturating fluid, they are biphasic. A diagram of their structure is shown in Fig.~\ref{fig:poro_struct}. The porosity is defined as the fraction of fluid over the total volume of the material, as $\phi = V(\Omega_f)/V(\Omega)$. In the limit case, $\phi = 0$ the material becomes purely a solid while at $\phi = 1$, it becomes a fluid. The geometry of the fluid phase forms a complex microstructure at a microscopic level. Fortunately, at acoustic scales, these materials can often be considered at a meso-/macroscopic scale and therefore models have been developed to describe the large-scale motion of these materials. In this context, they can be regarded as homogeneous and described by a set of effective parameters that account for their complex inner geometry. The porous structure of these materials causes the incoming acoustic energy to be dissipated through friction (viscous losses), thermal exchanges and elastic dissipation when the skeleton and the fluid are coupled. These losses are thus dependant on the geometry, that is the porosity, pore network size, connectivity and shape, and the frame mechanical parameters. 
+Porous media is a category of materials which encompasses naturally occuring substances such as rocks, soils and biological tissues, and engineered materials like ceramics, metallic foams, rockwool or certain types of polymers. They are considered biphasic, that is constituted of two distinct domains: a pore network $\Omega_f$ filled by a saturating fluid embedded in an elastic matrix $\Omega_s$. A diagram of this microscopic structure is shown in Fig.~\ref{fig:poro_struct}. The porosity is defined as the fraction of fluid over the total volume of the material, as $\phi = V(\Omega_f)/V(\Omega)$. In the limit case, $\phi = 0$ the material becomes purely a solid while at $\phi = 1$, it becomes a fluid. At microscopic scales, the geometry of the fluid phase thus forms a complex microstructure. Fortunately, at airborne acoustic scales, these materials can often be considered at a meso-/macroscopic level and therefore models have been developed to describe the large-scale motion of these materials. In this context, they can be regarded as homogeneous and described by a set of effective parameters that accounts for their complex geometry. The porous structure of these materials causes the incoming acoustic energy to be dissipated through friction (viscous losses) along the duct/pore network, while thermal exchanges and elastic dissipation take place when the skeleton and the fluid phase are coupled. These losses are thus dependant on the geometry, which parametrized by the porosity, the saturating fluid properties, the pore network size, connectivity and shape, as well as the frame mechanical parameters. 
 
 \begin{figure}[h!]
     \centering
@@ -14,13 +14,13 @@ Porous materials are constituted of two distinct domains: an elastic matrix $\Om
     \label{fig:poro_struct}
 \end{figure}
 
-\subsection{Rigid-frame approximation}
-In the so-called rigid-frame case, the skeleton of the porous material is motionless. Therefore, the pore walls are rigid walls and the material can be modeled as an \emph{equivalent fluid} which possesses complex effective properties in order to model the losses mechanisms. A harmonic acoustic propagation is assumed with a positive time convention $e^{\im \omega t}$ troughout this manuscript (with the exception of Chapter~\ref{chap:jap}) The Helmholtz equation governs the propagation,
+    \subsection{Rigid-frame approximation}
+In the so-called rigid-frame approximation, the skeleton of the porous material is considered motionless. Therefore, the pore walls are rigid walls and the material can be modeled as an \emph{equivalent fluid} which possesses complex effective properties in order to model the losses mechanisms. A harmonic acoustic propagation is assumed with a positive time convention $e^{\im \omega t}$ troughout this manuscript (with the exception of Chapter~\ref{chap:jap}). The Helmholtz equation governs the propagation,
 \begin{equation}
     (\nabla^2 + k_{eq}^2) p(\mbf x) = 0,
 \end{equation}
 where $p$ is the pressure field and $k_{eq}$ is the wavenumber of the equivalent fluid.
-In the case where porous or fibrous materials have a porosity close to 1 and the frequency range of interest is limited, the Delany-Bazley model was originally developed in 1970 to propose empirical expressions for the values of the complex wavenumber and characteristic impedances \cite{delany1970, allard2009} and later improved by Miki \cite{miki1990}. Although limited in accuracy and validity domain, these models has been widely used since it only required the flow resistivity of the porous material. Later on, a more precise semi-phenomenological model additionnaly accounting for the viscous and inertial dissipative effects was developed from 1987 to 1991. It is the \acrfull{jca} model which models the complex effective density $\rho_{eq}(\omega)$ accounts for the frequency dependant viscous losses and effective bulk modulus of the material $K_{\text{eq}}$ accounting for thermal exchanges in the layer as,
+In the case where porous or fibrous materials have a porosity close to 1 and the frequency range of interest is limited, the Delany-Bazley model was originally developed in 1970 to propose empirical expressions for the values of the complex wavenumber and characteristic impedances \cite{delany1970, allard2009} and later improved by Miki \cite{miki1990}. Although limited in accuracy and validity domain, these models has been widely used since it only required the flow resistivity of the porous material. Later on, a more precise semi-phenomenological model additionally accounting for the viscous and inertial dissipative effects was developed from 1987 to 1991. It is the \acrfull{jca} model which models the complex effective density $\rho_{eq}(\omega)$ accounts for the frequency dependant viscous losses and effective bulk modulus of the material $K_{\text{eq}}$ accounting for thermal exchanges in the layer as,
 \begin{equation}
 \begin{aligned}
  \rho_{\text{eq}}(\omega) &= \frac{\rho_{f} \alpha_{\infty}}{\phi}\left(1+\frac{\im R_f \phi}{\rho_f \alpha_\infty\omega} \sqrt{1- \im  \omega  \rho_{f} \mu_f \left(\frac{ 2\alpha_{\infty}}{R_f \phi \Lambda}\right)^2 }\right),\\
@@ -29,13 +29,12 @@ K_{\text{eq}} &=\frac{\kappa P_{0}}{\phi}\left(\kappa-(\kappa-1)/\left(1+ \cfrac
 \end{equation}
 These expressions involve a large number of effective parameters for the porous material; $\alpha_\infty$ is the tortuosity, $R_f$ is the flow resistivity, $\Lambda$ and $\Lambda'$ are respectively the viscous and thermal characteristic length. The saturating fluid is characterized in this model by its heat capacity ratio $\kappa$ (commonly also denoted $\gamma$), density $\rho_f$, kinematic viscosity $\mu_f$, pressure $P_0$ and Prandtl number $\mathrm{Pr} = c_p \mu_f/k$ with $c_p$ is the specific heat and $k$ the thermal conductivity. We can introduce also the Biot frequency $\omega_c = R_f \phi/(\rho_f \alpha_\infty)$ that defines the transition frequency between the inertial and viscous regimes.
 
-\subsection{Elastic motion of the skeleton: Biot theory}
-
+    \subsection{Elastic motion of the skeleton: Biot theory}
 While the equivalent fluid formalism is able to accurately model porous material in specific sets of conditions, that is when the skeleton can be assumed to be motionless, this assumption can quickly become limited as soon as the said skeleton is subjected to an elastic deformation. This is can be the case when the saturating fluid of the \acrshort{pem} has a high density (e.g. water), when the skeleton is coupled to elastic plates or when the acoustic radiation has a wavelength comparable to the pore scale, although these are just examples. In this situation, the full elastic motion should be modeled, so that to account for the coupling between the solid matrix and its fluid filling. The Biot theory \cite{biot1954,biot1956-1,biot1956,biot1956a}is a formalism that encompasses the theory of the deformation of porous material saturated by an incompressible fluid, used both in geophysics and acoustics. For sake of conciseness, the various models will be briefly be presented along with the relevant physical quantities. A full derivation would be out of scope and is presented in existing works \cite{allard2009}.
 
-Before presenting the full Biot model, some quantities should be provided additionnaly to the equivalent fluid parameters. The frame is assumed to undergo elastic deformations, thus the common mechanical parameters used are the solid density of the frame material $\rho_s$ as well as its apparent density $\rho_1 = (1-\phi)\rho_s$. The bulk modulii are denoted $K_b$ and $K_s$, respectively for the frame and the material.  The shear modulus is also considered complex, accounting for structural losses as $\tilde{N} = N(1+\im \eta)$ with $\eta$ the loss factor. Symbols written with a tilde denote complex expressions and therefore account for some sort of loss mechanisms. For the fluid, the apparent density is thus $\rho_2 = \phi \rho_f$ and the inertial interaction density defined by $\rho_{12} = - \phi \rho_f(\alpha_\infty - 1)$. A summary on Biot theory is also proposed in Chap.~\ref{chap:jap}) with the tilde symbols omitted for ease of reading.
+Before presenting the full Biot model, some quantities should be provided additionally to the equivalent fluid parameters. The frame is assumed to undergo elastic deformations, thus the common mechanical parameters used are the solid density of the frame material $\rho_s$ as well as its apparent density $\rho_1 = (1-\phi)\rho_s$. The bulk modulii are denoted $K_b$ and $K_s$, respectively for the frame and the material.  The shear modulus is also considered complex, accounting for structural losses as $\tilde{N} = N(1+\im \eta)$ with $\eta$ the loss factor. Symbols written with a tilde denote complex expressions and therefore account for some sort of loss mechanisms. For the fluid, the apparent density is thus $\rho_2 = \phi \rho_f$ and the inertial interaction density defined by $\rho_{12} = - \phi \rho_f(\alpha_\infty - 1)$. A summary on Biot theory is also proposed in Chap.~\ref{chap:jap}) with the tilde symbols omitted for ease of reading.
 
-\subsubsection{Formulations for the motion equations}
+        \subsubsection{Formulations for the motion equations}
 The Biot poroelastic equations from the original 1956 formulation \cite{biot1954,biot1956,biot1956a} depend on the solid displacement vector $\mbf u_s$ and the fluid displacement $\mbf u_f$,
 \begin{equation}
     \begin{aligned}
@@ -83,21 +82,19 @@ where $\mbf{\hat{\sigma}}_s$ is the \emph{in vacuo} solid stress tensor,
     \mbf{\hat{\sigma}}_{s, ij} = \mbf \sigma_{s,ij} - \phi \frac{\tilde Q}{\tilde R} p \delta_{ij} = \hat A \nabla \cdot \mbf u_s \delta_{ij} + 2 N_s \mbf \varepsilon_s    
 \end{equation}
 
-\begin{figure}[htpb]
-    \centering 
-    \includegraphics{poro_wavenb.pdf}
-    \caption{Wavenumbers in unbounded porous media. a) Equivalent fluid wavenumber. Wavenumbers and attenuation for each of  the 3 Biot waves.}
-    \label{fig:poro_wavenb}
-\end{figure}
-
-These various formulations provide several way of modelling equivalently wave propagation in poroelastic media. It appears that \acrshort{pem} supports three waves: a compression and shear wave related to the solid phase as well as an additional compression wave related to the fluid phase. \comment{++ détails }Following the section 6.5 of Allard and Atalla textbook\cite{allard2009}, the three wavenumbers of these waves are (denoted as $\delta_i, i=1,2,3$ in the text),
+        \subsubsection{Propagation in unbounded poroelastic media}
+These various formulations provide several way of modelling equivalently wave propagation in poroelastic media. It appears that \acrshort{pem} supports three waves: a compression $\varphi_p$ and shear wave $\psi_s$ related to the solid phase as well as an additional compression wave $\varphi_a$, related to the fluid phase. In the case of each of these formulations, the fields can be expressed depending on these potentials, 
+\begin{equation}
+    \mbf u_s = \nabla \varphi_p + \nabla \varphi_a + \nabla \times \psi_s, \quad \quad \mbf u_f = \mu_p \nabla \varphi_p + \mu_a \nabla \varphi_a + \mu_s \nabla \times \psi_s,  \\
+\end{equation}
+with $\mu_p$, $\mu_a$, $\mu_s$ the solid displacement over the fluid displacement ratio coefficients. The wavenumbers for each of these waves are, following section 6.5 of Allard and Atalla textbook \cite{allard2009} and denoted as $\delta_i, i=1,2,3$ in the text,
 \begin{equation}
     \begin{aligned}
-        k_{p, a} &= \sqrt{\frac 1 2 \left(\delta_2^2+\delta_{eq}^2\pm \delta_t\right)}\\
+        k_{p, a} &= \sqrt{\frac 1 2 \left(\delta_2^2+\delta_{eq}^2\pm \delta_t\right)},\\
         k_s &= \omega\sqrt{\frac{\hat \rho}{\tilde N}},
     \end{aligned}
 \end{equation}
-with,         
+respectively for the solid compression, fluid compression and shear wave, with,         
 \begin{equation}
     \delta_{eq} = \omega \sqrt{\frac{\tilde\rho_{eq}} {\tilde K_{eq}}}, \quad
     \delta_1 = \omega\sqrt{\frac{\hat \rho} {\hat P}}, \quad
@@ -105,99 +102,180 @@ with,
     \delta_t = \sqrt{(\delta_2^2+\delta_{eq}^2)^2-4\delta_{eq}^2\delta_1^2}.
 \end{equation}
 
-The propagation characteristics, i.e. wavenumbers of the waves propagating in porous and poroelastic media are illustrated in Figure~\ref{fig:poro_wavenb}. As discussed in the previous sections, the wavenumber for the equivalent fluid as well as the three for the poroelastic layer are complex. Their real part accounts for the propagation of the phase flow, inversly proportional to the wave velocity and their imaginary part accounts for the attenuation that occurs due to the losses inherent to each of these materials. 
+\begin{figure}[htpb]
+    \centering 
+    \includegraphics{poro_wavenb.pdf}
+    \caption{Wavenumbers of waves in unbounded porous media in the case of an a-b) equivalent fluid and c-h) for the Biot model.}
+    \label{fig:poro_wavenb}
+\end{figure}
 
-\section{Methods for modelling metaporous structures}
-In the previous section, a formulation for rigid-frame porous media and two formulations for poroelastic media modelling have been presented. Concluding the presentation of these motion equations, some characteristics of wave propagation in unbounded porous and poroelastic have been studied and shown that these materials support for the propagation of respectively one and three distinct waves. The present section proposes the introduction of a geometry in the system, that is to say boundaries or interface conditions delimiting different domains characterized each by different type of material. Generally, the configurations studied in this work assume a monochromatic plane wave originated from a fluid half-space, i.e. air, which impinges at the surface of a structure and is scattered (reflected and transmitted) through each interface. 
+The propagation characteristics, i.e. wavenumbers of the waves propagating in porous and poroelastic media are illustrated in Figure~\ref{fig:poro_wavenb}. As discussed in the previous sections, the wavenumber for the equivalent fluid as well as the three for the poroelastic layer are complex. Their real part account for the propagation of the phase flow, inversly proportional to the wave velocity and their imaginary part accounts for the attenuation that occurs due to the losses inherent to each of these materials. It appears that at low frequencies, the attenuation is very low for all waves. The velocity of the compression and shear waves (observed on the figures by the slope of the real parts of the wavenumbers) is much higher than the waves in the fluid for the equivalent fluid and the compression fluid phase velocity, as they propagate in a soft solid where the velocity is usually much higher than in a fluid. 
 
-If the material in which the wave propagates is bounded by two parallel, free, and flat surfaces, i.e., a plate, then it is refered to as a layer. The waves propagate by reflecting alternately from one surface to the other; they are said to be guided along the layer. These observations of successive reflections and refractions lead to the concept of waveguides, but their analytical descriptions often pose problems that are difficult to solve. To determine the modes of a structure, one must seek to solve the propagation equations and the boundary conditions imposed at its boundaries.
 
-\subsection{Wave propagation in homogeneous layers}
+\section{Modelling of the wave propagation in homogeneous layers}
 
-Introducing a simple problem, that of the scattering of an incident plate by a porous layer. 
+In the previous section, a formulation for rigid-frame porous media and two formulations for poroelastic media modelling have been presented. Concluding the presentation of these motion equations, some characteristics of the wave propagation in unbounded porous and poroelastic media have been shown. The present section proposes the introduction of a geometry, that is to say boundaries or interface conditions delimiting different domains characterized each by a different type of material. Generally, the configurations studied in this work assume a monochromatic plane wave originated from a fluid half-space, i.e. air, which impinges at the surface of a structure and is scattered (reflected and transmitted) through each interface. If the material in which the wave propagates is bounded by two parallel, free, and flat surfaces, i.e., a plate, then it is refered to as a layer. The waves supported by the medium propagate by reflecting alternatively from one surface to the other; they are said to be guided along the layer. These observations of successive reflections and refractions lead to the concept of waveguides, but their analytical descriptions often leads to writing complex system that can be difficult to solve. To determine the modes of a structure, one must seek to solve the propagation equations and the boundary conditions imposed at its boundaries. In a first section, the scattering of a plane wave by a homogeneous porous layer is investigated along with the various method available. Next, the methods for the computation of the modes of these configurations are presented. In a subsequent section, more complex geometries, those of metaporous structures, are of interest and both methods for the computation of the scattering coefficients and the modes of those configurations will be discussed.
 
-The incident pressure field takes the form of, 
+    \subsection{Global Method: plane wave modelling}
+\label{ssec:GM}
+The analytical description of the system amounts finally to a linear system built from the interface conditions, which unknown vector are the amplitudes of each of the existing waves in the system. The forcing right-hand side corresponds to the incident plane. The solution of the system yields all unknown amplitudes of the system, in particular the reflection and transmission coefficients. 
+
+Introducing a simple problem, that of the scattering of an incident plate by a porous layer, we present an example of plane wave modelling for a simple system. The system is 2D with coordinates $\mbf x = (x_1, x_2)$ constituted of a porous layer with thickness $h$ and thus two interfaces of infinite extent along $x_1$, there is a fluid-porous interface at $x_1 = h$ and a porous-fluid interface at $x_1 = 0$. Both media of the air half-spaces and porous layer are modeled as fluid, thus the interfaces conditions should impose continuity of the pressure fields and normal particle displacements. 
+
+Assuming a $ e^{\im \omega t}$ time-dependance, the incident pressure field originated from the upper domain takes the form of, 
 \begin{equation}
-    p_i = a e^{-ik_1 x_1} e^{-ik_2 x_2},
+    p_{0+} = a_+ e^{-ik_1 x_1} e^{-ik_{2,0} (x_2 -h)} + a_- e^{-ik_1 x_1} e^{ik_{2,0} (x_2 -h)}.
 \end{equation}
-with wavenumbers such that they hold for the Snell-Descartes law, 
+The pressure field in the porous layer is expressed as a sum of forward and backward waves,
 \begin{equation}
-    k_1^2 + k_2^2 = k_0^2,    
+    p_{p} = b_+ e^{-ik_1 x_1} e^{-ik_{2,eq} x_2} + b_- e^{-ik_1 x_1} e^{ik_2 (x_2-h)},
 \end{equation}
+and that in the lower air domain is,
+\begin{equation}
+    p_{0-} = c e^{-ik_1x_1}e^{ik_{2,0} x_2},
+\end{equation}
+with wavenumbers such that they hold for the Snell-Descartes law that states $k_1^2 + k_{2,0}^2 = k_0^2$ and $k_1^2 + k_{2,eq}^2 = k_{eq}^2$
+The displacement fields are additionally expressed using the momentum equation relating the latter with the pressure fields as $\partial_2 p = -\im \omega \rho_i u_2,\:\: i=$. 
+\begin{equation}
+    p^t(h) = p^l(h), \quad u_{2}^t(h) = u_2^l(h) \quad p^l(0) = p^b(0) \quad _{2}^l(0) = u_2^b(0) 
+\end{equation}
+Imposing the interface conditions leads to the following matrix system, 
+\begin{equation}
+    \begin{pmatrix}
+        1 & e^{\im k_{2,eq}h}& 0 & -1 \\
+        \cfrac{k_{2,eq}}{\rho_{eq}}& -\cfrac{k_{2,eq}}{\rho_{eq}} e^{\im k_{2,eq}h}&   0& \frac{k_{2,0}}{\rho_0} \\
+        e^{\im k_{2,eq}h}& 1 & -1 & 0 \\
+        \frac{k_{2,eq}}{\rho_{eq}} e^{\im k_{2,eq}h} &    -\frac{k_{2,eq}}{\rho_{eq}}& -\frac{k_{2,0}}{\rho_{0}}&  0 
+    \end{pmatrix} \begin{pmatrix} b_+ \\ b_- \\ a_+ \\ c \end{pmatrix} = \begin{pmatrix}
+        0 \\ 0 \\ a_- \\ \frac{k_{2,eq}}{\rho_{eq}} a_-
+    \end{pmatrix}. 
+    \label{eq:gm_pres_layer}
+\end{equation}
+\comment{vérifier l'écriture du système.}
+Imposing the wavenumber $k_1 = k_0 \sin{\theta}, k_2 = -k_0 \cos{\theta}$, with $\theta$ the angle of incidence, allows to easily solve the system and obtain all scattered amplitudes $b_+, b_-, a_+$ and $c$. In the case of a rigidly-backed layer, the interface at $x_2=h$ is replaced by a rigid termination, that is $u_2(h) = 0$ and thus the terms depending on $c$ vanishes, since $p_{0-}$ does not exist; this reduces the size of the system. In this case, the reflection coefficient $R$ corresponds to the amplitude $a_+$.
+
+A few results for the simple cases of the scattering of a plane wave by a rigidly-backed layer and in a symmetric configurations are represented by the diagrams in Figs~\ref{fig:poroelastic_scattering_ex}a and b and results in Figs~\ref{fig:poroelastic_scattering_ex}c and d, respectively. The GM results are presented by the continuous lines. There, the layer for both porous and PEM are both $h=5$ cm thick and the incident wave propagates with a $\theta=30^o$ angle. The parameters for each material corresponds to the one used in Table~\ref{tab:poroelastic_paramsJAP} from Chapter~\ref{chap:JAP}. The system used to obtain the reflection coefficient for the PEM layer is done in a similar fashion as the equivalent fluid and can be read in the appendices of \cite{weisser2016}.
+
+The first case, also referenced to as a reflection problem compares the equivalent fluid and the full Biot model response. The two curves follow the same trend but additional effects due to the skeleton motion can be observed on the continuous lines while the equivalent fluid response shows to be smoother. For all configurations, the melamine layer is acoustically transparent at lower frequency and absorption can be noticed at slightly higher frequencies. 
+
+Generally, the application of the Global Method allows to write the propagation of plane waves through any stack of layer, by putting together a matrix system that contains all interface conditions in the system, in the general form,
+\begin{equation}
+    \mbf M(\omega) \mbf x = \mbf f,
+    \label{eq:sys_gm}
+\end{equation}
+
+    \subsection{Transfer Matrix Method}
+The widely used method we know today as the \acrfull{tmm}, was initially developed by the works of Thomson \cite{thomson1950} and Haskell \cite{haskell1951} % \cite{haskell1953} 
+in order to describe elastic wave propagation in multilayer systems. This method can be applied to a range of wave physics among geophysics, quantum mechanics, electromagnetics and obviously acoustics. This method allows for an easy multiphysics coupling with interface matrices leads to large systems. 
+
+The core of the method is in the evaluation of the state vector that regroups the variables of interest in the system and evaluate them at each interface. propagate the properties stored in the state vector from one layer to the next. An amount of $N$ layers of the same nature are easy to manipulate since $\mbf T_{\mathrm{global}} = \prod_{n=0}^N \mbf T_n$. This method was deep dived in several textbooks among which we propose Refs.~\cite{allard2009, jimenez2021}. It allows for the computation of complex system assembly of elements by introducing additional elements. \cite{doutres2015}. While very versatile, it remains unstable in limit cases at high frequencies or for large thickness of the layers. While the formulation is mathematically exact, the evaluation of the system involves involves finite-precision calculation which leads the very sensitive exponential terms to diverge in the previously specified regimes.
+\begin{equation}
+    \begin{pmatrix}
+        p(0) \\ u_2(0)
+    \end{pmatrix} = 
+    \begin{pmatrix}
+        \cos(k_{eq}h) & \im Z_{eq} \sin(k_{eq}h) \\
+        \im Z_{eq}^{-1} \sin(k_{eq}h) & \cos(k_{eq}h) \\
+    \end{pmatrix}
+    \begin{pmatrix}
+        p(h) \\ u_2(h)
+    \end{pmatrix}
+    \end{equation}
+From the evaluation of the transfer matrix of the global system, the scattering matrix can be obtained and thus the reflection and transmission coefficients. 
+
+The absorption coefficient for the same two configurations as the last part is presented in Figs~\ref{fig:poroelastic_scattering_ex}c and d with the markers. It can be seen that the same results are obtained. 
 
 \begin{figure}[h!]
     \centering 
     \input{chapitres/chap1/figs/poro_elastic_scattering.tex}
-    \caption{Diagram for the a) reflection, b) transmission problem. Scattering coefficients from a poroelastic layer (continuous) and equivalent fluid layer (dashed) for the c) reflection, b) transmission problem.}
+    \caption[Diagram with results of the reflection and transmission coefficients for equivalent fluid and poroelastic layers]{Diagram for the a) reflection, b) transmission problem. Scattering coefficients from a poroelastic layer (continuous) and equivalent fluid layer (dashed) computed using the GM for the c) reflection, d) transmission problem. Results computed with the TMM are also shown for the absorption coefficient for the equivalent fluid (\smallcirclemarker)  and for the absorption coefficient (\smalltrianglemarker)}
     \label{fig:poroelastic_scattering_ex}
 \end{figure}
 
-\subsubsection{Global Method: plane wave modelling}
+    \subsection{Guided waves for dispersion problems}
+From the previously obtained linear systems in Section~\ref{ssec:GM} for the configurations, and removing the incident wave from the system, i.e. the forcing (right-hand side) term, an homogeneous linear system is obtained, representing the guiding of waves in the layer. This set of equations becomes singular when its determinant vanishes for a given parameter, allowing to identify the modes of the structure. Several formalism can be adopted: solving for frequencies while imposing the wavenumber or the other way around. The first one is useful when interested in the time-dependant effects the structure has on the propagation. In this work, we are interested in the losses generated by the structure and the material and as such frequency is fixed in order to solve wavenumbers. 
 
-The analytical description of the system amounts finally to a linear system built from the interface conditions, which unknown vector are the amplitudes of each of the existing waves in the system. The forcing right-hand side corresponds to the incident plane. The solution of the system yields all unknown amplitudes of the system, in particular the reflection and transmission coefficients. 
-
-A few results for the simple cases of the scattering of a plane wave by a rigidly-backed layer and in a symmetric configurations are represented by the diagrams in Figs~\ref{fig:poroelastic_scattering_ex}a and b and results in Figs~\ref{fig:poroelastic_scattering_ex}c and d, respectively. There, the layer for both porous and PEM are both $h=5$ cm thick and the incident wave propagates with a $\theta=30^o$ angle. The parameters for each material corresponds to the one used in Table~\ref{tab:poroelastic_paramsJAP} from Chapter~\ref{chap:JAP}. The first case, also referenced to as a reflection problem compares the equivalent fluid and the full Biot model response. The two curves follow the same trend but additional effects due to the skeleton motion can be observed on the continuous lines while the equivalent fluid response shows to be smoother. For all configurations, the low-frequency behaviour shows that the melamine layer is acoustically transparent at lower frequency and absorption can be noticed at slightly higher frequencies. 
-
-From the previously obtained linear system for the configurations, and removing the incident wave from the system, i.e. the forcing (right-hand side) term, an homogeneous linear system is obtained, representing the guiding of waves in the layer. This set of equations becomes singular when its determinant vanishes for a given parameter, allowing to identify the modes of the structure. Several formalism can be adopted: solving for frequencies while imposing the wavenumber or the other way around. The first one is useful when interested in the time-dependant effects the structure has on the propagation. In this work, we are interested in the losses generated by the structure and the material and as such frequency is fixed in order to solve wavenumbers. 
+        \subsubsection{Computating the modes with semi-analytical tools}
+dispersion in porous \cite{boeckx2005} + groby2008 + 
 
 Once the linear system is obtained, we are faced with either or two of these possibilities. Solving wavenumbers can be done through the writing and solving of a (possibly generalized) eigenvalue problem or by root-finding of solutions in the case where writing the first one appears impossible. 
 
-limited to homogeneous layers and complicated to solve dispersion relations
-\subsubsection{Guided waves for dispersion problems}
+Using Eq.~(\ref{eq:sys_gm}), root finding such that $\mathrm{det}\left(\mbf M(k_1, \omega)\right) = 0$; 
+the determinant of the matrix from Eq.~\ref{eq:gm_pres_layer} can be expressed as 
+\begin{equation}
+    2 \frac{k_{2,eq} k_{2,0}}{\rho_{eq} \rho_{0}} \text{cos}(k_{2,eq} h) + \im \left(\frac{k_{2,eq}^2}{\rho_{eq}^2} + \frac{k_{2,0}^2}{\rho_{0}^2}\right) \text{sin}(k_{2,eq} h) = 0
+\end{equation}
+        \subsubsection{Numerics for mode computations}
 
-1D discretization: SCM, SAFE, etc. 
-mentionner chap jap, + annexes safe vs scm
-lamb configurations, 
-dispersion in porous \cite{boeckx2005} + groby2008
+Regarding the computation of complex modes in homogeneous layer, several numerical methods have been investigated in the last decades. Guided waves represents a large topic and we focus here on the case of simple geometries; similar configurations are considered, an unbounded single (or stack of) layers with two infinite interfaces as presented in the section where we were interested in their acoustic response. 
 
-\subsubsection{Zoology of the wave solutions}
+Spectral methods have been around for quite some time and have been used for many numerical applications. We focus for this work on \acrfull{scm}, which has been especially used for the computation of modes for guided waves in layers. \cite{trefethen2000}
 
-\textbf{conservative systems}
-- simple waveguide
-- guided, trapped 
-- evanescent waves
-\textbf{non-dissipative leaky}
-- leaky waveguide
-- quasi-guided, trapped, 
-- leaky backward, leaky forward
-- incoming backward, forward
-\textbf{dissipative leaky}
-- same but no trapped modes exist ? + séparation impossible entre incoming et leaky waves
+In the case of such simple geometries, the use of finite elements seems farfetched but could be relevant in situations where boundary effects or guide with varying cross-sections are studied. However, a variation of finite elements based on a 1D discretization of the waveguide is entitled \acrfull{safe} and is akin to \acrshort{scm} which we have described in the previous paragraph. The 1D discretization is done along the thickness of the layer by regular nodes, and the fields are interpolated using finite elements shape functions. Examples of \acrfull{safe} use cases are very similar to \acrshort{scm} and include \comment{lister des publis ici}. Examples are also given in Chapter \ref{chap:jap}. A detailed description of the calculation of Lamb modes using a simple SAFE implementation using high-order Lobatto polynomials is proposed in Appendix.~\ref{app:safe_vs_scm}. There, its performance is also compared to that of SCM. 
 
+    \subsubsection{A bestiary of the wave solutions in dissipative and open waveguides}
+\begin{itemize}
+    \item \textbf{conservative systems}: simple waveguide: guided and trapped waves and purely evanescent 
+    \item \textbf{non-dissipative leaky}: still a waveguide but now an open system, waves are thus attenuated and radiate energy to the open domain. They are thus considered quasi-guided since they are propagating waves with some attenuation. Trapped modes can still occur. New family of modes appear as leaky backward and leaky forward waves that exhibit unique properties. Their counterparts are incoming waves. 
+    \item \textbf{dissipative leaky}: same but no trapped modes exist ? + séparation impossible entre incoming et leaky waves
+    \item leaky modes, energy radiation: relevance of the imposition of a local coupling contrary to a full modelling of the surrounding media with some termination condition satisfying the Sommerfeld condition, PML or analogous. 
+    \item discuss surface and guided waves
+\end{itemize}
 
-\subsubsection{TMM}
-instable, multiphysics coupling with interface matrices ->> large systems.
-only for simple geometries, easy to implement. doutresTransferMatrixModeling2015
+    \subsection{Numerics for the computation of dispersion relations}
+\begin{itemize}
+    \item presentation of scm, safe + possible with fem
+    \item cite chap. 2
+\end{itemize}
 
-\subsection{Wave propagation in periodic structures}
+\begin{figure}
+    \centering
+    \caption{Discretization for each method}
+\end{figure}
+
+\section{Methods for modelling metaporous structures}
+        \subsection{Scattering of waves by periodic structures}
 As has been studied in the introduction, a large literature exists showing the enhancement of absortion properties by periodicizing the porous layers with embedded scatterers. Periodicity can be imposed in acoustic systems using the so-called Bloch-Floquet theory. There, the layer of infinite extent is limited to a single unit-cell, able to alone describe the full behaviour of the infinitely repeating periodic cell. 
 
-reciprocal wavenumber space, limit the study to the first Brillouin zone covering, $k_1 \in [0, \pi/d]$. 
-opening of a Bragg bandgap: conditions of existence in classical metamaterial, can it happen with losses. 
+\begin{itemize}
+    \item reciprocal wavenumber space, limit the study to the first Brillouin zone covering, $k_1 \in [0, \pi/d]$. 
+    \item opening of a Bragg bandgap: conditions of existence in classical metamaterial, can it happen with losses. 
+    \item With these complex geometries comes the need for more advanced tools for the discretization of these structures. Introduce finite elements. 
+    \item soft solids: aberkane phd
+\end{itemize}
 
-With these complex geometries comes the need for more advanced tools for the discretization of these structures. Introduce finite elements. 
-
-soft solids: aberkane phd
-\subsubsection{Media periodization}
+            \subsubsection{Media periodization}
 For more complex geometries, we must turn to alternative methods. As the 1D discretization used by the \acrshort{scm} and \acrshort{safe} and the plane wave formalism used in \acrshort{tmm} and the \acrshort{gm} is not capable of providing a description of the geometry of inhomogeneous layers, in our case, the effects of the scatterer in the unit cell on wave propagation. 
 
+Paragraphe periodic systems
+
+To introduce periodicity in the configurations we have been investigating up to this section, we will first introduce a few fundamental concepts. Periodic structures and lattices are the central topic of crystallography which has been used in various disciplines such as condensed matter. In wave physics, periodic structures have been shown to introduce interesting effects towards applications for wave control and constitute the cornerstone of metamaterials as was shown in the literature presentation in Section \comment{cite sec}. 
+
+For wave phenomena, periodicity was formalised by the Bloch-Floquet theorem. Taking an infinitely repeating lattice or a crystal, the description of the wave propagation in only one of the so-called unit cell, one spatial period of the total structure, is enough to describe the whole structure. A wave function $\psi(\mbf x)$ describing the propagation should thus depend on a spatially periodic field, with the same periodicity as the crystal modulated by the Bloch wavenumber $k_q$, such that,
+
+The scattering of waves by a single unit cell is expressed using a wavefunction that is projected onto an infinite modal basis, the Bloch mode basis.
+\begin{equation}
+​	\psi_q (\mbf x) = e^{\im \mbf k \mbf x}.
+\end{equation}
+
+Their value at the left boundary is thus related to that at the right boundary modulated by the spatial periodicity and some translation vector.  This formalism forms the fundamental framework for periodic structures in acoustics. These structures have been shown to support bands of frequency where waves are unable to propagate: band gaps. These occur at the Bragg frequency described as $d \sin(\theta) = n \lambda$ corresponding to destructive interference for an incident wave impinging on the structure. There are various phenomena and ways to obtain different types of band gaps \cite{stuff here}.
+
+
+            \subsubsection{Overview of the methods}
 \acrlong{mst} is an analytical formalism developed for this purpose and is able to account for the scattering of each of the neighbouring obstacles. Tedious theoretical framework, shown to compute the acoustic response of metaporous \cite{groby2011} and metaporoelastic surfaces\cite{weisser2016}. 
 
-\acrlong{fem} flexible and powerful able to 
+\acrshort{fem} flexible and powerful able to 
 
-\subsubsection{Multiple scattering}
-for forced problems
-\subsubsection{FE}
-for whatever
+    \subsection{Dispersion relations and band structure in periodic lattices}
 
-\begin{itemize}
-    \item guided waves formalism
-    \item Lamb modes 
-    \item leaky modes, energy radiation: relevance of the imposition of a local coupling contrary to a full modelling of the surrounding media with some termination condition satisfying the Sommerfeld condition, PML or analogous. 
-\end{itemize}
+Most popular methods for the computation of band structure in 2D periodic systems made of classical lossless materials are the \acrfull{pwe} which is semi-analytical. It relies on a formulation...
+\acrfull{epwe} was generalized to obtain evanescent Bloch modes in Ref.\cite{schalcher2023}, allowing for complex dispersion diagram investigation.
+The complexity of the system prohibits the use of such semi-analytical methods. Multiple scattering could also be considered. However, it has been successfully used to describe the acoustic scattering of periodically arranged rigid inclusions in equivalent fluid unit cells \cite{groby2011} as well as solid inclusions in a poroelastic unit cell\cite{weisser2016}. However, the so-called Schlömilch series that appear in the calculation, from the effect of the scattering of the neighbouring cylindrical inclusions appear to be not so manipulable when considering complex longitudinal wavenumbers. Its expression is  
+\begin{equation}
+    \sigma_q^X=\sum_{l=1}^\infty H_q^{(1)}(k^Xld)\left((-1)^qe^{ik_1^Xld}+e^{-ik_1^Xld}\right),
+\end{equation}
+and indeed, separating the $k_1^X$ real and imaginary inevitably leads to at least one growing exponential term in the series, leading to it being unable to converge, up to our study. 
 
-- surface and guided waves
-- gm
-\begin{itemize}
-    \item Reflection and transmission coefficient of a porous layer ? should involve some numerics
-\end{itemize}
+The wfe as well as \acrshort{fem} has also been widely applied to these geoemetries. Their modularity and versatility lead them to be good candidates for the modelling of our structure.
+
+We face challenges when trying to model this structure using the tools classically used in the literature, that is COMSOL Multiphysics. Although there are built-in tools in the software for "\emph{Eigenfrequency}" studies, the library aims at solving complex frequencies of the system, given a set of parameters for the wavenumber. As it has been discussed earlier in the chapter, the goal of this work is to solve for complex wavenumbers and real frequencies. Even trying a manual implementation of the model in the "\emph{Weak Form PDE}" interface, the tendency of this software to function as a black box introduces a new degree of complexity to this strategy. While \acrshort{fem} remains the soundest strategy for the modeling of the complex inhomogeneous geometry of the unit cell of metaporous surface, we propose to adapt in-house existing frameworks in order to develop numerical tools in this thesis.  

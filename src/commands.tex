@@ -23,6 +23,10 @@
 \renewcommand{\tilde}[1]{\accentset{\stretchedtilde}{#1}}
 \renewcommand{\hat}[1]{\accentset{\stretchedhat}{#1}}
 
+% nice markers in the figure legends :)
+\DeclareRobustCommand\smallcirclemarker{$~\raisebox{.3pt}{\tikz \draw[line width=0.6pt] circle(2pt);}~$}
+\DeclareRobustCommand\smalltrianglemarker{$~\raisebox{.3pt}{\scalebox{.2}{\tikz \draw[line width=3pt] (0,1)--(-.5,0)--(.5, 0)-- cycle;}}~$}
+
 % colors pour les schémas
 \definecolor{pem}{HTML}{ffc042}
 \definecolor{steel}{HTML}{ffffff}

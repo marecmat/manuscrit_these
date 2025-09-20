@@ -65,35 +65,13 @@ equations, iterative scheme etc.
 \subsection{A complete routine for the automated solving of dispersion relations}
 \begin{figure}[ht!]
     \centering
-    \tikzstyle{case} = [rectangle, rounded corners, text width=3.5cm, minimum height=1cm,text centered, draw=black]
-    \tikzstyle{arrow} = [thick,->]
-    \tikzstyle{arrowlabels} = [midway, fill=white, text width=3cm, rounded corners, text centered, inner sep=5pt]
-    \begin{tikzpicture}[node distance=3cm]
-        \node (params) [text width=4cm] {$\bullet$ Parameters};
-        \node (func) [text width=4cm, below=.1cm of params] {$\bullet$ function determinant};
-        \node (freq) [text width=4cm, below=.1cm of func] {$\bullet$ Given frequency $f_i$};
-        \node[case,fit={(params) (func) (freq)}, inner sep=10pt]  (init) {};
-        % \node (init) [case] {parameter \\function};
-        \node (map) [case, below=1.5cm of init] {Determinant mapping};
-        \node (rootfind) [case, below of=map] {Müller method for each guess};
-        \node (modeshape) [case, below of=rootfind] {Mode shapes};
-        \node (store) [case, left= 1cm of modeshape]{Output and store data};
-        \draw [arrow] (init) -- (map)node[arrowlabels] {{\color{accent} if no guesses}};
-        \draw [arrow] (init) -- ++ (-4, 0)  -- ++ (0, -6.7) node[arrowlabels] {{\color{accent} if guesses}}-- (rootfind) ;
-        \draw [arrow] (map) -- (rootfind)node[arrowlabels] {local minima used as guesses};
-        \draw [arrow] (rootfind) -- (modeshape)node[arrowlabels, text width=.8cm] (roots) {roots};
-        \draw [arrow] (roots) -- ++ (3.7,0) -- node[arrowlabels] {{\color{accent} if not enough found roots} (only once)} ++ (0,4.5) -- (map);
-        \draw [arrow] (roots) -- ++ (6.8,0) -- node[arrowlabels] {{\color{accent} if enough found roots} use as guesses and go to next frequency $f_{i+1}$} ++ (0,8.2) -- (init);
-        \draw[arrow] (roots) -- ++ (-4.78, 0) -- ++ (0, -.8) -- (store);
-        \draw[arrow] (modeshape) -- (store);
-    \end{tikzpicture}
+    \input{chapitres/annexes/figs/muller_schema.tex}
     \caption{Description of the routine}
 \end{figure}
 
 
-
 In order to find solutions for modes in the form of complex wavenumbers $k_{1}$, we use the previously derived system from Eq.~(\ref{eq:final_system}), that can also be expressed as $\mbf M(k_1, \omega) \mbf S = 0$. The modes are found by finding the discrete set of $k_1$ that satisfy the singularity of $\mbf M$ using Eq.~\ref{eq:M_det}
 
-In practice, these solutions are found using a root-finding procedure, our own implementation of the Müller method \cite{muller1956}. It is based on a parabolic interpolation to iteratively finds complex wavenumber solutions $k_1$ given a specific frequency $\omega$ from three initial guesses. Therefore, care has to be put into the initialization of the method. Since the system $\mbf M$ is constructed from a finite elements scheme, computations will be all the more costly that a large number of iterations need to run before convergence is reached. The convergence criterion checks that threshold of the variation of the solution is below $\varepsilon$. In this paper, this criterion is taken with a magnitude around $\varepsilon = 10^{-13}$. Thus, the initialization of the method is done by evaluating the local minimas of a coarse mapping of the function in the complex plane. The latter is only computed every few frequency steps to save computation time. Additionnaly, the matrix $\mbf D_{ii}$ from Eq.~(\ref{eq:discrete_system}) does not depend on $k_1$ and can thus be only evaluated once per frequency step, thus saving valuable computing resourses. 
+In practice, these solutions are found using a root-finding procedure, our own implementation of the Müller method \cite{muller1956}. It is based on a parabolic interpolation to iteratively finds complex wavenumber solutions $k_1$ given a specific frequency $\omega$ from three initial guesses. Therefore, care has to be put into the initialization of the method. Since the system $\mbf M$ is constructed from a finite elements scheme, computations will be all the more costly that a large number of iterations need to run before convergence is reached. The convergence criterion checks that threshold of the variation of the solution is below $\varepsilon$. In this paper, this criterion is taken with a magnitude around $\varepsilon = 10^{-13}$. Thus, the initialization of the method is done by evaluating the local minimas of a coarse mapping of the function in the complex plane. The latter is only computed every few frequency steps to save computation time. Additionally, the matrix $\mbf D_{ii}$ from Eq.~(\ref{eq:discrete_system}) does not depend on $k_1$ and can thus be only evaluated once per frequency step, thus saving valuable computing resourses. 
 
 Once the set of solutions has been obtained, each of the associated mode shapes can also be retrieved. Given a specific root $k_{1,j}$ that satisfies $\mathrm{det}(\mbf M) = 0$, there is $\mbf M(k_{1,j}) \mbf S = 0$, where the vector $\mbf S = \mathrm{ker}(\mbf M(k_{1,j}))$ is the nullspace of the matrix. In practice, the nullspace is computed using singular value decomposition (SVD), $\mbf M = \mbf U \mbf \Sigma \mbf V^\dagger$. The last right singular vectors, that is the last row of $\mbf V^\dagger$ provide an orthonormal basis for the null space of $\mbf M$, associated to the singular value $\sigma = \mathrm{min}(\mbf \Sigma)$. All state vectors among which $S^t$ and $S^b$ are obtained by selecting the appropriate rows of $\mbf V^*$. By doing the whole procedure backwards, using Eq.~(\ref{eq:condensation_dof}) and then Eq.~(\ref{eq:periodicity}), we can retrieve the full degrees of freedom vector $\mbf p$ (and normalized as $ (p^i(x_1, x_2)/p^i(0, h) )e^{ik_1 x_1}$).

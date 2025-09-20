@@ -39,6 +39,7 @@
 \renewcommand{\cite}{\supercite}
 
 \RequirePackage[labelfont=bf,justification=centering,footnotesize]{caption}
+% \RequirePackage{tocloft}
 \RequirePackage[explicit]{titlesec}   
 \RequirePackage[
     colorlinks=true,
@@ -46,33 +47,17 @@
     citecolor=accent,
     linkcolor=accent,
     ]{hyperref}
-
-\RequirePackage{titletoc}   
-\RequirePackage{fancyhdr}  
-\RequirePackage{amssymb}  
-\RequirePackage{amsmath}  
-\RequirePackage{amsthm}
-\RequirePackage{array} 
-\RequirePackage{tabularx}   
-\RequirePackage{graphicx}  
-\RequirePackage{pdfpages}
-\RequirePackage{enumitem}
-\RequirePackage{nicematrix}
-\RequirePackage{tikz}       
-\usetikzlibrary{patterns, patterns.meta, calc, arrows.meta, 
+\RequirePackage{titletoc,}   
+\RequirePackage{fancyhdr,epigraph,enumitem,nicematrix}  
+\RequirePackage{amssymb,amsmath,amsthm}  
+\RequirePackage{graphicx,tabularx,array,tikz}   
+\usetikzlibrary{patterns, patterns.meta, calc, arrows, arrows.meta, 
                 external, decorations.pathmorphing, positioning,
                 fit, shapes, }
-\RequirePackage{microtype}  
-\RequirePackage{etoolbox}
-\RequirePackage{epigraph}
-\RequirePackage{indentfirst}
-\RequirePackage{multicol}
-
+\RequirePackage{pdfpages,indentfirst,microtype,etoolbox,multicol}  
 % \RequirePackage{layout/jabbrv} % https://github.com/compholio/jabbrv
-
-%% FOR CHAPTER GM
-\RequirePackage{cleveref}
-\RequirePackage{subcaption}
+%% FOR CHAPTER GM 
+\RequirePackage{cleveref,subcaption}
 \RequirePackage{chapitres/article_GM/od}
 %% CHAPTER DISP
 \newenvironment*{widetext}{}{}
@@ -83,14 +68,20 @@
 \pretocmd{\@epitext}{\em}{}{}
 \apptocmd{\@epitext}{\em}{}{}
 \patchcmd{\epigraph}{\@epitext{#1}\\}{\@epitext{#1}\\[\epitextskip]}{}{}
+\renewcommand*\l@section{\@dottedtocline{1}{1em}{2em}}
+\renewcommand*\l@subsection{\@dottedtocline{2}{4em}{3em}}
+\renewcommand*\l@subsubsection{\@dottedtocline{3}{9em}{2em}}
 \makeatother
+
+
 \setlength\epigraphrule{0pt}
 \setlength\epitextskip{2ex}
 \setlength\epigraphwidth{.45\textwidth}
 
 \ifshowpretty
     % Formatage des titres de chapitres, section ... seulement si l'option pretty est passée au package
-        \typeout{JOLIE MISE EN PAGE}
+    \typeout{JOLIE MISE EN PAGE}
+
         \titleformat{\chapter}[block]
             {\flushleft}
             {\thechapter\tikzexternaldisable
@@ -203,6 +194,7 @@
         \vskip 4em}
         \makeatother
 
+        % \renewcommand*{\cftsubsubsecindent}{2em} % reduce indent of subsubsection titles 
         % Write chapters as chapters in the toc
         \titlecontents{chapter}[0pt]
         {\bfseries}{\textsc{\chaptername}\ \thecontentslabel:\quad}
@@ -291,7 +283,9 @@
 %     \setunit*{\addspace}%
 %     \usebibmacro{date}}%
 %   \newunit}
+
 \renewcommand{\figurename}{Fig.}
+
 \makeatletter
 \renewcommand{\thefigure}{\arabic{chapter}.\arabic{figure}}
 \renewcommand\listoffigures{%
@@ -305,4 +299,5 @@
   \@starttoc{lot}%
 }
 \makeatother
+
 \tikzexternalize[optimize=true, optimize command away=\includepdf]%prefix=./tikzbuild/]
