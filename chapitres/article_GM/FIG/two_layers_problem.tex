@@ -38,12 +38,9 @@
 
 
 \node at (-0.20,\ycore+0.7) {Homogeneous layer};
-\node at (1.10,0) {cell};
 \draw [thick] (-1.1*\d, -\ycore) -- (1.1*\d, -\ycore);
 \draw [thick] (-1.1*\d, \ycore)  -- (1.1*\d, \ycore);
-\node at (-1.50,0) {Periodic};
-\node at (1.10,0) {cell};
-\node at (0,0) {\includegraphics[width=1.5cm]{LOGO_RS_IAGS.png}};
+\draw[thick, fill=white] plot[smooth cycle,tension=.6] coordinates {(-.8,-.5) (-.3,.5) (.2, .5) (.8,-.2)(.5,-.7)};
 %% Layers 
 
 

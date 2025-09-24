@@ -80,7 +80,6 @@
     \typeout{JOLIE MISE EN PAGE}
         \RequirePackage{./src/faune}
         \newfontfamily\titlestyle{Faune}
-        
         \titleformat{\chapter}[block]
             {\flushleft}
             {\thechapter\tikzexternaldisable

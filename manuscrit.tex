@@ -1,9 +1,8 @@
-\documentclass[
- % pretty
-]{src/thesis}
+\documentclass[pretty]{src/thesis}
 \hbadness=20000
+
 \graphicspath{
-    {chapitres/article_GM/figures}
+    {chapitres/article_GM/}
     {chapitres/article_JAP/figures/} 
     {chapitres/article_DISP}
     {chapitres/annexes/figs}
@@ -13,18 +12,18 @@
 
 \addbibresource[datatype=bibtex]{chapitres/article_GM/comparison.bib}
 \addbibresource[datatype=bibtex]{src/biblio.bib}
-% \addbibresource[datatype=bibtex]{src/biblio_biblio.bib}
+
+\addbibresource[datatype=bibtex]{src/biblio_biblio.bib}
 
 \input{src/glossaries.tex}
 \input{src/commands.tex}
 
 \begin{document}
-
 % \input{chapitres/title.tex}
-% \input{chapitres/contents.tex}
 % \input{chapitres/abstract_ack.tex}
+\input{chapitres/contents.tex}
 
-% \input{chapitres/intro/intro.tex}
+\input{chapitres/intro/intro.tex}
 \input{chapitres/chap1/chap1.tex}
 
 % \input{chapitres/article_GM/main.tex}
@@ -32,7 +31,6 @@
 % \input{chapitres/article_DISP/main.tex}
 
 % \input{chapitres/conclusion.tex}
-% \input{chapitres/annexes/main_appendix.tex}
+\input{chapitres/annexes/main_appendix.tex}
 \input{chapitres/refs.tex}
-
 \end{document}  
