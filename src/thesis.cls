@@ -17,8 +17,6 @@
 \definecolor{accent}{HTML}{620059} %{685494}% {a33c34}
 \RequirePackage{geometry}   
 \geometry{a4paper, left=2.5cm, right=2cm, top=2cm, bottom=2cm}
-\RequirePackage{./src/faune}
-\newfontfamily\titlestyle{Faune}
 
 %% PACKAGES
 \RequirePackage[
@@ -81,6 +79,8 @@
 \ifshowpretty
     % Formatage des titres de chapitres, section ... seulement si l'option pretty est passée au package
     \typeout{JOLIE MISE EN PAGE}
+    \RequirePackage{./src/faune}
+    \newfontfamily\titlestyle{Faune}
 
         \titleformat{\chapter}[block]
             {\flushleft}

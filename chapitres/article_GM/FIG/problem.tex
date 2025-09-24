@@ -33,34 +33,35 @@
 \begin{tikzpicture}
 
 %% Geometrical axes 
-
-\draw [thin, ->] (-1.1*\d, \yxaxis)  -- (1.1*\d,   \yxaxis) node [right] {$x$};
+\draw [thin, ->] (-\d, \yxaxis)  -- (\d+.5,   \yxaxis) node [right] {$x$};
 \draw [thin] (-\d, \yxaxis)  -- (-\d, \yxaxis-0.1) node [below] {$0$};
 \draw [thin] (\d, \yxaxis+0.1)  -- (\d, \yxaxis-0.1) node [below] {$D$};
-\draw [thin,->] (-\d, \yxaxis)  -- (-\d, \yxaxis+0.5) node [above] {$y$};
+\draw [thin,->] (-\d, \yxaxis)  -- (-\d, \ytop+.5) node [above] {$y$};
 %% FEM Core
-\draw [thick] (-1.1*\d, -\ycore) -- (1.1*\d, -\ycore);
-\draw [thick] (-1.1*\d, \ycore)  -- (1.1*\d, \ycore);
-\node at (-1.50,0) {Periodic};
-\node at (1.10,0) {cell};
-\node at (0,0) {\includegraphics[width=1.5cm]{LOGO_RS_IAGS.png}};
-%% Layers 
-\draw [-] [gray, thin] (-1.1*\d, \yone)  -- (1.1*\d,   \yone) ;
-\draw [-] [gray, thin] (-1.1*\d, \nyone)  -- (1.1*\d,  \nyone) ;
-\draw [-] [gray, thin] (-1.1*\d, \ytwo)  -- (1.1*\d,   \ytwo) ;
-\draw [-] [gray, thin] (-1.1*\d, \nytwo)  -- (1.1*\d,  \nytwo) ;
-\draw [-] [gray, thin] (-1.1*\d, \ythree)  -- (1.1*\d,   \ythree) ;
-\draw [-] [gray, thin] (-1.1*\d, \nythree)  -- (1.1*\d,  \nythree) ;
+\draw [thick] (-\d, -\ycore) -- (\d, -\ycore);
+\draw [thick] (-\d, \ycore)  -- (\d, \ycore);
+\draw[fill=gray!10!white] (-\d,-1) rectangle (\d, 1) node[below left] {$\Omega$};
+\draw[thick, fill=white] plot[smooth cycle,tension=.6] coordinates {(-.8,-.5) (-.3,.5) (.2, .5) (.8,-.2)(.5,-.7)};
+
+% %% Layers 
+\draw [-] [gray, thin] (-1*\d, \yone)  -- (1*\d,   \yone) ;
+\draw [-] [gray, thin] (-1*\d, \nyone)  -- (1*\d,  \nyone) ;
+\draw [-] [gray, thin] (-1*\d, \ytwo)  -- (1*\d,   \ytwo) ;
+\draw [-] [gray, thin] (-1*\d, \nytwo)  -- (1*\d,  \nytwo) ;
+\draw [-] [gray, thin] (-1*\d, \ythree)  -- (1*\d,   \ythree) ;
+\draw [-] [gray, thin] (-1*\d, \nythree)  -- (1*\d,  \nythree) ;
 
 %% Periodic boundaries
-\draw [dashed] (-\d, \ybottom) -- (-\d, \ytop);
-\draw [dashed] ( \d, \ybottom) -- ( \d, \ytop);
+\draw [dashed] (-\d, \ybottom) -- (-\d, \ytop) node[midway, rotate=90, above] {Floquet-Bloch};
+\draw [dashed] ( \d, \ybottom) -- ( \d, \ytop) node[midway, rotate=270, above] {Floquet-Bloch};
 
 %% Top and bottom boundaries
-\draw [-] [thick] (-1.1*\d, \ytop) -- (1.1*\d, \ytop) node [above, midway]{Termination condition};
-\draw [-] [thick] (-1.1*\d, \ybottom) -- (1.1*\d, \ybottom);
-\node at (-\d, \ytop) [above, gray] {Termination interface};
-\node at (-\d, \ybottom) [below, gray] {Incident interface};
+\draw [-] [thick] (-\d-.3, \ytop) node[left] {$H$}-- (\d, \ytop) ;
+\draw [-] [thick] (-\d-.3, \ybottom) node[left] {$0$} -- (\d, \ybottom) ;
+\node at (-\d, \ytop) [above right, gray] {Termination interface};
+\node at (-\d, \ybottom) [below right, gray] {Incident interface};
+
+\draw[cyan, dashed, thick] (-\d,-1) node[above right]{$\Gamma$} rectangle (\d, 1);
 
 % \draw [-] (-\d, \ybottom) -- (\d, \ybottom);
 % \draw [dashed] (-\d, 0) -- (-\d, \ycore);
