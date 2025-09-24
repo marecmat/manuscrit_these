@@ -18,6 +18,7 @@ Porous media is a category of materials which encompasses naturally occuring sub
 In the so-called rigid-frame approximation, the skeleton of the porous material is considered motionless. Therefore, the pore walls are rigid walls and the material can be modeled as an \emph{equivalent fluid} which possesses complex effective properties in order to model the losses mechanisms. A harmonic acoustic propagation is assumed with a positive time convention $e^{\im \omega t}$ troughout this manuscript (with the exception of Chapter~\ref{chap:jap}). The Helmholtz equation governs the propagation,
 \begin{equation}
     (\nabla^2 + k_{eq}^2) p(\mbf x) = 0,
+    \label{eq:chap1_helmholtz}
 \end{equation}
 where $p$ is the pressure field and $k_{eq}$ is the wavenumber of the equivalent fluid.
 In the case where porous or fibrous materials have a porosity close to 1 and the frequency range of interest is limited, the Delany-Bazley model was originally developed in 1970 to propose empirical expressions for the values of the complex wavenumber and characteristic impedances \cite{delany1970, allard2009} and later improved by Miki \cite{miki1990}. Although limited in accuracy and validity domain, these models has been widely used since it only required the flow resistivity of the porous material. Later on, a more precise semi-phenomenological model additionally accounting for the viscous and inertial dissipative effects was developed from 1987 to 1991. It is the \acrfull{jca} model which models the complex effective density $\rho_{eq}(\omega)$ accounts for the frequency dependant viscous losses and effective bulk modulus of the material $K_{\text{eq}}$ accounting for thermal exchanges in the layer as,
@@ -41,7 +42,7 @@ The Biot poroelastic equations from the original 1956 formulation \cite{biot1954
         \mbf \nabla \cdot \mbf \sigma_s (\mbf u_s, \mbf u_f) &= - \omega^2 \tilde{\rho_{11}} \mbf u_s - \omega^2 \tilde{\rho_{12}} \mbf u_f,\\
         \mbf \nabla \cdot \mbf \sigma_f (\mbf u_s, \mbf u_f) &= - \omega^2 \tilde{\rho_{12}} \mbf u_s - \omega^2 \tilde{\rho_{22}} \mbf u_f,\\
     \end{aligned}
-    \label{eq:motion_usuf}
+    \label{eq:chap1_biot}
 \end{equation}
 where $\mbf \sigma^s$ is the solid stress tensor, $\mbf \sigma^f$ the fluid stress tensor and the apparent densities of the solid-phase is $\tilde{\rho_{11}}$, that of the fluid is $\tilde{\rho_{22}}$ and the coupling apparent density is $\tilde{\rho_{12}}$. They are complex quantities expression that also account for the contribution of viscous forces and are given as, 
 \begin{equation}
@@ -114,13 +115,15 @@ The propagation characteristics, i.e. wavenumbers of the waves propagating in po
 
 \section{Modelling of the wave propagation in homogeneous layers}
 
-In the previous section, a formulation for rigid-frame porous media and two formulations for poroelastic media modelling have been presented. Concluding the presentation of these motion equations, some characteristics of the wave propagation in unbounded porous and poroelastic media have been shown. The present section proposes the introduction of a geometry, that is to say boundaries or interface conditions delimiting different domains characterized each by a different type of material. Generally, the configurations studied in this work assume a monochromatic plane wave originated from a fluid half-space, i.e. air, which impinges at the surface of a structure and is scattered (reflected and transmitted) through each interface. If the material in which the wave propagates is bounded by two parallel, free, and flat surfaces, i.e., a plate, then it is refered to as a layer. The waves supported by the medium propagate by reflecting alternatively from one surface to the other; they are said to be guided along the layer. These observations of successive reflections and refractions lead to the concept of waveguides, but their analytical descriptions often leads to writing complex system that can be difficult to solve. To determine the modes of a structure, one must seek to solve the propagation equations and the boundary conditions imposed at its boundaries. In a first section, the scattering of a plane wave by a homogeneous porous layer is investigated along with the various method available. Next, the methods for the computation of the modes of these configurations are presented. In a subsequent section, more complex geometries, those of metaporous structures, are of interest and both methods for the computation of the scattering coefficients and the modes of those configurations will be discussed.
+In the previous section, a formulation for rigid-frame porous media and two formulations for poroelastic media modelling have been presented. Concluding the presentation of these motion equations, some characteristics of the wave propagation in unbounded porous and poroelastic media have been shown. The present section proposes the introduction of a geometry, that is to say boundaries or interface conditions delimiting different domains characterized each by a different type of material. Generally, the configurations studied in this work assume a monochromatic plane wave originated from a fluid half-space, i.e. air, impinging at the surface of a structure and is then scattered (reflected and transmitted) from and through each interface. The existence of an interface leads to the propagation of not only the bulk waves but also of so-called surface waves \cite{stuff} where the interface itself acts as the support for propagation. These types of waves propagate along the interface. An example can be surface water waves that follow the interface between air and water; all the energy is localized at the interface. A similar behaviour exist for seismic waves Rayleigh (longitudinal motion) and Love waves (transverse motion) which both show an energy decaying with depth.    
 
-    \subsection{Global Method: plane wave modelling}
+If the material in which the wave propagates is bounded by two parallel, free, and flat surfaces, i.e., a plate, then it is refered to as a layer. The waves supported by the medium propagate by reflecting alternatively from one surface to the other; they are said to be guided along the layer. These observations of successive reflections and refractions lead to the concept of waveguides, but their analytical descriptions often leads to writing complex system that can be difficult to solve. To determine the modes of a structure, one must seek to solve the propagation equations and the boundary conditions imposed at its boundaries. In a first section, the scattering of a plane wave by a homogeneous porous layer is investigated along with the various method available. Next, the methods for the computation of the modes of these configurations are presented. In a subsequent section, more complex geometries, those of metaporous structures, are of interest and both methods for the computation of the scattering coefficients and the modes of those configurations will be discussed.
+
+\subsection{Global Method: plane wave modelling}
 \label{ssec:GM}
-The analytical description of the system amounts finally to a linear system built from the interface conditions, which unknown vector are the amplitudes of each of the existing waves in the system. The forcing right-hand side corresponds to the incident plane. The solution of the system yields all unknown amplitudes of the system, in particular the reflection and transmission coefficients. 
 
-Introducing a simple problem, that of the scattering of an incident plate by a porous layer, we present an example of plane wave modelling for a simple system. The system is 2D with coordinates $\mbf x = (x_1, x_2)$ constituted of a porous layer with thickness $h$ and thus two interfaces of infinite extent along $x_1$, there is a fluid-porous interface at $x_1 = h$ and a porous-fluid interface at $x_1 = 0$. Both media of the air half-spaces and porous layer are modeled as fluid, thus the interfaces conditions should impose continuity of the pressure fields and normal particle displacements. 
+\begin{itemize}
+    \item assume a plane wave propagating such that is satisfies the motion equations, e.g. the ones introduced in \cref{eq:chap1_helmholtz} or \cref{eq:chap1_biot}. Introducing a simple problem, that of the scattering of an incident plate by a porous layer, we present an example of plane wave modelling for a simple system. The system is 2D with coordinates $\mbf x = (x_1, x_2)$ constituted of a porous layer with thickness $h$ and thus two interfaces of infinite extent along $x_1$, there is a fluid-porous interface at $x_1 = h$ and a porous-fluid interface at $x_1 = 0$. Both media of the air half-spaces and porous layer are modeled as fluid, thus the interfaces conditions should impose continuity of the pressure fields and normal particle displacements. 
 
 Assuming a $ e^{\im \omega t}$ time-dependance, the incident pressure field originated from the upper domain takes the form of, 
 \begin{equation}
@@ -134,12 +137,16 @@ and that in the lower air domain is,
 \begin{equation}
     p_{0-} = c e^{-ik_1x_1}e^{ik_{2,0} x_2},
 \end{equation}
-with wavenumbers such that they hold for the Snell-Descartes law that states $k_1^2 + k_{2,0}^2 = k_0^2$ and $k_1^2 + k_{2,eq}^2 = k_{eq}^2$
+with wavenumbers such that they hold for the Snell-Descartes law that states $k_1^2 + k_{2,0}^2 = k_0^2$ and $k_1^2 + k_{2,eq}^2 = k_{eq}^2$. 
+Imposing the wavenumber $k_1 = k_0 \sin{\theta}, k_2 = -k_0 \cos{\theta}$, with $\theta$ the angle of incidence,
 The displacement fields are additionally expressed using the momentum equation relating the latter with the pressure fields as $\partial_2 p = -\im \omega \rho_i u_2,\:\: i=$. 
+
+    \item Interface conditions describe the relationships between properties at the boundary between two media, including the continuity or vanishing of given fields.
+    \item if a media is terminated by a surface (e.g. a rigid wall), a constraint should be applied on the fields to represent it, denoted as boundary conditions. For (equivalent) fluids, a hard wall or Neumann-type boundary condition is translated by a vanishing normal particle displacement field along the boundary.  
 \begin{equation}
     p^t(h) = p^l(h), \quad u_{2}^t(h) = u_2^l(h) \quad p^l(0) = p^b(0) \quad _{2}^l(0) = u_2^b(0) 
 \end{equation}
-Imposing the interface conditions leads to the following matrix system, 
+    \item The full analytical description of a system constituted from one or several interfaces can be done by writing a linear system built from the interface conditions, which unknown vector are the amplitudes of each of the existing waves in the system. The forcing right-hand side corresponds to the incident plane. The solution of the system yields all unknown amplitudes of the system, in particular the reflection and transmission coefficients. Imposing the interface conditions leads to the following matrix system, 
 \begin{equation}
     \begin{pmatrix}
         1 & e^{\im k_{2,eq}h}& 0 & -1 \\
@@ -152,7 +159,9 @@ Imposing the interface conditions leads to the following matrix system,
     \label{eq:gm_pres_layer}
 \end{equation}
 \comment{vérifier l'écriture du système.}
-Imposing the wavenumber $k_1 = k_0 \sin{\theta}, k_2 = -k_0 \cos{\theta}$, with $\theta$ the angle of incidence, allows to easily solve the system and obtain all scattered amplitudes $b_+, b_-, a_+$ and $c$. In the case of a rigidly-backed layer, the interface at $x_2=h$ is replaced by a rigid termination, that is $u_2(h) = 0$ and thus the terms depending on $c$ vanishes, since $p_{0-}$ does not exist; this reduces the size of the system. In this case, the reflection coefficient $R$ corresponds to the amplitude $a_+$.
+\end{itemize}
+
+allows to easily solve the system and obtain all scattered amplitudes $b_+, b_-, a_+$ and $c$. In the case of a rigidly-backed layer, the interface at $x_2=h$ is replaced by a rigid termination, that is $u_2(h) = 0$ and thus the terms depending on $c$ vanishes, since $p_{0-}$ does not exist; this reduces the size of the system. In this case, the reflection coefficient $R$ corresponds to the amplitude $a_+$.
 
 A few results for the simple cases of the scattering of a plane wave by a rigidly-backed layer and in a symmetric configurations are represented by the diagrams in Figs~\ref{fig:poroelastic_scattering_ex}a and b and results in Figs~\ref{fig:poroelastic_scattering_ex}c and d, respectively. The GM results are presented by the continuous lines. There, the layer for both porous and PEM are both $h=5$ cm thick and the incident wave propagates with a $\theta=30^o$ angle. The parameters for each material corresponds to the one used in Table~\ref{tab:poroelastic_paramsJAP} from Chapter~\ref{chap:JAP}. The system used to obtain the reflection coefficient for the PEM layer is done in a similar fashion as the equivalent fluid and can be read in the appendices of \cite{weisser2016}.
 

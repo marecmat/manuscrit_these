@@ -1,7 +1,19 @@
-\documentclass[]{src/thesis}
+\documentclass[
+ % pretty
+]{src/thesis}
 \hbadness=20000
+\graphicspath{
+    {chapitres/article_GM/figures}
+    {chapitres/article_JAP/figures/} 
+    {chapitres/article_DISP}
+    {chapitres/annexes/figs}
+    {chapitres/chap1/figs}
+    {chapitres/intro/figures}
+}
 
-\input{src/header.tex}
+\addbibresource[datatype=bibtex]{chapitres/article_GM/comparison.bib}
+\addbibresource[datatype=bibtex]{src/biblio.bib}
+% \addbibresource[datatype=bibtex]{src/biblio_biblio.bib}
 
 \input{src/glossaries.tex}
 \input{src/commands.tex}

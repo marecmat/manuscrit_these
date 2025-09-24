@@ -17,8 +17,6 @@
 \definecolor{accent}{HTML}{620059} %{685494}% {a33c34}
 \RequirePackage{geometry}   
 \geometry{a4paper, left=2.5cm, right=2cm, top=2cm, bottom=2cm}
-\RequirePackage{./src/faune}
-\newfontfamily\titlestyle{Faune}
 
 %% PACKAGES
 \RequirePackage[
@@ -51,8 +49,7 @@
 \RequirePackage{fancyhdr,epigraph,enumitem,nicematrix}  
 \RequirePackage{amssymb,amsmath,amsthm}  
 \RequirePackage{graphicx,tabularx,array,tikz}   
-\usetikzlibrary{patterns, patterns.meta, calc, arrows, arrows.meta, 
-                external, decorations.pathmorphing, positioning,
+\usetikzlibrary{patterns, patterns.meta, calc, arrows, arrows.meta, external, decorations.pathmorphing, positioning,
                 fit, shapes, }
 \RequirePackage{pdfpages,indentfirst,microtype,etoolbox,multicol}  
 % \RequirePackage{layout/jabbrv} % https://github.com/compholio/jabbrv
@@ -81,7 +78,9 @@
 \ifshowpretty
     % Formatage des titres de chapitres, section ... seulement si l'option pretty est passée au package
     \typeout{JOLIE MISE EN PAGE}
-
+        \RequirePackage{./src/faune}
+        \newfontfamily\titlestyle{Faune}
+        
         \titleformat{\chapter}[block]
             {\flushleft}
             {\thechapter\tikzexternaldisable
@@ -300,4 +299,4 @@
 }
 \makeatother
 
-\tikzexternalize[optimize=true, optimize command away=\includepdf]%prefix=./tikzbuild/]
+% \tikzexternalize[optimize=true, optimize command away=\includepdf]%prefix=./tikzbuild/]
