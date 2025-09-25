@@ -45,23 +45,21 @@ The full analytical description of a system constituted from one or several inte
 
 From this expression, the system can simply be solved to obtain all scattered amplitudes $b_+, b_-, a_+$ and $c$. In the case of a rigidly-backed layer, the interface at $x_2=h$ is replaced by a rigid termination. For (equivalent) fluids, a hard wall or Neumann-type boundary condition is translated by a vanishing normal particle displacement field along the boundary, that is $u_2(\Gamma) = 0$. The term depending on $c$ thus vanishes, since $p_{0-}$ does not exist; this reduces the size of the system. In this case, the reflection coefficient $R$ corresponds to the amplitude $a_+$.
 
-A few results for the simple cases of the scattering of a plane wave by a rigidly-backed layer and in a symmetric configurations (with air coupling at both interfaces) are represented by the diagrams in Figs~\ref{fig:poroelastic_scattering_ex}a and b and results in Figs~\ref{fig:poroelastic_scattering_ex}c and d, respectively. The GM results are presented by the continuous lines. There, the layer for both porous and PEM are both $h=5$ cm thick and the incident wave propagates with a $\theta=30^o$ angle. The parameters for each material corresponds to the one used in Table~\ref{tab:poroelastic_paramsJAP} from Chapter~\ref{chap:JAP}. The system used to obtain the reflection coefficient for the PEM layer is done in a similar fashion as the equivalent fluid and can be read in the appendices of \cite{weisser2016}.
-
-The first case, also referenced to as a reflection problem compares the equivalent fluid and the full Biot model response. The two curves follow the same trend but additional effects due to the skeleton motion can be observed on the continuous lines while the equivalent fluid response shows to be smoother. For all configurations, the melamine layer is acoustically transparent at lower frequency and absorption can be noticed at slightly higher frequencies. 
-
-Generally, the application of the Global Method allows to write the propagation of plane waves through any stack of layer, by putting together a matrix system that contains all interface conditions in the system, in the general form,
+This method is denoted in this work as the \acrfull{gm}, since all of the available data is used in the formulation of the problem as the unknowns are all wave amplitudes. As described in Section\ref{sec:gm_chap_pb_direct} of Chapter \ref{chap:pb_direct}, a general formalism can be used for this method and any stack of any layer can be described with the GM, by putting together a matrix system that contains all interface conditions in the system, in the general form,
 \begin{equation}
     \mbf M(\omega) \mbf x = \mbf f,
     \label{eq:sys_gm}
 \end{equation}
+where $\mbf M$ corresponds to the interface conditions involved in the system, $\mbf x$ contain the wave amplitudes and $\mbf f$ is the forcing term, the incident plane wave amplitudes. 
+
+A few results for the simple cases of the scattering of a plane wave by a rigidly-backed layer and in the case of a symmetric configuration (with air coupling at both interfaces) are represented by the diagrams in Figs~\ref{fig:poroelastic_scattering_ex}a and b and results in Figs~\ref{fig:poroelastic_scattering_ex}c and d, respectively. The GM results are presented by the continuous lines. There, the layer for both porous and PEM are both $h=5$ cm thick and the incident wave propagates with a $\theta=30^o$ angle. The parameters for each material corresponds to the one used in Table~\ref{tab:poroelastic_paramsJAP} from Chapter~\ref{chap:JAP}. The system used to obtain the reflection coefficient for the PEM layer is done in a similar fashion as the equivalent fluid and can be read in the appendices of \cite{weisser2016}.
+
+The first case, also referenced to as a reflection problem compares the equivalent fluid and the full Biot model response. The two curves follow the same trend but additional effects due to the skeleton motion can be observed on the continuous lines while the equivalent fluid response shows to be smoother. For all configurations, the melamine layer is acoustically transparent at lower frequency and absorption can be noticed at slightly higher frequencies. 
 
 
-    \subsection{Transfer Matrix Method}
-The widely used method we know today as the \acrfull{tmm}, was initially developed by the works of Thomson \cite{thomson1950} and Haskell \cite{haskell1953}. 
+\subsection{Transfer Matrix Method}
+The widely used method we know today as the \acrfull{tmm}, was initially developed by the works of Thomson \cite{thomson1950} and Haskell \cite{haskell1953} in order to describe elastic wave propagation in multilayer systems. This method can be applied to a range of wave physics among geophysics, quantum mechanics, electromagnetics and obviously acoustics. \acrshort{tmm} allows for an easy multiphysics coupling with interface matrices; its core lies in the evaluation of the state vector that regroups the variables of interest in the system and evaluate them at each interface, which is possible thanks to the interface conditions. Then the physical field amplitudes stored in the state vector are propagated from one layer to the next. The transfer matrix $\mbf T$ relating the pressure and norrmal ddisplacement fields from the bottom (located at $x_2 = 0$) to the top interface (located at $x_2 = h$) of a fluid layer is thus, \cite{bruneau2006}
 
-in order to describe elastic wave propagation in multilayer systems. This method can be applied to a range of wave physics among geophysics, quantum mechanics, electromagnetics and obviously acoustics. This method allows for an easy multiphysics coupling with interface matrices leads to large systems. 
-
-The core of the method is in the evaluation of the state vector that regroups the variables of interest in the system and evaluate them at each interface. propagate the properties stored in the state vector from one layer to the next. An amount of $N$ layers of the same nature are easy to manipulate since $\mbf T_{\mathrm{global}} = \prod_{n=0}^N \mbf T_n$. This method was deep dived in several textbooks among which we propose Refs.~\cite{allard2009, jimenez2021}. It allows for the computation of complex system assembly of elements by introducing additional elements. \cite{doutres2015}. While very versatile, it remains unstable in limit cases at high frequencies or for large thickness of the layers. While the formulation is mathematically exact, the evaluation of the system involves involves finite-precision calculation which leads the very sensitive exponential terms to diverge in the previously specified regimes.
 \begin{equation}
     \begin{pmatrix}
         p(0) \\ u_2(0)
@@ -72,11 +70,16 @@ The core of the method is in the evaluation of the state vector that regroups th
     \end{pmatrix}
     \begin{pmatrix}
         p(h) \\ u_2(h)
-    \end{pmatrix}
-    \end{equation}
-From the evaluation of the transfer matrix of the global system, the scattering matrix can be obtained and thus the reflection and transmission coefficients. 
+    \end{pmatrix}, 
+\end{equation}
+where $k_{eq}$ is the bulk wavenumber of the wave propagating in the equivalent fluid and $Z_{eq}$ is the medium impedances. The extension to \acrshort{pem} makes of a state vector that includes the fields, $ \begin{pmatrix} \hat{\sigma}_{12} & u_2^s & u_2^t & \hat{\sigma}_{22} & p & u_1^s \end{pmatrix}^transp$. More details are given in Chapter 11 of Allard and Atalla textbook \cite{allard2009}.
 
-The absorption coefficient for the same two configurations as the last part is presented in Figs~\ref{fig:poroelastic_scattering_ex}c and d with the markers. It can be seen that the same results are obtained. 
+For stacks of layers, an amount of $N$ layers of the same nature are easy to manipulate since $\mbf T_{\mathrm{global}} = \prod_{n=0}^N \mbf T_n$ since they have the same size. multiphysics with interface matrix that relate the relation between the various fields at an interface (non square matrices). This method was deep dived in several textbooks among which we propose Refs.~\cite{allard2009, jimenez2021} for additional details. The TMM also allows for the computation of complex system by an assembly of elements including admittance matrices in order to consider \acrfull{hr} embedded in an equivalent fluid layer \cite{doutres2015}. 
+
+While very versatile, it remains unstable in limit cases at high frequencies or for large thickness of the layers. While the formulation is mathematically exact, the evaluation of the system involves involves finite-precision calculation which leads the very sensitive exponential terms to diverge in the previously specified regimes. From the evaluation of the transfer matrix of the global system, the scattering matrix can be obtained and thus the reflection and transmission coefficients by simply manipulating the expressions for the fields contained in the state vector with the scattering coefficients to obtain that, 
+
+
+which is only valid for reciprocal and linear assumptions. The absorption coefficient for the same two configurations as the last part is presented in Figs~\ref{fig:poroelastic_scattering_ex}c and d with the markers. It can be seen that the same results (up to the respectrive numerical precision of each method) are obtained. 
 
 \begin{figure}[h!]
     \centering 
