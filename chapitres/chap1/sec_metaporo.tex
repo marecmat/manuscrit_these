@@ -1,44 +1,22 @@
-\section{Methods for modelling metaporous structures}
-        \subsection{Scattering of waves by periodic structures}
-A large literature that shows the enhancement of absortion properties by periodicizing the porous layers with embedded scatterers was discussed in the literature. In this section, a presentation of the fundamental notions surrouding periodic structures is proposed. 
-
-
-The periodicity can be imposed in acoustic systems using the so-called Bloch-Floquet theory. There, the layer of infinite extent is limited to a single unit-cell, able to alone describe the full behaviour of the infinitely repeating periodic cell. 
-
-\begin{itemize}
-    \item reciprocal wavenumber space, limit the study to the first Brillouin zone covering, $k_1 \in [0, \pi/d]$. 
-    \item opening of a Bragg bandgap: conditions of existence in classical metamaterial, can it happen with losses. 
-    \item With these complex geometries comes the need for more advanced tools for the discretization of these structures. Introduce finite elements. 
-    \item soft solids: aberkane phd
-\end{itemize}
-
-            \subsubsection{Media periodization}
-For more complex geometries, we must turn to alternative methods. As the 1D discretization used by the \acrshort{scm} and \acrshort{safe} and the plane wave formalism used in \acrshort{tmm} and the \acrshort{gm} is not capable of providing a description of the geometry of inhomogeneous layers, in our case, the effects of the scatterer in the unit cell on wave propagation. 
-
-Paragraphe on periodic systems
-
-To introduce periodicity in the configurations we have been investigating up to this section, we will first introduce a few fundamental concepts. Periodic structures and lattices are the central topic of crystallography which has been used in various disciplines such as condensed matter. In wave physics, periodic structures have been shown to introduce interesting effects towards applications for wave control and constitute the cornerstone of metamaterials as was shown in the literature presentation in Section \comment{cite sec}. 
-
-For wave phenomena, periodicity was formalised by the Bloch-Floquet theorem. Taking an infinitely repeating lattice or a crystal, the description of the wave propagation in only one of the so-called unit cell, one spatial period of the total structure, is enough to describe the whole structure. A wave function $\psi(\mbf x)$ describing the propagation should thus depend on a spatially periodic field, with the same periodicity as the crystal modulated by the Bloch wavenumber $k_q$, such that,
-
-The scattering of waves by a single unit cell is expressed using a wavefunction that is projected onto an infinite modal basis, the Bloch mode basis.
+\section{Methods for modelling metaporous surfaces and interfaces}
+\subsection{A word on periodic structures}
+A large literature that shows the enhancement of absorption properties by periodicizing porous layers with scatterers was discussed in the introduction. In this section, a presentation of the fundamental notions surrounding periodic structures is proposed. In wave physics, periodic structures have been shown to introduce interesting effects towards applications for wave control and constitute the cornerstone of acoustic metamaterials. The periodicity can be imposed in acoustic systems using the so-called Bloch-Floquet theorem. This formalism has been pioneered by Felix Bloch and Léon Brillouin among others \cite{bloch1929,brillouin1946}. Throughout this manuscript, we consider a periodic cell along only the longitudinal direction, that 1D periodicity which we denote $d$. Taking an infinitely repeating lattice or a crystal, the description of the wave propagation in only one of the so-called unit cell, one spatial period of the total structure, is enough to describe the whole structure. The layer of infinite extent is thus limited to a single unit-cell. A wavefunction $\psi(\mbf x)$ describing the propagation should thus depend on a field with the same spatial periodicity as the lattice. To do so, the wavefunction is projected onto an infinite modal basis, that is Bloch modes,
 \begin{equation}
-​	\psi_q (\mbf x) = e^{\im \mbf k \mbf x}.
+​	\psi_q (\mbf x) = e^{\im k x_1}.
 \end{equation}
+The wavefunction at the left boundary is thus related to that at the right boundary modulated by the spatial periodicity and some translation vector, that is $\psi(x + n d) = \psi(x)e^{\im \mbf k}$. 
 
-Their value at the left boundary is thus related to that at the right boundary modulated by the spatial periodicity and some translation vector.  This formalism forms the fundamental framework for periodic structures in acoustics. These structures have been shown to support bands of frequency where waves are unable to propagate: band gaps. These occur at the Bragg frequency described as $d \sin(\theta) = n \lambda$ corresponding to destructive interference for an incident wave impinging on the structure. There are various phenomena and ways to obtain different types of band gaps \cite{stuff here}.
+The possibility of reduction of the spatial considerations of the problem also leads to a reduction of the reciprocal wavenumber space. In periodic structure, we often restrict this reciprocal space to the first Brillouin zone, that is to wavenumbers restricted to $k_1 \in [0, \pi/d]$ when looking at the band structure. The consequences of periodic media are directly observable in the band structure: bands are usually folded when the wavenumber reaches this limit of the reciprocal space. This folding occurs at the Bragg frequency corresponds to a relation between the wavelength $\lambda$ of the excitation signal and the periodicity of the crystal lattices, $d \sin(\theta) = n \lambda$, with $\theta$ the angle of incidence. This condition corresponds to destructive interferences: this phenomenon is a cause of the appearance of the famous bandgaps; in these bands of frequency, waves are unable to propagate. \comment{more on bg and stuff}\cite{stuff here}.
 
+\subsection{Scattering of waves by periodic structures: overview of methods}
+Analytical methods for the evaluation of the wave propagation in periodic structures often require tedious derivations, as the frequency regimes of interest is usually high enough to require the description of the multiple scattering happening in the structure. The scatterer of the unit cell onto which the incident wave impinges acts as a secondary source, which scattered field is successively scattered by each neighboring obstacles and so on. \acrlong{mst} is a theoretical framework that has been developed to account for these phenomena and was used to compute the acoustic response of metaporous structures with rigid inclusions \cite{groby2011} and metaporoelastic surfaces with solid and shell inclusions \cite{weisser2016}. Both configurations have been tuned to show a perfect absorption peak in the frequency spectrum. 
 
-            \subsubsection{Overview of the methods}
-\acrlong{mst} is an analytical formalism developed for this purpose and is able to account for the scattering of each of the neighbouring obstacles. Tedious theoretical framework, shown to compute the acoustic response of metaporous \cite{groby2011} and metaporoelastic surfaces\cite{weisser2016}. 
+The remaining papers discussing how incident pressure fields are affected and scattered by metaporous structures use \acrshort{fem}, for the most part through the interface of Comsol Multiphysics. This very versatile and powerful method has been used for decades in all fields of physics and thus won't be detailed in this thesis. It is recommended to the reader as an introduction on the basis of \acrshort{fem}, the textbooks from {Atalla} and {Sgard}\cite{atalla2015} related to acoustics and vibration problems and that of Dhatt \etal for higher-order finite elements problems\cite{dhatt2005}. This method allows for the discretization of the geometry via a mesh in order to solve the appropriate motion equations. This has allowed to use rather complex geometries, e.g spirals \cite{zhong2019} and labyrinthine paths \cite{liuAcousticLabyrinthinePorous2021} as scatterers embedded in porous layers as discussed in the state of the art. Additionally, Gaborit \etal \cite{gaborit2018} have developed a method in order to couple \acrshort{fem} with Bloch modes expansion of analytical fields described by \acrshort{tmm}. They have used it to compute the scattering coefficients of structure that include a periodic cell sandwiched by homogeneous layers with an embedded inclusion.
 
-\acrshort{fem} flexible and powerful able to 
+\subsection{Dispersion relations and band structure in periodic lattices}
+One of the most popular methods for the computation of band structures in periodic systems made of classical lossless materials are the \acrfull{pwe} which is semi-analytical. It relies on a formulation\comment{say stuff about it}. \acrfull{epwe} was generalized to obtain also the evanescent Bloch modes in Ref.~\cite{schalcher2023}, allowing for complex dispersion diagram investigation. 
 
-    \subsection{Dispersion relations and band structure in periodic lattices}
-
-Most popular methods for the computation of band structure in 2D periodic systems made of classical lossless materials are the \acrfull{pwe} which is semi-analytical. It relies on a formulation...
-\acrfull{epwe} was generalized to obtain also the evanescent Bloch modes in Ref.\cite{schalcher2023}, allowing for complex dispersion diagram investigation.
-The complexity of the system prohibits the use of such semi-analytical methods.
+The complexity of the system prohibits the use of such semi-analytical methods. For more complex geometries, we must turn to alternative methods. As the 1D discretization used by the \acrshort{scm} and \acrshort{safe} and the plane wave formalism used in \acrshort{tmm} and the \acrshort{gm} is not capable of providing a description of the geometry of inhomogeneous layers, in our case, the effects of the scatterer in the unit cell on wave propagation. 
 
 \subsubsection{Unpromising adaptation of existing methods}
 Multiple scattering could also be considered. However, it has been successfully used to describe the acoustic scattering of periodically arranged rigid inclusions in equivalent fluid unit cells \cite{groby2011} as well as solid inclusions in a poroelastic unit cell\cite{weisser2016}. However, the so-called Schlömilch series that appear in the calculation, from the effect of the scattering of the neighboring cylindrical inclusions appear to be not so manipulable when considering complex longitudinal wavenumbers. Its expression is  
@@ -50,3 +28,10 @@ and indeed, separating the $k_1^X$ real and imaginary inevitably leads to at lea
 The \acrshort{wfe} as well as \acrshort{fem} has also been widely applied to these geoemetries. Their modularity and versatility lead them to be good candidates for the modelling of our structure.
 
 We face challenges when trying to model this structure using the tools classically used in the literature, that is COMSOL Multiphysics. Although there are built-in tools in the software for "\emph{Eigenfrequency}" studies, the library aims at solving complex frequencies of the system, given a set of parameters for the wavenumber. As it has been discussed earlier in the chapter, the goal of this work is to solve for complex wavenumbers and real frequencies. Even trying a manual implementation of the model in the "\emph{Weak Form PDE}" interface, the tendency of this software to function as a black box introduces a new degree of complexity to this strategy. While \acrshort{fem} remains the soundest strategy for the modeling of the complex inhomogeneous geometry of the unit cell of metaporous surface, we propose to adapt in-house existing frameworks in order to develop numerical tools in this thesis.  
+
+
+\section{trucs à rajouter jsp où}
+
+summary of all thesis of aberkane (soft solids), magliacano (disp w fem of closed system with porous layers), + gaborit et voir pour les autres 
+
+à distribuer au cours du chapitre 
