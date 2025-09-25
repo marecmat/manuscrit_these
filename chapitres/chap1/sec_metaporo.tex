@@ -1,0 +1,49 @@
+\section{Methods for modelling metaporous structures}
+        \subsection{Scattering of waves by periodic structures}
+As has been studied in the introduction, a large literature exists showing the enhancement of absortion properties by periodicizing the porous layers with embedded scatterers. Periodicity can be imposed in acoustic systems using the so-called Bloch-Floquet theory. There, the layer of infinite extent is limited to a single unit-cell, able to alone describe the full behaviour of the infinitely repeating periodic cell. 
+
+\begin{itemize}
+    \item reciprocal wavenumber space, limit the study to the first Brillouin zone covering, $k_1 \in [0, \pi/d]$. 
+    \item opening of a Bragg bandgap: conditions of existence in classical metamaterial, can it happen with losses. 
+    \item With these complex geometries comes the need for more advanced tools for the discretization of these structures. Introduce finite elements. 
+    \item soft solids: aberkane phd
+\end{itemize}
+
+            \subsubsection{Media periodization}
+For more complex geometries, we must turn to alternative methods. As the 1D discretization used by the \acrshort{scm} and \acrshort{safe} and the plane wave formalism used in \acrshort{tmm} and the \acrshort{gm} is not capable of providing a description of the geometry of inhomogeneous layers, in our case, the effects of the scatterer in the unit cell on wave propagation. 
+
+Paragraphe on periodic systems
+
+To introduce periodicity in the configurations we have been investigating up to this section, we will first introduce a few fundamental concepts. Periodic structures and lattices are the central topic of crystallography which has been used in various disciplines such as condensed matter. In wave physics, periodic structures have been shown to introduce interesting effects towards applications for wave control and constitute the cornerstone of metamaterials as was shown in the literature presentation in Section \comment{cite sec}. 
+
+For wave phenomena, periodicity was formalised by the Bloch-Floquet theorem. Taking an infinitely repeating lattice or a crystal, the description of the wave propagation in only one of the so-called unit cell, one spatial period of the total structure, is enough to describe the whole structure. A wave function $\psi(\mbf x)$ describing the propagation should thus depend on a spatially periodic field, with the same periodicity as the crystal modulated by the Bloch wavenumber $k_q$, such that,
+
+The scattering of waves by a single unit cell is expressed using a wavefunction that is projected onto an infinite modal basis, the Bloch mode basis.
+\begin{equation}
+​	\psi_q (\mbf x) = e^{\im \mbf k \mbf x}.
+\end{equation}
+
+Their value at the left boundary is thus related to that at the right boundary modulated by the spatial periodicity and some translation vector.  This formalism forms the fundamental framework for periodic structures in acoustics. These structures have been shown to support bands of frequency where waves are unable to propagate: band gaps. These occur at the Bragg frequency described as $d \sin(\theta) = n \lambda$ corresponding to destructive interference for an incident wave impinging on the structure. There are various phenomena and ways to obtain different types of band gaps \cite{stuff here}.
+
+
+            \subsubsection{Overview of the methods}
+\acrlong{mst} is an analytical formalism developed for this purpose and is able to account for the scattering of each of the neighbouring obstacles. Tedious theoretical framework, shown to compute the acoustic response of metaporous \cite{groby2011} and metaporoelastic surfaces\cite{weisser2016}. 
+
+\acrshort{fem} flexible and powerful able to 
+
+    \subsection{Dispersion relations and band structure in periodic lattices}
+
+Most popular methods for the computation of band structure in 2D periodic systems made of classical lossless materials are the \acrfull{pwe} which is semi-analytical. It relies on a formulation...
+\acrfull{epwe} was generalized to obtain also the evanescent Bloch modes in Ref.\cite{schalcher2023}, allowing for complex dispersion diagram investigation.
+The complexity of the system prohibits the use of such semi-analytical methods.
+
+\subsubsection{Unpromising adaptation of existing methods}
+Multiple scattering could also be considered. However, it has been successfully used to describe the acoustic scattering of periodically arranged rigid inclusions in equivalent fluid unit cells \cite{groby2011} as well as solid inclusions in a poroelastic unit cell\cite{weisser2016}. However, the so-called Schlömilch series that appear in the calculation, from the effect of the scattering of the neighboring cylindrical inclusions appear to be not so manipulable when considering complex longitudinal wavenumbers. Its expression is  
+\begin{equation}
+    \sigma_q^X=\sum_{l=1}^\infty H_q^{(1)}(k^Xld)\left((-1)^qe^{ik_1^Xld}+e^{-ik_1^Xld}\right),
+\end{equation}
+and indeed, separating the $k_1^X$ real and imaginary inevitably leads to at least one growing exponential term in the series, leading to it being unable to converge, up to our study. 
+
+The \acrshort{wfe} as well as \acrshort{fem} has also been widely applied to these geoemetries. Their modularity and versatility lead them to be good candidates for the modelling of our structure.
+
+We face challenges when trying to model this structure using the tools classically used in the literature, that is COMSOL Multiphysics. Although there are built-in tools in the software for "\emph{Eigenfrequency}" studies, the library aims at solving complex frequencies of the system, given a set of parameters for the wavenumber. As it has been discussed earlier in the chapter, the goal of this work is to solve for complex wavenumbers and real frequencies. Even trying a manual implementation of the model in the "\emph{Weak Form PDE}" interface, the tendency of this software to function as a black box introduces a new degree of complexity to this strategy. While \acrshort{fem} remains the soundest strategy for the modeling of the complex inhomogeneous geometry of the unit cell of metaporous surface, we propose to adapt in-house existing frameworks in order to develop numerical tools in this thesis.  

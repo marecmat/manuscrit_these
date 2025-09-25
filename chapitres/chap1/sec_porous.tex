@@ -1,0 +1,108 @@
+\section{Modelling of porous media}
+\label{sec:porous_models}
+Porous media is a category of materials which encompasses naturally occuring substances such as rocks, soils and biological tissues, and engineered materials like ceramics, metallic foams, rockwool or certain types of polymers. They are considered biphasic, that is constituted of two distinct domains: a pore network $\Omega_f$ filled by a saturating fluid embedded in an elastic matrix $\Omega_s$. A diagram of this microscopic structure is shown in Fig.~\ref{fig:poro_struct}. The porosity is defined as the fraction of fluid over the total volume of the material, as $\phi = V(\Omega_f)/V(\Omega)$. In the limit case, $\phi = 0$ the material becomes purely a solid while at $\phi = 1$, it becomes a fluid. At microscopic scales, the geometry of the fluid phase thus forms a complex microstructure. Fortunately, at airborne acoustic scales, these materials can often be considered at a meso-/macroscopic level and therefore models have been developed to describe the large-scale motion of these materials. In this context, they can be regarded as homogeneous and described by a set of effective parameters that accounts for their complex geometry. The porous structure of these materials causes the incoming acoustic energy to be dissipated through friction (viscous losses) along the duct/pore network, while thermal exchanges and elastic dissipation take place when the skeleton and the fluid phase are coupled. These losses are thus dependant on the geometry, which parametrized by the porosity, the saturating fluid properties, the pore network size, connectivity and shape, as well as the frame mechanical parameters. 
+
+\begin{figure}[h!]
+    \centering
+    \input{chapitres/chap1/figs/porous_schema.tex}
+    \caption{Porous material structure}
+    \label{fig:poro_struct}
+\end{figure}
+
+    \subsection{Rigid-frame approximation}
+In the so-called rigid-frame approximation, the skeleton of the porous material is considered motionless. Therefore, the pore walls are rigid walls and the material can be modeled as an \emph{equivalent fluid} which possesses complex effective properties in order to model the losses mechanisms. A harmonic acoustic propagation is assumed with a positive time convention $e^{\im \omega t}$ troughout this manuscript (with the exception of Chapter~\ref{chap:jap}). The Helmholtz equation governs the propagation,
+\begin{equation}
+    (\nabla^2 + k_{eq}^2) p(\mbf x) = 0,
+    \label{eq:chap1_helmholtz}
+\end{equation}
+where $p$ is the pressure field and $k_{eq}$ is the wavenumber of the equivalent fluid.
+In the case where porous or fibrous materials have a porosity close to 1 and the frequency range of interest is limited, the Delany-Bazley model was originally developed in 1970 to propose empirical expressions for the values of the complex wavenumber and characteristic impedances \cite{delany1970, allard2009} and later improved by Miki \cite{miki1990}. Although limited in accuracy and validity domain, these models has been widely used since it only required the flow resistivity of the porous material. Later on, a more precise semi-phenomenological model additionally accounting for the viscous and inertial dissipative effects was developed from 1987 to 1991. It is the \acrfull{jca} model which models the complex effective density $\rho_{eq}(\omega)$ accounts for the frequency dependant viscous losses and effective bulk modulus of the material $K_{\text{eq}}$ accounting for thermal exchanges in the layer as,
+\begin{equation}
+\begin{aligned}
+ \rho_{\text{eq}}(\omega) &= \frac{\rho_{f} \alpha_{\infty}}{\phi}\left(1+\frac{\im R_f \phi}{\rho_f \alpha_\infty\omega} \sqrt{1- \im  \omega  \rho_{f} \mu_f \left(\frac{ 2\alpha_{\infty}}{R_f \phi \Lambda}\right)^2 }\right),\\
+K_{\text{eq}} &=\frac{\kappa P_{0}}{\phi}\left(\kappa-(\kappa-1)/\left(1+ \cfrac{\im R_f \phi}{\rho_f \alpha_\infty\text{Pr} \omega} \sqrt{1- \im\text{Pr} \omega \rho_{f} \mu_f\left( \frac{ 2\alpha_{\infty}}{R_f \phi \Lambda^{\prime}}\right)^2 }\right)\right)^{-1}. 
+\end{aligned}
+\end{equation}
+These expressions involve a large number of effective parameters for the porous material; $\alpha_\infty$ is the tortuosity, $R_f$ is the flow resistivity, $\Lambda$ and $\Lambda'$ are respectively the viscous and thermal characteristic length. The saturating fluid is characterized in this model by its heat capacity ratio $\kappa$ (commonly also denoted $\gamma$), density $\rho_f$, kinematic viscosity $\mu_f$, pressure $P_0$ and Prandtl number $\mathrm{Pr} = c_p \mu_f/k$ with $c_p$ is the specific heat and $k$ the thermal conductivity. We can introduce also the Biot frequency $\omega_c = R_f \phi/(\rho_f \alpha_\infty)$ that defines the transition frequency between the inertial and viscous regimes.
+
+    \subsection{Elastic motion of the skeleton: Biot theory}
+While the equivalent fluid formalism is able to accurately model porous material in specific sets of conditions, that is when the skeleton can be assumed to be motionless, this assumption can quickly become limited as soon as the said skeleton is subjected to an elastic deformation. This is can be the case when the saturating fluid of the \acrshort{pem} has a high density (e.g. water), when the skeleton is coupled to elastic plates or when the acoustic radiation has a wavelength comparable to the pore scale, although these are just examples. In this situation, the full elastic motion should be modeled, so that to account for the coupling between the solid matrix and its fluid filling. The Biot theory \cite{biot1954,biot1956-1,biot1956,biot1956a}is a formalism that encompasses the theory of the deformation of porous material saturated by an incompressible fluid, used both in geophysics and acoustics. For sake of conciseness, the various models will be briefly be presented along with the relevant physical quantities. A full derivation would be out of scope and is presented in existing works \cite{allard2009}.
+
+Before presenting the full Biot model, some quantities should be provided additionally to the equivalent fluid parameters. The frame is assumed to undergo elastic deformations, thus the common mechanical parameters used are the solid density of the frame material $\rho_s$ as well as its apparent density $\rho_1 = (1-\phi)\rho_s$. The bulk modulii are denoted $K_b$ and $K_s$, respectively for the frame and the material.  The shear modulus is also considered complex, accounting for structural losses as $\tilde{N} = N(1+\im \eta)$ with $\eta$ the loss factor. Symbols written with a tilde denote complex expressions and therefore account for some sort of loss mechanisms. For the fluid, the apparent density is thus $\rho_2 = \phi \rho_f$ and the inertial interaction density defined by $\rho_{12} = - \phi \rho_f(\alpha_\infty - 1)$. A summary on Biot theory is also proposed in Chap.~\ref{chap:jap}) with the tilde symbols omitted for ease of reading.
+
+        \subsubsection{Formulations for the motion equations}
+The Biot poroelastic equations from the original 1956 formulation \cite{biot1954,biot1956,biot1956a} depend on the solid displacement vector $\mbf u_s$ and the fluid displacement $\mbf u_f$,
+\begin{equation}
+    \begin{aligned}
+        \mbf \nabla \cdot \mbf \sigma_s (\mbf u_s, \mbf u_f) &= - \omega^2 \tilde{\rho_{11}} \mbf u_s - \omega^2 \tilde{\rho_{12}} \mbf u_f,\\
+        \mbf \nabla \cdot \mbf \sigma_f (\mbf u_s, \mbf u_f) &= - \omega^2 \tilde{\rho_{12}} \mbf u_s - \omega^2 \tilde{\rho_{22}} \mbf u_f,\\
+    \end{aligned}
+    \label{eq:chap1_biot}
+\end{equation}
+where $\mbf \sigma^s$ is the solid stress tensor, $\mbf \sigma^f$ the fluid stress tensor and the apparent densities of the solid-phase is $\tilde{\rho_{11}}$, that of the fluid is $\tilde{\rho_{22}}$ and the coupling apparent density is $\tilde{\rho_{12}}$. They are complex quantities expression that also account for the contribution of viscous forces and are given as, 
+\begin{equation}
+    \tilde{\rho_{22}} = \phi^2 \tilde{\rho_{eq}}, \quad \tilde{\rho_{12}} = \rho_2 - \tilde{\rho_{22}}, \quad \tilde{\rho_{11}} = \rho_1 - \tilde{\rho_{12}}.
+\end{equation}
+These coupled motion equations are associated to the stress-strain relation, 
+\begin{equation}
+    \begin{aligned}
+        \mbf \sigma_{s,ij} &= \left[ (\tilde P-2\tilde N)\nabla\cdot \mbf u_s + \tilde Q\nabla\cdot \mbf u_f \right] \delta_{ij} + 2\tilde N \mbf \varepsilon_{s, ij},\\
+        \mbf \sigma_{f,ij} &= \left(\tilde Q\nabla\cdot \mbf u^s + \tilde R\nabla\cdot \mbf u_f\right)\delta_{ij} = - \phi p, \\
+    \end{aligned}
+    \label{eq:stress_usuf}
+\end{equation} where $\nabla\cdot \mbf u_s$ and $\nabla\cdot \mbf u^f$ correspond to the dilatation of the solid and fluid phases respectively and $\mbf \varepsilon_s$, is the solid-phase strain tensor. The Biot coefficients are denoted as $\tilde P$ for the solid elastic coefficient, $\tilde Q$ for the elastic-fluid coupling coefficient, and $\tilde R$ for the fluid-phase coefficient. In the context of a \acrshort{pem} saturated by a light fluid, their expressions are
+\begin{equation}
+    \tilde P = K_b + \frac 4 3 N + (1-\phi)^2 \frac{\tilde{K_{eq}}}{\phi}, \quad \tilde Q = \tilde{K_{eq}}(1 - \phi), \quad \tilde R = \phi \tilde{K_{eq}}.
+\end{equation}
+The full coefficients are generalized forms required when the limit $K_b/K_s \rightarrow 0$ no longer holds, as is the case for water-saturated \acrshort{pem}. 
+
+A different formulation, especially convenient for finite-elements discretization is known as the $(\mbf u^s, p)$ formulation. First, new parameters in terms of the Biot elastic coefficients and apparent densities can be defined, 
+    \begin{equation}
+        \begin{split}
+            \hat A = \tilde P-2\tilde N_s - \frac{ \tilde Q^2}{ \tilde R}, \quad \hat \rho = \tilde{\rho_{11}} - \frac{ \tilde{\rho_{12}}^2}{\tilde{ \rho_{22}}},
+            \quad \beta = \phi \left( \frac{ \tilde{\rho_{12}}}{ \tilde{\rho_{22}}} - \frac{ \tilde Q}{ \tilde R} \right).
+        \end{split}
+        \label{eq:biot_coefs}
+    \end{equation}  
+$\beta$ is another coupling coefficient, also denoted as $\tilde \gamma$ in the literature. Using the second row of Eq.~(\ref{eq:motion_usuf}) allows for the expression of the fluid displacement as, $\mbf u^f = \phi/(\tilde{\rho_{22}} \omega^2) \nabla p  - \tilde{\rho_{12}}/\tilde{\rho_{22}} \mbf u^s$ and using that in Eq.~(\ref{eq:motion_usuf}) and Eq.~(\ref{eq:stress_usuf}) allow to rewrite the coupled motion equations. 
+Using these, the so-called $(\mbf u_s, p)$ formulation of the Biot theory~\cite{atalla1998} is expressed as,
+    \begin{equation}
+        \begin{aligned}
+            \nabla \cdot \mbf{\hat{\sigma}}_s + \hat \rho \omega^2 \mbf u_s +  \beta \mbf \nabla p &= 0, \\
+            \frac{\nabla^2 p}{\rho_{22} \omega^2} - \frac{\beta }{\phi^2} \nabla \cdot \mbf u_s + \frac{1}{ R}p &= 0,
+        \end{aligned}
+        \label{eq:up_motion_equations}
+    \end{equation}
+where $\mbf{\hat{\sigma}}_s$ is the \emph{in vacuo} solid stress tensor,
+\begin{equation}
+    \mbf{\hat{\sigma}}_{s, ij} = \mbf \sigma_{s,ij} - \phi \frac{\tilde Q}{\tilde R} p \delta_{ij} = \hat A \nabla \cdot \mbf u_s \delta_{ij} + 2 N_s \mbf \varepsilon_s.
+\end{equation}
+
+        \subsubsection{Propagation in unbounded poroelastic media}
+These two formulations provide equivalent ways of modelling wave propagation in poroelastic media. It appears that \acrshort{pem} supports three waves: a compression $\varphi_p$ and shear wave $\psi_s$ related to the solid phase as well as an additional compression wave $\varphi_a$, related to the fluid phase. In the case of each of these formulations, the fields can be expressed depending on these potentials, 
+\begin{equation}
+    \mbf u_s = \nabla \varphi_p + \nabla \varphi_a + \nabla \times \psi_s, \quad \quad \mbf u_f = \mu_p \nabla \varphi_p + \mu_a \nabla \varphi_a + \mu_s \nabla \times \psi_s,  \\
+\end{equation}
+with $\mu_p$, $\mu_a$, $\mu_s$ are coefficients determined by the ratio of solid over fluid displacements ratio . The wavenumbers for each of these waves are, following section 6.5 of Allard and Atalla textbook \cite{allard2009} and denoted as $\delta_i, i=1,2,3$ in the text,
+\begin{equation}
+    \begin{aligned}
+        k_{p, a} &= \sqrt{\frac 1 2 \left(\delta_2^2+\delta_{eq}^2\pm \delta_t\right)},\\
+        k_s &= \omega\sqrt{\frac{\hat \rho}{\tilde N}},
+    \end{aligned}
+\end{equation}
+respectively for the solid compression, fluid compression and shear wave, with,         
+\begin{equation}
+    \delta_{eq} = \omega \sqrt{\frac{\tilde\rho_{eq}} {\tilde K_{eq}}}, \quad
+    \delta_1 = \omega\sqrt{\frac{\hat \rho} {\hat P}}, \quad
+    \delta_2 = \omega\sqrt{\frac{\hat \rho_s}{\hat P}}, \quad
+    \delta_t = \sqrt{(\delta_2^2+\delta_{eq}^2)^2-4\delta_{eq}^2\delta_1^2}.
+\end{equation}
+
+\begin{figure}[htpb]
+    \centering 
+    \includegraphics{poro_wavenb.pdf}
+    \caption{Wavenumbers of waves in unbounded porous media in the case of an a-b) equivalent fluid and c-h) for the Biot model.}
+    \label{fig:poro_wavenb}
+\end{figure}
+
+The propagation characteristics, i.e. wavenumbers of the waves propagating in porous and poroelastic media are illustrated in Figure~\ref{fig:poro_wavenb}. As discussed in the previous sections, the wavenumber for the equivalent fluid as well as the three for the poroelastic layer are complex. Their real part account for the propagation of the phase flow, inversly proportional to the wave velocity and their imaginary part accounts for the attenuation that occurs due to the losses inherent to each of these materials. It appears that at low frequencies, the attenuation is very low for all waves. The velocity of the compression and shear waves (observed on the figures by the slope of the real parts of the wavenumbers) is much higher than the waves in the fluid for the equivalent fluid and the compression fluid phase velocity, as they propagate in a soft solid where the velocity is usually much higher than in a fluid. 
