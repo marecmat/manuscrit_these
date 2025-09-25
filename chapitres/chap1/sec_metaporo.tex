@@ -16,7 +16,8 @@ The remaining papers discussing how incident pressure fields are affected and sc
 \section{Dispersion relations and band structure in periodic lattices}
 One of the most popular methods for the computation of band structures in periodic systems made of classical lossless materials are the \acrfull{pwe} which is semi-analytical. It relies on a Fourier transform of the motion equations, which allows an expression of the fields expanded onto Bloch modes, truncated for numerical applications. This method, while easy to implement presents important limitations due to the convergence of Fourier series and the matching of constituent materials for the lattice: materials should preferably of the same nature for the calculation to go well\cite{jimenez2021}. Generalized as the \acrfull{epwe}, the method also allows to obtain the evanescent Bloch modes in Ref.~\cite{schalcher2023}, allowing for complex dispersion diagram investigation and to account for evanescent modes in finite 2D periodic lattices. 
 
-The complexity of the system prohibits the use of such semi-analytical methods. For more complex geometries, we must turn to alternative methods. As the 1D discretization used by the \acrshort{scm} and \acrshort{safe} and the plane wave formalism used in \acrshort{tmm} and the \acrshort{gm} is not capable of providing a description of the geometry of inhomogeneous layers, in our case, the effects of the scatterer in the unit cell on wave propagation. 
+The complexity of the system prohibits the use of such semi-analytical methods. For more complex geometries, we must turn to alternative methods. As the 1D discretization used by the \acrshort{scm} and \acrshort{safe} and the plane wave formalism used in \acrshort{tmm} and the \acrshort{gm} is not capable of providing a description of the geometry of inhomogeneous layers, in our case, the effects of the scatterer in the unit cell on wave propagation. \comment{summary of all thesis of aberkane (soft solids)}
+
 
 \subsection{Unpromising adaptation of existing methods}
 The complexity of the system of interest in this thesis as presented in Section\ref{jsp} of the Introduction prohibits the use of such semi-analytical methods. For more complex geometries, we must turn to alternative methods: as the 1D discretization used by the \acrshort{scm} and \acrshort{safe} and the plane wave formalism used in \acrshort{tmm} and the \acrshort{gm} is not capable of providing a description of the geometry of inhomogeneous layers, in our case, the effects of the scatterer in the unit cell on wave propagation. 
@@ -27,13 +28,9 @@ Multiple scattering could also be considered. However, it has been successfully 
 \end{equation}
 and indeed, separating the $k_1^X$ real and imaginary inevitably leads to at least one growing exponential term in the series, leading to it being unable to converge, up to our study. 
 
-The \acrshort{wfe} as well as \acrshort{fem} has also been widely applied to these geoemetries. Their modularity and versatility lead them to be good candidates for the modelling of our structure.
+The \acrshort{wfe} as well as \acrshort{fem} has also been widely applied to these geometries. Their modularity and versatility lead them to be good candidates for the modeling of our structure. \comment{ discuss the phd of magliacano (disp w fem of closed system with porous layers)}
 
 We face challenges when trying to model this structure using the tools classically used in the literature, that is COMSOL Multiphysics. Although there are built-in tools in the software for "\emph{Eigenfrequency}" studies, the library aims at solving complex frequencies of the system, given a set of parameters for the wavenumber. As it has been discussed earlier in the chapter, the goal of this work is to solve for complex wavenumbers and real frequencies. Even trying a manual implementation of the model in the "\emph{Weak Form PDE}" interface, the tendency of this software to function as a black box introduces a new degree of complexity to this strategy. While \acrshort{fem} remains the soundest strategy for the modeling of the complex inhomogeneous geometry of the unit cell of metaporous surface, we propose to adapt in-house existing frameworks in order to develop numerical tools in this thesis.  
 
 
-\section*{trucs à rajouter jsp où}
 
-summary of all thesis of aberkane (soft solids), magliacano (disp w fem of closed system with porous layers), + gaborit et voir pour les autres 
-
-à distribuer au cours du chapitre 
