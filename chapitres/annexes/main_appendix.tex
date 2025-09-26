@@ -12,6 +12,10 @@
     \printcontents{l}{1}{\setcounter{tocdepth}{3}}
         \vspace*{1pc}{\color{accent}\titlerule}
 }
+\renewcommand\thefigure{\thesection.\arabic{figure}}
+\counterwithin{figure}{section}
+
+
 
 \input{chapitres/annexes/benchmark.tex}
 \input{chapitres/annexes/safe_lamb.tex}

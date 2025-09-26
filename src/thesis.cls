@@ -20,24 +20,13 @@
 
 %% PACKAGES
 \RequirePackage[
-    natbib,
-    backend=biber, 
-    sorting=none, 
-    style=numeric-comp, 
-    giveninits=true,
-    date=year,
-    isbn=false,       
-    doi=false,  
-    eprint=false,
-    url=false,
-    maxbibnames=6,
-    defernumbers=true,
-    % refsection=chapter
-]{biblatex}
+    natbib, backend=biber, sorting=none, style=numeric-comp, giveninits=true,
+    date=year, isbn=false, doi=false,  
+    eprint=false, url=false, maxbibnames=6,
+    defernumbers=true]{biblatex}
 \renewcommand{\cite}{\supercite}
 
 \RequirePackage[labelfont=bf,justification=centering,footnotesize]{caption}
-% \RequirePackage{tocloft}
 \RequirePackage[explicit]{titlesec}   
 \RequirePackage[
     colorlinks=true,
@@ -45,12 +34,10 @@
     citecolor=accent,
     linkcolor=accent,
     ]{hyperref}
-\RequirePackage{titletoc,}   
-\RequirePackage{fancyhdr,epigraph,enumitem,nicematrix}  
+\RequirePackage{titletoc,fancyhdr,epigraph,enumitem,nicematrix}  
 \RequirePackage{amssymb,amsmath,amsthm}  
 \RequirePackage{graphicx,tabularx,array,tikz}   
-\usetikzlibrary{patterns, patterns.meta, calc, arrows, arrows.meta, external, decorations.pathmorphing, positioning,
-                fit, shapes, }
+\usetikzlibrary{patterns, patterns.meta, calc, arrows, arrows.meta, external, decorations.pathmorphing, positioning, fit, shapes}
 \RequirePackage{pdfpages,indentfirst,microtype,etoolbox,multicol}  
 % \RequirePackage{layout/jabbrv} % https://github.com/compholio/jabbrv
 %% FOR CHAPTER GM 
@@ -73,7 +60,7 @@
 
 \setlength\epigraphrule{0pt}
 \setlength\epitextskip{2ex}
-\setlength\epigraphwidth{.45\textwidth}
+\setlength\epigraphwidth{.5\textwidth}
 
 \ifshowpretty
     % Formatage des titres de chapitres, section ... seulement si l'option pretty est passée au package
@@ -298,4 +285,4 @@
 }
 \makeatother
 
-% \tikzexternalize[optimize=true, optimize command away=\includepdf]%prefix=./tikzbuild/]
+\tikzexternalize[optimize=true, optimize command away=\includepdf]%prefix=./tikzbuild/]
