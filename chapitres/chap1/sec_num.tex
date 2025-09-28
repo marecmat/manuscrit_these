@@ -165,9 +165,9 @@ Generally, this kind of characteristic equation can only be obtained for very si
 
 \subsection{Numerics for modes computation}
 \label{ssec:numerics-layers}
-Regarding the computation of complex modes in homogeneous layer, several numerical methods have been investigated in the last decades. Guided waves represents a large topic and we focus here on the case of simple geometries; similar configurations are considered, an unbounded single (or stack of) layers with two infinite interfaces as presented in the section where we were interested in their acoustic response. 
+Several numerical methods have been investigated in the last decades with the goal of computing complex modes in homogeneous layers. Guided waves are of interest in a wide range of geometries and we focus here on the case of simple geometries, that are unbounded single (or stack of) layers with two infinite interfaces as tackled in the previous sections. 
 
-Spectral methods have been around for quite some time and have been used for many numerical applications. We focus for this work on \acrfull{scm} \cite{trefethen2000}, which has been especially used for the computation of guided wave modes in elastic layers\cite{adamou2004, kiefer2019, georgiades2022}. We refer to the introduction of Chapter~\ref{chap:jap} for an extensive bibliography on \acrshort{scm} applications.
+Even if a semi-analytical description of the system is possible, it can be advantageous to be able to write the problem differently, as root-finding routines often lead to challenges as discussed in earlier sections. With that in mind, several numerical methods have been introduced with the same framework: a 1D discretization of the layer along the thickness and assuming harmonic motion along the longitudinal direction. These methods are entitled \acrshort{scm} and \acrshort{safe}. Spectral methods have been around for quite some time and have been used for many numerical applications. We focus for this work on \acrfull{scm} \cite{trefethen2000}, which has been especially used for the computation of guided wave modes in elastic layers\cite{adamou2004, kiefer2019, georgiades2022}. We refer to the introduction of Chapter~\ref{chap:jap} for an extensive bibliography on \acrshort{scm} applications.
 
 This method is useful for the discretization of 1D geometries as is the object of the present section. 
 
