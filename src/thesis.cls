@@ -285,4 +285,4 @@
 }
 \makeatother
 
-% \tikzexternalize[optimize=true, optimize command away=\includepdf]%prefix=./tikzbuild/]
+\tikzexternalize[optimize=true, optimize command away=\includepdf]%prefix=./tikzbuild/]

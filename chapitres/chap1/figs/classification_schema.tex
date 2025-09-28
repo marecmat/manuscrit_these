@@ -1,0 +1,19 @@
+\begin{tikzpicture}
+    \def\arrowlen{0.7}
+    \def\len{2}
+    \def\hei{1}
+    \def\pad{0.4}
+    \begin{scope}[shift={(0,0)}]
+        \draw node at (-.5, 1.5) {c)};
+        \node at (\len/10, \hei+2*\pad) {I};
+        \draw (0, 0) -- ++ (\len, 0);
+        \draw (0, \hei) -- ++ (\len, 0);
+        \draw[blue!60!black, thick,samples=100,smooth,variable=\t,domain=0:\len/2]
+                plot(\t+\len/5,{(\hei-\pad)/2*exp(-\t/.5)*cos(800*\t)+\hei/2});
+        \draw[thick, Latex-] (6.5*\len/10, \hei+\pad) -- ++ (40:.6*\arrowlen);
+        \draw[thick, Latex-] (5*\len/10, \hei+\pad) -- ++ (40:.8*\arrowlen);
+        \draw[thick, Latex-] (3.5*\len/10, \hei+\pad) -- ++ (40:1.*\arrowlen);
+        \draw[->] (0, 0) -- ++ (\hei/2, 0) node[below right] {$x_1$};
+        \draw[->] (0, 0) -- ++ (0, \hei/2) node[above left] {$x_2$};
+    \end{scope}
+\end{tikzpicture}
