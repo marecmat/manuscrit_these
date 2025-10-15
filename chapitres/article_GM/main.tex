@@ -6,7 +6,7 @@
 \crefname{table}{Table}{Tables}
 
 % \begin{document}
-\chapter{Numerical models for the scattering properties of multilayered structures with periodic cells}
+\chapter[Numerics for the scattering of multilayer periodic structures]{Numerical models for the scattering properties of multilayered structures with periodic cells}
 
 % \author[1]{Mathieu Maréchal}
 % \author[1]{Olivier Dazel\footnote{Email: olivier.dazel@univ-lemans.fr}}
@@ -18,7 +18,7 @@
 % \renewcommand\Affilfont{\itshape\small}
 % \date{}
 % \maketitle
-
+{\color{gray}\textsc{This chapter is based on the material submitted as \cite{marechal_ijnme_sub}, and was authored by \textit{Mathieu Maréchal, Olivier Dazel, Vicent Romero-Garc\'ia and Jean-Philippe Groby}. Minor modifications to the text and figures have been made to fit the format and notation of this thesis}}
 \section{Abstract}
     The objective of this work is to model the acoustic response of multilayered structures composed of both homogeneous layers and periodic cells to obtain their scattering properties (i.e. reflection and transmission coefficients). The host material of each layer is either elastic, fluid, or poroelastic. A method for predicting the transfer matrix of a periodic cell is first proposed. This method was implemented to be compatible with higher-order finite-elements. Subsequently, two modelling methods from the literature, namely the Global Method and the Transfer Matrix Method, initially dedicated to the modelling of stacks of homogeneous layers, are extended to enable the modelling of acoustic grating stacks. These methods are then tested on examples from the literature or adaptations thereof, to cover a complete panel of test configurations. Results confirm that the methods are well suited to higher-order finite elements and also show that, while the method derived from the Transfer Matrix Method suffers from stability issues, those derived from the Global Method remain stable for all studied configurations. Finally, a method for the determination of the series truncation of the Bloch modes is proposed.
 
@@ -27,7 +27,7 @@ Acoustic sound packages, used for absorption and transmission/soundproofing prob
 
 The efficient design of these structures is of utmost importance in noise control engineering in both the transport and the building industries. Then it is necessary to develop fast and accurate models to predict their behaviour to optimise their performance \cite{velosoInsertionLossPrediction2023,yangPredictionSoundAbsorption2022,zhangAcceleratedTopologicalDesign2021,boulvertFoldedMetaporousMaterial2020}. For multilayered structures composed only of homogeneous layers, plane wave methods are the most common \cite{allardPropagationSoundPorous2009a}. 
 
-Among these methods, we can highlight two. The first is the Transfer Matrix Method (TMM) \cite{brouardGeneralMethodModelling1995a, khuranaDescriptionTransverselyIsotropic2009a, boltonSOUNDTRANSMISSIONMULTIPANEL1996}, which consists of first constructing matrices, called transfer matrices that link state vectors to the interfaces of each layer, and then linking the state vectors to the interfaces of the stack through interface relations. The second is the Global Method (GM) \cite{loweMatrixTechniquesModeling1995}, in which the state vectors at the interfaces are written in terms of the amplitudes of the waves propagating inside the layers. The interface relations are then written, and a global linear system is obtained that links all layer amplitudes. This second method has been shown to be robust, especially when the spatial origin of the waves is properly chosen. However, the TMM is inherently unstable, especially for very thick layers or with high attenuation rates. Although theoretically exact, the TMM thus leads to instabilities when implemented in finite-precision arithmetic. Methods have been proposed to overcome this instability issue, both in acoustics and in optics \cite{yinImprovedTransferMatrix2008, hung-yuSpectralRecursiveTransformation1997, songGeneralStableApproach2023}. Among them, Dazel \etal \cite{dazelStableMethodModel2013} proposed a Recursive Method (RM) to solve the stability issues of the TMM. This method is based on the reformulation of the state vector as a product of a translation matrix by an information vector and an adequate factorisation of the growing exponential terms of the wave numbers in the propagation direction. These vectors and matrices are then updated recursively, starting from one side and moving down to the interface on the opposite side of the structure. The final linear system to solve is then relative to the incident interface and is then smaller than that obtained with the GM. This method then mixes the advantages of the TMM and the GM without their drawbacks.\\
+Among these methods, we can highlight two. The first is the Transfer Matrix Method (TMM),\\ \cite{brouardGeneralMethodModelling1995a, khuranaDescriptionTransverselyIsotropic2009a, boltonSOUNDTRANSMISSIONMULTIPANEL1996} which consists of first constructing matrices, called transfer matrices that link state vectors to the interfaces of each layer, and then linking the state vectors to the interfaces of the stack through interface relations. The second is the Global Method (GM) \cite{loweMatrixTechniquesModeling1995}, in which the state vectors at the interfaces are written in terms of the amplitudes of the waves propagating inside the layers. The interface relations are then written, and a global linear system is obtained that links all layer amplitudes. This second method has been shown to be robust, especially when the spatial origin of the waves is properly chosen. However, the TMM is inherently unstable, especially for very thick layers or with high attenuation rates. Although theoretically exact, the TMM thus leads to instabilities when implemented in finite-precision arithmetic. Methods have been proposed to overcome this instability issue, both in acoustics and in optics \cite{yinImprovedTransferMatrix2008, hung-yuSpectralRecursiveTransformation1997, songGeneralStableApproach2023}. Among them, Dazel \etal \cite{dazelStableMethodModel2013} proposed a Recursive Method (RM) to solve the stability issues of the TMM. This method is based on the reformulation of the state vector as a product of a translation matrix by an information vector and an adequate factorisation of the growing exponential terms of the wave numbers in the propagation direction. These vectors and matrices are then updated recursively, starting from one side and moving down to the interface on the opposite side of the structure. The final linear system to solve is then relative to the incident interface and is then smaller than that obtained with the GM. This method then mixes the advantages of the TMM and the GM without their drawbacks.\\
 
 For periodic layers, it is not possible to use these methods directly because the concept of waves is not applicable. In addition, contrary to the case of stacks of homogeneous structures, periodicity induces the presence of not only a single mode but also an infinity (called Bloch modes). Then an alternative is to predict the response using the Finite Element Method (FEM) \cite{petytIntroductionFiniteElement2010, geradinMechanicalVibrationsTheory2015,atallaFiniteElementBoundary}. The key advantage of FEM is its ability to handle complex geometries and material properties. Additionally, FEM is particularly well-suited to Floquet-Bloch relations. In recent years, higher-order FEM has been studied \cite{solinHigherorderFiniteElement2004} and provides interesting capabilities in acoustics \cite{beriotEfficientImplementationHighorder2016a,lieuComparisonHighorderPolynomial2016a} and especially for poroelastic materials (PEM) \cite{jonckheereAdaptiveOrderFinite2022}. However, its computational cost is a major drawback of this method. This is particularly true for sound packages, the full FEM model of which generally requires also discretising the homogeneous layers as well as the surrounding semi-infinite incident and transmitting half-spaces, which in most cases must themselves be coupled to Perfectly Matched Layers (PMLs) \cite{aberkane-gauthierSoftSolidSubwavelength2024, yangPredictionSoundAbsorption2022, kuznetsovaHierarchicalMetaporousMaterials2024,boulvertFoldedMetaporousMaterial2020}. This not only generates a significant numerical overhead, but also does not concentrate the degrees of freedom (and then the computational resources) on the periodic cells. \\
 
@@ -39,7 +39,7 @@ The aim of this paper is therefore to extend these methods to the modelling of t
 \section{Position of the problem}
 \begin{figure}[hbtp]
 \centering
-\includegraphics[width=120mm]{FIG/problem_woiags.pdf} \hfill
+\includegraphics[width=120mm]{FIG/problem_woiags.pdf}
 \caption{\label{problem} Problem of interest}
 \end{figure}
 
@@ -117,8 +117,8 @@ State variables are also closely related to finite-element models; indeed, they 
 \begin{table}[hbtp]
   \begin{center}
     % \[\def\arraystretch{2.6}
-  \begin{tabular}{||c|c|c|c|c|c||} 
-  \hline \hline
+  \begin{tabular}{|c|c|c|c|c|c|} 
+  \hline
   {Medium}  & {$n_w$}&{State variables $\vc{S}_w$} &{Primal variable $\pv_w$} &{Dual variable $\dv_w$} 
   \\ \hline
   {Fluid}& {1}&{$\left\{ u_y, p \right\}_w(y)$}  & $\left\{p\right\}_w(y)$ & $\left\{u_y\right\}_w(y)$
@@ -348,7 +348,7 @@ The state vectors are, respectively, of length $2n_an_B$ and $2n_bn_B$ where $n_
 \ee
 where $\mat{C^a_i}\in\R^{n_a+n_b\times 2n_a}$ and $\mat{C^b_i}\in\C^{n_a+n_b\times 2n_b}$ are interface matrices. These matrices express the continuities between the stresses and displacements of the media in the two layers at the interface or the possible nullities of some fields. The expressions of these matrices are not given, but the reader can in particular consult Table IV of \cite{dazelStableMethodModel2013}.
 
-\subsection{Methods to model the acoustics response of the multilayer structure\label{sec:multilayer_response}}
+\subsection{Methods to model the acoustic response of the multilayer structure\label{sec:multilayer_response}}
 The GM and the TMM we want to compare are presented in this part. The proposed approach is rather general, but in the context of this section we present them in the case of a bilayer structure composed of an homogeneous layer (labelled 1) on top of a periodic cell (labelled 2) as presented in \cref{two_layers_problem}. \\ 
 
 A state vector $\vc{\Sigma_-}\in\C^{2n_B}$ is defined on the lower side of the incident interface. It can be written as a sum of a vector $\vc{E}$ associated to the incident field and a contribution of the reflected waves,
@@ -380,7 +380,8 @@ n_t = n_Bn_1+n_B(n_1+n_2) + n_B(n_2+1)=(1+2n_1+2n_2)n_B.
 
 \begin{figure}[hbtp]
 \begin{center}
-\includegraphics[width=120mm]{FIG/two_layers_problem_woiags.pdf} \hfill
+\centering
+\includegraphics[trim={3cm 0cm 0cm 0cm, clip}, width=90mm]{FIG/two_layers_problem_woiags.pdf}
 \caption{\label{two_layers_problem} Two layers problem}
 \end{center}
 \end{figure}

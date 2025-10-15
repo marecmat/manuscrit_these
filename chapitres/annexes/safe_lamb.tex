@@ -3,6 +3,8 @@
 
 \section{Implementing SAFE to compute the dispersion relation of Lamb modes}
 
+This section has initially been worked on as part of a letter to the reviewers of the paper\cite{marechal2025} dealing with the SCM and added to Chapter \ref{chap:chap1}. They wanted us to investigate the performance of SCM against that of SAFE, which we have done in a simple configuration, that of the free elastic plate. This work was carried out for the purpose of providing clarification for reviewers and was decided to not be included in the article. We provide it as the following appendix.
+
 As discussed in Section.~\ref{sec:intro_jap}, the \acrshort{safe} method is an alternative to \acrshort{scm} for the numerical computation of dispersion relation of guided waves in layers. They rely on a similar formalism, that is a 1D discretizatin across the thickness of each layer and an assumption of guided harmonic waves along the longitudinal direction. An analogous method to that presented in Chapter~\ref{chap:jap} could be developed using \acrshort{safe}, the key difference being the location of nodes in the layer and the interpolation function used for discretization.
 There is a large bibliography dealing with these topics and applying this method to similar problem to ours.  
 
@@ -41,7 +43,7 @@ The displacement fields can be discretized as
 \begin{equation}
     \mbf u (\mbf x) =\mbf N (\xi) \mbf U e^{ik_1 x_1}e^{-i\omega t},
 \end{equation}
-with $\mbf N$ containing the Lobatto shape functions, and $\mbf U$ is the vector of displacement amplitudes. Following the same discretization, the test function thus becomes $\forall \delta \mbf U$. By rearranging the terms of Eq.~\ref{eq:safe_rearranged_weak} and writing the weak form for one element, 
+with $\mbf N(\xi)$ containing the Lobatto shape functions that spans the local coordinate space $\xi \in [-1, 1]$ of a single element and $\mbf U$ is the vector of displacement amplitudes. Following the same discretization, the test function thus becomes $\forall \delta \mbf U$. By rearranging the terms of Eq.~\ref{eq:safe_rearranged_weak} and writing the weak form for one element, 
 \begin{equation}
     \begin{aligned}
         \int_{\Omega_e} & k_1^2 \Big(
@@ -53,7 +55,7 @@ with $\mbf N$ containing the Lobatto shape functions, and $\mbf U$ is the vector
         - \lambda \delta \mbf U_2^\transp \mbf C_2^{(e)} \mbf U_1 \Big)
         + \mu \delta \mbf U_1^\transp \mbf K^{(e)} \mbf U_1
         + (\lambda + 2\mu) \delta \mbf U_2^\transp \mbf K^{(e)} \mbf U_2 
-        \\ &-\rho \omega^2 \delta \mbf U_1^\transp \mbf M^{(e)} \mbf U_1 -\rho \omega^2 \delta \mbf U_2^\transp \mbf M^{(e)} \mbf U_2 \,d\Omega_e = 0
+        \\ &-\rho \omega^2 \delta \mbf U_1^\transp \mbf M^{(e)} \mbf U_1 -\rho \omega^2 \delta \mbf U_2^\transp \mbf M^{(e)} \mbf U_2 \,d\Omega_e = 0,
     \end{aligned}
     \label{eq:safe_full_weakform}
 \end{equation}
@@ -63,15 +65,14 @@ where the elementary matrices are,
         \mbf M^{(e)}   &= \frac{h}{2} \int_{-1}^1 \mbf N^\transp \mbf N \,d\xi, \quad
         \mbf K^{(e)}   = \frac 2 h \int_{-1}^1 \nabla \mbf N^{\transp} \nabla \mbf N d\xi,\\
         \mbf C_1^{(e)} &= \int_{-1}^1 \mbf N^{\transp}\nabla \mbf N \,d\xi, \quad
-        \mbf C_2^{(e)} = \int_{-1}^1 \nabla^\transp \mbf N^{\transp} \mbf N \mbf U\,d\xi,\\
+        \mbf C_2^{(e)} = \int_{-1}^1 \nabla^\transp \mbf N^{\transp} \mbf N \mbf U\,d\xi.\\
     \end{aligned}
 \end{equation}
-
-In Eq.~\ref{eq:safe_full_weakform}, the dependance on $k_1$ was highlighted and terms were sorted depending on their order. The elementary matrices should be assembled into the global matrices and then, following an analogous procedure to Chapter.~\ref{chap:jap}, the general form for the problem becomes,
+In Eq.~\ref{eq:safe_full_weakform}, the dependance on $k_1$ was highlighted and terms were sorted depending on their order. The elementary matrices should be assembled into the global matrices. Following an analogous procedure to Chapter.~\ref{chap:jap}, the general form for the problem becomes,
 \begin{equation}
     \left( k_1^2 \mbf A_2 + ik_1 \mbf A_1 + \mbf A_0 - \omega^2 \mbf M \right) \mbf U = 0.
 \end{equation}
-It can easily be rewritten as a generalized eigenvalue problem,
+This quadratic generalized eigenvalue problem can be linearized using companion linearization as, \cite{tisseur2001, strang2006}
 \begin{equation}
     \left[\begin{pmatrix}
          -\mbf A_1 & \mbf A_0 - \omega^2\mbf  M\\
@@ -85,17 +86,15 @@ It can easily be rewritten as a generalized eigenvalue problem,
 which solving is thus quite straightforward.
 
 \subsection{Results and convergence comparison}
-Analytical results are obtained by applying the root-finding approach using the Müller method presented in the paper. Solutions are sought from the classical Lamb modes equations, derived in many books such as Royer. Figure ~\ref{fig:conv_scm_safe_lamb}a) shows the results of the three methods for a given frequency range. They all match well. In order to compare the two numerical methods in play, a brief convergence study has been done using the analytical results from the root-finding method as a reference. 
-
-\begin{figure}[ht!]
+\begin{figure}[hptb]
     \centering
     \includegraphics{conv_safe_lamb.pdf}
     \caption{a) Dispersion relation for the Lamb modes with the root-finding results, alongside the spectral collocation and semi-analytical finite elements solutions. b) Convergence curve of the 2 methods at a given frequency $f=4$ kHz. The multiple lines depicts the convergence of each wavenumber.}
     \label{fig:conv_scm_safe_lamb}
 \end{figure}
 
-The convergence curve of the results given in Fig.~\ref{fig:conv_scm_safe_lamb}b) is unsurprisingly in agreement with the literature. It is calculated at a frequency $f=4$ kHz: the solutions along the dashed line in Fig~\ref{fig:conv_scm_safe_lamb}a) are selected. The parameter $n$ used for the discretization is shared between the two methods and corresponds to the number of elements taken for the discretization in each method. SAFE matrices have a size $2(2n+ 1)$, with while SCM matrices have a size $2n$. The discretization is swept from a number of nodes $n=3$ to $n=50$.
+Analytical results are obtained by applying the root-finding approach using the Müller method presented in the paper. Solutions are sought from the classical Lamb modes equations, derived in many books such as Royer\cite{royer2021}. Figure ~\ref{fig:conv_scm_safe_lamb}a) shows the results of the three methods for a given frequency range. They all match well. In order to compare the two numerical methods in play, a brief convergence study has been done using the analytical results from the root-finding method as a reference. 
 
-Matrix size for scm $4n$ while safe is $4(o \cdot n + 1)$ with o the order of Lobatto shape functions
+The convergence curve of the results given in Fig.~\ref{fig:conv_scm_safe_lamb}b) is unsurprisingly in agreement with the literature. It is calculated at a frequency $f=4$ kHz: the solutions along the dashed line in Fig~\ref{fig:conv_scm_safe_lamb}a) are selected. The parameter $n$ used for the discretization is shared between the two methods and corresponds to the number of elements taken for the discretization in each method. SAFE matrices have a size $2(2n+ 1)$, with while SCM matrices have a size $2n$. The discretization is swept from a number of nodes $n=3$ to $n=50$. Note that the matrix size for SCM is $4n$ while that of SAFE is $4(o \cdot n + 1)$ with $o$ the order of the Lobatto shape functions.
 
 The SCM convergence shows a steep slope and reaches a plateau around $n = 20$, while the SAFE curve follows the expected slope of a finite elements method that use second-order shape functions. When comparing at a given discretization order, the error from the SAFE is much lower that that of SAFE by several order of magnitudes. In order to see comparable convergence, it would require to use higher-order shape functions or use spectral elements instead.

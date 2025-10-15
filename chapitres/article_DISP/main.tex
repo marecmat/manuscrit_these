@@ -438,17 +438,17 @@ with $\nabla = \begin{pmatrix}
 
 \subsection{Results}
 For the procedure that uses root-finding, the system is constructed following Eq.~(\ref{eq:condenS^tb}) and setting $Q = 0$, since there is no coupling to any semi-infinite medium and thus no need for a Bloch wave series. The system is thus, 
-    \begin{equation}
-        \begin{pNiceArray}{cc|cc}
-            1 & 0 & 0 & 0 \\
-            0 & 0 & 1 & 0 \\
-            \hline
-            \Block{2-2}{\mbf I} & & \Block{2-2}{\mbf T} & \\
-            & & & \\
-        \end{pNiceArray}\begin{pmatrix}
-            S_{1, 0}^t \\ S_{2, 0}^t \\ S_{1, 0}^b \\ S_{2, 0}^b \\
-        \end{pmatrix} = 0,
-    \end{equation}
+\begin{equation}
+\begin{pmatrix}% {cc|cc}
+    1 & 0 & 0 & 0 \\
+    0 & 0 & 1 & 0 \\
+    1 & 0 & T_{11} & T_{21} \\
+    0 & 1 & T_{12} & T_{22} 
+\end{pmatrix} \begin{pmatrix}
+        S_{1, 0}^t \\ S_{2, 0}^t \\ S_{1, 0}^b \\ S_{2, 0}^b
+    \end{pmatrix} = 0,
+\end{equation}
+with $\mbf T = \left(\mbf M^t\right)^{-1} \mbf M^b$ corresponds to the transfer matrix of the system. The two first rows correspond to the Neumann boundary conditions applied to the system.
 with $\mbf T = \left(\mbf M^t\right)^{-1} \mbf M^b$ corresponds to the transfer matrix of the system. The two first rows correspond to the Neumann boundary conditions applied to the system.
 
 For the rigid-rigid case, we therefore present results computed with Comsol as well as with our FEM approach solved using both root-finding and the eigenvalue formulation. All solutions were computed at the same frequencies with a mesh size $\lambda_{min}/10$. While the same size, the Comsol generated mesh might not be identical to that of the mesh generated for the root-finding and eigenproblem methods. In Fig.~\ref{fig:neum}, two modes are obtained: one with lower attenuation is the first propagating mode denoted as 1, and the other one is in-plane with a cut-on frequency denoted as 2. All approaches yield similar results. Moreover, these results are comparable to those obtained in Ref.~\cite{magliacano2020}. 

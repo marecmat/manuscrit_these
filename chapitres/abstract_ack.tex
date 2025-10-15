@@ -8,49 +8,50 @@
         I slip the grip and hope the time is right
     }{aya, "backsliding" in \emph{im hole}}
 \end{flushright}   
-% \vspace*{3cm}
-\begin{flushright}
-    \epigraph{
-And I thought that I understood this\\
-But everything drags me into the hell pit\\
-Did you wade in\\
-Did you wade out\\
-Am I not good, how can I not tell?\\
-Well I let the unfettered mess\\
-Go straight to my head\\
-But if you’ll hold my skin I’ll crawl
-}{Francis of Delirium, "I think I'm losing" in \emph{Wading}}
-\end{flushright}   
-
-% \vspace*{3cm}
-% \begin{flushright}
-%     \epigraph{Sa victoire se manifesta lorsque j'abandonnai ces travaux qui m'avaient causé tant de tourments et que je pus recouvrer la tranquillité et la paix de l'âme. Et c'est ainsi que j'appris à associer l'idée de mal à la poursuite de mes travaux et celle de bien à leur abandon.}{Mary Shelley, \emph{Frankenstein}}
-% \end{flushright}
 \newpage
 
+\begingroup
+\titleformat{name=\chapter,numberless}[display]{\flushleft}{\thechapter\tikzexternaldisable\begin{tikzpicture}[remember picture, overlay]
+    \fill[white] (current page.north west) rectangle ([yshift=-6cm]current page.north east);
+    \node[font=\color{accent}\fontsize{32}{32}\titlestyle,anchor=center,] at ([yshift=-5cm]current page.north) {{#1}}; \end{tikzpicture}\tikzexternalenable\vspace{0cm}}{1pt}{}
 \chapter*{Abstract}
 \addcontentsline{toc}{chapter}{Abstract}
+\vspace*{2cm}
+This thesis is dedicated to the study of the acoustic properties of metaporous surfaces and interfaces. Traditionally, foams have been widely used for acoustic insulation purposes but their performance at low frequency remains limited for constrained layer thickness. Metaporous surfaces have been developed in recent years to overcome these limitations. These structures are porous or poroelastic layers in which identical periodic scatterers of arbitrary shape
+are embedded.
 
-This will be the thesis abstract
-% 1 page ?
+Several numerical modeling techniques are developed to better understand the behavior of metaporous surfaces and interfaces, with two interests in mind: the computation and analysis of 1. the scattering properties of the structure and 2. the complex wavenumber- real frequency dispersion relation of the waves in the structure. 
 
-\chapter*{Acknowledgments}
+The scattering properties are computed using a method coupling finite elements to model the wave propagation in the core of the unit cell (the porous or poroelastic layer with the arbitrarily-shaped scatterer embedded within) with an analytic plane wave description to model the scattered (reflected and transmitted) waves. This coupling is operated by
+a state vector formalism.
+
+The complex wavenumber- real frequency dispersion relation of the leaky guided waves, accounting for the losses inside the layer and for the leakage of energy into the fluid half-space, is solved. Although the propagation of waves in homogeneous porous and poroelastic media is well studied, the combined effects of dissipation and leakage (as well as periodicity) remains to be investigated. Two numerical methods are developed: the SCM is presented for arbitrary homogeneous (non-periodic) multilayer structures while the method used for the scattering computation is adapted to for (periodic) metaporous structures. This work paves the way to better understand the underlying physical mechanisms in acoustic structures involving leakage and losses.
+\vspace*{\fill}
+
+\chapter*{Résumé}
+\addcontentsline{toc}{chapter}{Résumé}
+\vspace*{2cm}
+Cette thèse est consacrée à l'étude des propriétés acoustiques des surfaces et interfaces métaporeuses. Les mousses acoustiques sont traditionnellement très utilisées pour l’isolation acoustique, mais leurs performances à basse fréquence restent limitées en raison de la contrainte d’épaisseur des couches de matériaux. La recherche autour des surfaces métaporeuses s’est développée au cours de la dernière décennie afin de pallier ces limites. Ces structures sont constituées de couches poreuses ou poroélastiques dans lesquelles sont intégrés des obstacles (ou diffuseurs) périodiques identiques de forme arbitraire.
+
+Plusieurs techniques de modélisation numérique ont été développées dans ces travaux afin de mieux comprendre le comportement acoustique des surfaces et interfaces métaporeuses, avec deux objectifs en tête : le calcul et l'analyse 1) des propriétés de scattering de la structure et 2) de la relation de dispersion en nombre d’onde complexe - fréquence réelle des ondes existantes dans la structure.
+
+Les propriétés de scattering sont calculées à l'aide d'une méthode couplant des éléments finis pour modéliser la propagation des ondes dans la cellule unitaire (la couche poreuse ou poroélastique dans laquelle est intégré l’obstacle de forme arbitraire) avec une description analytique en ondes planes pour modéliser les ondes diffusées (réfléchies et transmises) par la structure. Ce couplage est réalisé à l’aide d’un formalisme en vecteur d'état.
+
+La relation de dispersion en nombre d'onde - fréquence réelle des ondes guidées fuyantes est résolue en tenant compte de la dissipation à l'intérieur de la couche et de la fuite d'énergie dans le demi-espace fluide. Bien que la propagation des ondes dans des milieux poreux et poroélastiques homogènes soit bien connue dans la littérature, les effets combinés de pertes par dissipation et par rayonnement (ainsi que l’effet de la périodicité) restent à étudier. Deux méthodes numériques sont développées à cette fin: la SCM est présentée pour des structures multicouches homogènes (non périodiques) arbitraires, tandis que la méthode utilisée pour le calcul du scattering est adaptée aux structures métaporeuses (périodiques). Ce travail ouvre la voie à une meilleure compréhension des mécanismes physiques sous- jacents dans les structures acousto-élastiques impliquant des pertes par dissipation et par rayonnement.
+
+\endgroup
+    \chapter*{Acknowledgments}
 \addcontentsline{toc}{chapter}{Acknowledgments}
-
+\vspace*{-2cm}
 {\fontsize{12}{12}\selectfont
-Ce travail de thèse s'achève, et son accomplissement n'aurait pas été possible sans l'aide de nombreuses personnes que je souhaite remercier ici. 
+Ce travail de thèse s'achève, et son accomplissement n'aurait pas été possible sans l'aide de nombreuses personnes que je souhaite remercier ici. \\
 
-Mes premiers remerciements reviennent à mes encadrants, pour leur accompagnement, leur soutien et pour m'avoir proposé ce sujet de thèse. Merci à vous trois pour votre investissement, pour le partage de votre expérience et de vos connaissances dans la thématique ainsi que pour vos encouragements. Jean-Philippe, merci pour ta responsabilité de la direction de cette thèse, pour tous tes conseils, pour ta disponibilité et ton suivi régulier. Olivier, malgré le temps que prends le travail de direction d'un labo je te remercie de t'être rendu autant disponible pour les nombreuses sessions de débuggage de codes. Merci pour ton soutien et pour les cafés. Vicent, même si la distance n'a pas toujours rendu les échanges faciles, je te remercie pour tes conseils avisés. J'ai l'impression d'avoir énormément appris à vos côtés, sur tous les tableaux. Enfin, je vous exprime ma gratitude pour les différents financements qui m'ont permis de participer à des conférences, des workshops et écoles, ainsi que pour le prolongement de mon contrat pour aller jusqu'à la soutenance. \\
+Mes premiers remerciements reviennent à mes encadrants, pour leur proposition de thèse, leur accompagnement ainsi que leur soutien. Merci à vous trois pour votre investissement, pour le partage de votre expérience et de vos connaissances dans la thématique ainsi que pour vos encouragements. J'ai l'impression d'avoir énormément appris à vos côtés. Jean-Philippe, merci pour ta responsabilité de la direction de cette thèse, pour tous tes conseils, pour ta disponibilité et ton suivi régulier. Olivier, malgré le temps que prends le travail de direction d'un labo, je te remercie de t'être rendu autant disponible pour les nombreuses sessions de débuggage de codes et merci pour les cafés. Vicent, même si la distance n'a pas toujours rendu les échanges faciles, je te remercie pour tes conseils avisés. Enfin, je vous exprime ma gratitude pour les différents financements qui m'ont permis de participer à des conférences et workshops, ainsi que pour le prolongement de mon contrat pour aller jusqu'à la soutenance. 
 
-I would like to thank Vincent Laude and Malte Peters for agreeing to read and report on this thesis work, as well as for their time. My greetings go also to the examiners Daniel Kiefer, Yong Li and Olga Umnova. Thanks also the members of my CSI committee, Tony Valier-Brasier and Luis-Miguel Garc\`ia-Raffi for their follow-up, their positive and enthusiastic feedbacks during the annual meetings. \\
+I would like to thank Vincent Laude and Malte Peter for agreeing to read and report on this thesis work, as well as for their time. My greetings go also to the examiners Daniel Kiefer, Olga Umnova and Yong Li for accepting to attend the defense. Thanks also the members of my CSI committee, Tony Valier-Brasier and Luis-Miguel Garc\`ia-Raffi for their follow-up, their positive and enthusiastic feedbacks during the annual meetings. More generally, thanks to everyone I have exchanged about my research topic during the last three years, each of those discussions at conferences or at the lab have helped to shape the thesis work that is presented here.
 
-À tous les collègues du LAUM, en particulier les camarades de thèse, Anis, Antoine, Alexis, Charlotte, Constance, Jinyue, Juliette, Martin, Orphée, Rushikesh, Thomas et tous les autres.  Merci pour la musique les gens de \emph{RALO} et d'\emph{Ivy and the Ansatz}. J'ai aussi une pensée pour les autres collègues et ami \medpt e \medpt s que j'ai pu rencontrer au cours de la thèse, lors des cafés-thèse, des soirées, des conférences, ailleurs et autres. Merci au bureau de l'ADoUM: Emma, Léa, Théo, Thomas, Sofyane ainsi qu'à l'équipe de l'escalade.\\
+À tous les collègues du LAUM, en particulier les camarades de thèse, Anis, Antoine, Alexis, Charlotte, Constance, Jinyue, Juliette, Martin, Rushikesh, Thomas, et tous les autres.  Merci pour la musique, les gens de \emph{RALO} et d'\emph{Ivy and the Ansatz}. J'ai aussi une pensée pour les autres collègues et ami \medpt e \medpt s que j'ai pu rencontrer au cours de la thèse, lors des cafés-thèse, des soirées, des conférences, ailleurs et autres. Merci au bureau de l'ADoUM: Emma, Léa, Théo, Thomas, Sofyane ainsi qu'à l'équipe de l'escalade.
 
-Je remercie aussi Lauriane Aleton pour son accompagnement et pour tous les outils qu'elle m'a apportée depuis le début de ce travail de thèse.
-
-À mes ami \medpt e \medpt s, Baptiste, Antoines et Lou-Anne, pour les heures au téléphone ou sur Discord, pour les verres et les cinés à Nantes et ailleurs. Vous m'avez aidé à relâcher la pression à de nombreuses occasions et m'avez soutenue sans relâche, pour ça je vous en suit très reconnaissant. À ma famille, mes parents en particulier, mes grands-parents et ma tante. Merci pour votre soutien sans faille depuis le début et tout au long de mon parcours. Je vous aime tous très fort. 
-
-Merci Antoine de m'avoir écoutée toutes ces fois me plaindre, pour m'avoir aidé à mettre de l'ordre dans ma tête et m'avoir débloquée à plein d'occasions.
-
-Enfin, Ambre, les mots me manquent. Je ne saurais t'exprimer ma gratitude pour ton soutien et tous les moments passés ensemble. Tu m'accompagnes depuis maintenant trois ans et j'ai l'impression d'avoir énormément grandie à tes côtés. Tout est plus facile avec toi.
+À mes ami \medpt e \medpt s, Baptiste, Antoines et Lou-Anne, pour toutes ces heures ensemble, pour les verres et les cinés à Nantes et ailleurs. Vous m'avez aidé à relâcher la pression à de nombreuses occasions et avez été une part importante de ma vie depuis des années, pour ça je vous en suit très reconnaissante. À ma famille, mes parents en particulier, mes grands-parents et ma tante. Merci pour votre soutien sans faille depuis le début et tout au long de mon parcours. Je vous aime tous très fort. Merci Antoine de m'avoir écoutée toutes ces fois me plaindre, pour ton aide à mettre de l'ordre dans ma tête et m'avoir débloquée à plusieurs occasions. Enfin, Ambre, les mots me manquent. Je ne saurais t'exprimer ma gratitude pour ton soutien infaillible et tous les moments passés ensemble.
 }
+

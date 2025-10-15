@@ -6,8 +6,16 @@
 
 \clearpage 
 
+
+\section{Foreword}
+\label{sec:foreword}
+There are fundamental differences between this chapter and the rest of the manuscript in how the leakage is treated in the approach. In this chapter, no questions were raised regarding the wave solutions in the surrounding media. As a first assumption, we considered that the leaky waves should be outgoing in order to satisfy some radiation condition as stated right before Eq.~\ref{eq:outgoing_pressure_field}. However, this matter is not so simple, and treated as part of the subsequent chapter. In that respect, the dispersion relation of the waves in this chapter show indiscriminately outgoing as well as incoming solution. Fortunately, in these configurations the solution spectrum in real parts of the transverse wavenumber are almost symmetrical for most cases, which is why we did not consider this aspect in this chapter. 
+
+Therefore, contrary to the indication given below Eq.~\ref{eq:outgoing_pressure_field} giving the expressions the pressure fields in the surrounding media, it is stated in the original article that the branch cut for the transverse wavenumber in the half-space is selected such that $\textrm{Re}\left( k_{2}^{(0)}\right)\geq 0$. As discussed in the above paragraph, the eigenvalue problem uncovers all solution without a requirement for a branch cut selection thanks to the $\gamma$ variable change. 
+
 \section{Abstract}
 A spectral collocation method is proposed to compute the complex wavenumber-real frequency dispersion relations of guided acoustic waves in multilayer structures involving dissipative materials. The nature of these dissipative materials is initially considered to be arbitrary, i.e., poroelastic, viscoelastic, or viscoacoustic. For a given frequency, the complex wavenumbers as well as the physical fields, which are further used to evaluate the Poynting vectors and analyze the energy flux, are obtained by solving a generalized eigenvalue problem. The latter arises from a set of discretized equations of motion and appropriate boundary (coupling) conditions. These equations of motion and boundary (coupling) conditions are imposed by the nature of the material composing each layer of the structure. A focus is made on poroelastic layers. The dispersion relation of a two-layer elastic-poroelastic structure is analyzed, as well as the energy flows in the structure. The results as calculated with the present spectral collocation method are validated against those obtained with a classical complex root-finding (M\"uller) method and experiments.
+
 
 \section{Introduction}
 \label{sec:intro_jap}
@@ -69,7 +77,7 @@ Note that the equations of motion in both upper and lower half-spaces are not re
         \end{array}
         \label{eq:outgoing_pressure_field}
     \end{equation}
-with $ k_{2}^{(0)}=\sqrt{\left(k^{(0)}\right)^2- k_1^2}$, such that $\textrm{Re}\left( k_{2}^{(0)}\right)\geq 0$, where $k^{(0)} = \omega /c_f$ is the wavenumber in the fluid and $c_f$ the wave velocity. Thus, $\mbf s^{(0^\pm)}$ appearing in  Eq.(\ref{eq:op_k_matrix}) reduces to $s^{(0^\pm)}=A^{(0\pm)}$. $\mathcal{C}^{(0^-)}$ and $\mathcal{C}^{(N^+)}$ are therefore no longer operators and reduce to $\mathcal{C}^{(0^-)}= \mbf C^{(0^-)}$ and $\mathcal{C}^{(N^+)}=\mbf C^{(N^+)}$. In our fluid case, the interface conditions at $\Gamma^{(0)}$ and $\Gamma^{(N)}$ involve the spatial Laplace transform of the pressure and its first spatial derivative with respect to $x_2$ whatever the nature of the $1$-st and $N$-th layers.  Both matrices $ \mbf C^{(j)}$, $j=(0^-),(N^+)$, can thus be formally written as
+with $ k_{2}^{(0)}=\sqrt{\left(k^{(0)}\right)^2- k_1^2}$, such that $\textrm{Re}\left( k_{2}^{(0)}\right)\in \mathbb R$, where $k^{(0)} = \omega /c_f$ is the wavenumber in the fluid and $c_f$ the wave velocity. \footnote{The condition on the transverse wavenumber was written as $\textrm{Re}\left( k_{2}^{(0)}\right)\geq 0$ in the original article, see the foreword in Section~\ref{sec:foreword}.} Thus, $\mbf s^{(0^\pm)}$ appearing in  Eq.(\ref{eq:op_k_matrix}) reduces to $s^{(0^\pm)}=A^{(0\pm)}$. $\mathcal{C}^{(0^-)}$ and $\mathcal{C}^{(N^+)}$ are therefore no longer operators and reduce to $\mathcal{C}^{(0^-)}= \mbf C^{(0^-)}$ and $\mathcal{C}^{(N^+)}=\mbf C^{(N^+)}$. In our fluid case, the interface conditions at $\Gamma^{(0)}$ and $\Gamma^{(N)}$ involve the spatial Laplace transform of the pressure and its first spatial derivative with respect to $x_2$ whatever the nature of the $1$-st and $N$-th layers.  Both matrices $ \mbf C^{(j)}$, $j=(0^-),(N^+)$, can thus be formally written as
     \begin{equation}
         \mbf C^{(j)} = k_1 \mbf C_1^{(j)}+\mbf C_0^{(j)}+k_2^{(0)}\mbf C_{1'}^{(j)},
         \label{eq:continuity}
@@ -126,7 +134,7 @@ The dispersion relation of multi-layer dissipative structure are more commonly c
     \begin{equation}
         \tilde { \mbf \theta}_n ( k_1, x_2) =  A^{(n)+}_{X} e^{\im  k_{2,X}^{(n)}(x_2 - h^{(n)})} + A^{(n)-}_{X} e^{-\im  k_{2,X}^{(n)} (x_2 - h^{(n)})}, 
     \end{equation}
-with $ A^{(n)\pm}_{X}$ the up and down-going wave amplitudes, $k_{2,X}^{(n)}=\sqrt{\left(k_{X}^{(n)}\right)^2-k_1^2}$, such that $\textrm{Re}\left( k_{2,X}^{(n)}\right)\geq 0$, and $X$ refers to the type of wave, i.e. shear, compressional or acoustic. If necessary, these Laplace transform representations are complemented by those of the pressure field in the fluid half-spaces provided in Eq.(\ref{eq:outgoing_pressure_field}).
+with $ A^{(n)\pm}_{X}$ the up and down-going wave amplitudes, $k_{2,X}^{(n)}=\sqrt{\left(k_{X}^{(n)}\right)^2-k_1^2}$, such that $\textrm{Re}\left( k_{2,X}^{(n)}\right)\geq 0$, \footnote{Following the discussion from the foreword in Section~\ref{sec:foreword}, the square roots in this part do require a branch cut selection, meaning here that outgoing solution are considered.} and $X$ refers to the type of wave, i.e. shear, compressional or acoustic. If necessary, these Laplace transform representations are complemented by those of the pressure field in the fluid half-spaces provided in Eq.(\ref{eq:outgoing_pressure_field}).
 
 The boundary conditions are applied at each interface and the set of equations is cast into the following matrix form $\mbf M( k_1) \mbf q = 0$, with $ \mbf q$ a vector containing the amplitudes of each field/potential. The modes of the system correspond to the wavenumbers $ k_1$ for which the matrix $\mbf M( k_1)$ is singular, i.e.
     \begin{equation}
@@ -385,38 +393,6 @@ A spectral collocation method (SCM) is proposed to calculate dispersion relation
 
 This method paves the way of complex wavenumber-real frequency dispersion relation calculation and analysis of more complex structures, like layers with embedded periodic inclusions (elastic or resonant), i.e. metaporolastic surfaces.      
 
-% \section*{Conflict of interest}
-% The authors have no conflicts to disclose
-% \section*{Author Contributions}
-% \textbf{Mathieu Maréchal}
-% Formal analysis (lead); 
-% Investigation (equal); 
-% Methodology (equal); 
-% Software (lead); 
-% Visualization (lead); 
-% Writing – original draft (lead).
-% \textbf{Alan Geslain}
-% Writing – review \& editing (supporting); Investigation (equal). 
-% \textbf{Jean-Philippe Groby}
-% Formal analysis (equal);
-% Methodology (equal);
-% Supervision (equal);
-% Writing – review \& editing (lead).
-% \textbf{Vicent Romero-Garcìa}
-% Formal analysis (supporting);
-% Methodology (supporting);
-% Supervision (equal);
-% Writing – review \& editing (equal).
-% \textbf{Olivier Dazel}
-% Formal analysis (equal);
-% Investigation (equal);
-% Methodology (equal);
-% Supervision (equal);
-% Writing – review \& editing (equal).
-
-% \section*{Data Availability Statement}
-% The data that support the findings of this study are available from the corresponding author upon reasonable request. 
-% \appendix
 \begingroup
 \section{Appendices}
 \renewcommand{\thesubsection}{\thesection.\Alph{subsection}}
@@ -490,9 +466,6 @@ The discretized equations of motion is that provided in Eq.(\ref{eq:up_motion_eq
     % The dispersion relation as determined with the SCM matches that calculated with the M\"uller method, thus validating the procedure. 
     
  In a similar way as Lamb modes, the different modes can be sorted in symmetric and antisymmetric modes. This is done by comparing the sign of the radiated amplitudes at each edge of the layer. Results are shown in Fig.~\ref{fig:fluid_coupled_poroelastic}b. All modes necessarily have an imaginary part, both because of the radiation condition, i.e. leakage, and because of viscothermal dissipation as can be noticed in Fig.~\ref{fig:fluid_coupled_poroelastic}c.
- 
- %   It can be seen that no mode exists solely in the real plane in this configuration: from the viscothermal dissipations in the PEM, there always exists a contributing imaginary part in the wavenumber solution, and thus attenuation to the mode imaginary part of the branches of the solution are contributed from the PEM layer and not from the fluid-coupling. Small radiations are occuring at the interface, but the effect is not as strong as if it was a heavy fluid, saturating the surrounding medium and the pores of the layer, as we would have with water for example.
-
 
 \subsection{Evaluation of the physical fields from the SCM solutions}
 \label{app:fields}

@@ -1,77 +1,47 @@
-\newpage
 \section{Details on the root-finding algorithm}
 \setcounter{equation}{0}
+In this appendix, we will give a few explanations on the root-finding procedure that has been developed throughout this thesis. Its core is based on the Müller root-finding method, but several procedure are used around in order to make the procedure efficient and reliable. 
 
 \subsection{The Müller method}
-equations, iterative scheme etc. 
+\begin{figure}[ht!]
+    \centering
+    \input{chapitres/annexes/figs/muller_iteration.tex}
+    \caption{Illustration of the Müller iterative scheme: the root of function $f(x)$ (\soliddarkline) is approximated with an interpolation function (\dasheddarkline) by the $x_3$ point.}
+\end{figure}
 
-\cite{chapra2010}
-
+This method is a root-finding procedure that relies on a quadratic interpolation of the function, here denoted as $f$. From three initial guesses close to each other that are $x_0, x_1$ and $x_2$, a parabola is constructed by interpolating the function of interest at the three initial guesses. \cite{muller1956,chapra2010}. The parabola $p(x)$ has an expression written as $p(x_3) = a (x_3-x_2)^2 + b(x_3-x_2) + c$ and, denoting $f_i = f(x_i)$, passes through the points $(x_0, f_0)$, $(x_1, f_1)$ and $(x_2, f_2)$. The coefficients for this quadratic polynomial are thus given as,
 \begin{equation}
     \begin{aligned}
-        \Sigma_x &= \prod_{0 \le i < j \le 2} (x_j - x_i) = (x_0 - x_2)(x_1 - x_2)(x_0 - x_1) \\
-        a &= \frac{(x_1 - x_2)(f_0 - f_2) - (x_0 - x_2)(f_1 - f_2)}{\Sigma_x}\\
-        b &= \frac{(x_0 - x_2)^2 (f_1 - f_2)-(x_1 - x_2)^2(f_0 - f_2)}{\Sigma_x}\\
-        c &= f_2
+        a &= \ddfrac{(x_1 - x_2)(f_0 - f_2) - (x_0 - x_2)(f_1 - f_2)}{\prod_{0 \le i < j \le 2} (x_j - x_i)},\\
+        b &= \ddfrac{(x_0 - x_2)^2 (f_1 - f_2)-(x_1 - x_2)^2(f_0 - f_2)}{\prod_{0 \le i < j \le 2} (x_j - x_i)},\\
+        c &= f_2.
     \end{aligned}
 \end{equation}
 
+The root of this polynomial is thus expressed as,
 \begin{equation}
-    f(x_3) = ax_3^2 + bx_3 + c
+    x_3 = x_2 - \cfrac{2c}{b + \mathrm{sign}(b) \sqrt{b^2 - 4 a c}},
 \end{equation}
+and chosen such that the denominator should be the biggest value, hence the $ \mathrm{sign}$ function. While not the classically written quadratic formula, this expression remains equivalent and allows to avoid round-off errors for small values of $a$ \cite{press1992}. This process is then run iteratively until the condition for finding the root is met, 
 \begin{equation}
-    x_3 = x_2 - \cfrac{2c}{b + \mathrm{sign}(b) \sqrt{b^2 - 4 a c}}
+    \varepsilon_a=\left|\frac{x_3-x_2}{x_3}\right|,
 \end{equation}
-\begin{equation}
-    \varepsilon_a=\left|\frac{x_3-x_2}{x_3}\right|
-\end{equation}
-\begin{figure}[ht!]
-    \centering
-    \begin{tikzpicture}[scale=1.5,domain=-.5:1.2]
-        \draw[thick] plot[samples=100] (
-            \x, {0.3*(\x)^4 - 0.9*(\x)^3 + 0.2*(\x)^2 - 0.4*(\x) + 0.8});
-        
-        \pgfmathsetmacro{\xzero}{-.3}
-        \pgfmathsetmacro{\yzero}{0.3*(\xzero)^4 - 0.9*(\xzero)^3 + 0.2*(\xzero)^2 - 0.4*(\xzero) + 0.8}
-        \pgfmathsetmacro{\xone}{0.2}
-        \pgfmathsetmacro{\yone}{0.3*(\xone)^4 - 0.9*(\xone)^3 + 0.2*(\xone)^2 - 0.4*(\xone) + 0.8}
-        \pgfmathsetmacro{\xtwo}{.7}
-        \pgfmathsetmacro{\ytwo}{0.3*(\xtwo)^4 - 0.9*(\xtwo)^3 + 0.2*(\xtwo)^2 - 0.4*(\xtwo) + 0.8}
-        \pgfmathsetmacro{\xthree}{1}
-        \pgfmathsetmacro{\ythree}{0}
-        
-        % Draw points
-        \fill (\xzero,\yzero) circle (1pt) node[below] {$x_0$};
-        \fill (\xone,\yone) circle (1pt) node[below] {$x_1$};
-        \fill (\xtwo,\ytwo) circle (1pt) node[below] {$x_2$};
-        
-        % Compute coefficients for the parabolic interpolation
-        \pgfmathsetmacro{\a}{(\yzero/((\xzero-\xone)*(\xzero-\xtwo))) + (\yone/((\xone-\xzero)*(\xone-\xtwo))) + (\ytwo/((\xtwo-\xzero)*(\xtwo-\xone)))}
-        \pgfmathsetmacro{\b}{(\yzero*(\xone+\xtwo)/((\xzero-\xone)*(\xzero-\xtwo))) + (\yone*(\xzero+\xtwo)/((\xone-\xzero)*(\xone-\xtwo))) + (\ytwo*(\xzero+\xone)/((\xtwo-\xzero)*(\xtwo-\xone)))}
-        \pgfmathsetmacro{\c}{(\yzero*\xone*\xtwo/((\xzero-\xone)*(\xzero-\xtwo))) + (\yone*\xzero*\xtwo/((\xone-\xzero)*(\xone-\xtwo))) + (\ytwo*\xzero*\xone/((\xtwo-\xzero)*(\xtwo-\xone)))}
-        
-        \draw[dashed] plot[samples=50,domain=-.7:1.5] (
-            \x, {\a*(\x)^2 - \b*\x + \c}
-        );
-        \fill (\xthree,\ythree) circle (1pt) node[below left] {root};
-        \fill (1.15,0) circle (1pt) node[above right] {$x_3$};
-        % Axes
-        \draw[->] (-.7,0) -- (1.8,0) node[right] {$x$};
-        \draw[->] (-.7,0) -- (-.7,1.5) node[above] {$f(x)$};
-    \end{tikzpicture}       
-    \caption{iteration muller}
-\end{figure}
+which means that the convergence is reached when the iteratively-found solution stops varying up to small values; we have usually chosen $\varepsilon_a \in \left[ 10^{-12}, 10^{-18} \right]$ depending on the nature of the problem and more importantly the numerical conditioning of the complex function $f$. It is possible to initialize the method with initial guesses that leads to a divergence of the method, or to location which never converge. To mitigate these two issues, a second criterion $\varepsilon_b \approx 10^6$ sets a threshold for the variance of $[x_0, x_1, x_2, x_3]$ for the first case, and to a parameter setting the maximum number of iterations set in the range $[100, 2000]$.
 
 \subsection{A complete routine for the automated solving of dispersion relations}
-\begin{figure}[ht!]
+\begin{figure}[htpb]
     \centering
     \input{chapitres/annexes/figs/muller_schema.tex}
-    \caption{Description of the routine}
+    \caption{Description of the routine. Accented text corresponds to conditions and text not embedded in a box corresponds to the data obtained in the previous process. The map is shown in logarithmic scale of the absolute value of the function value depending on the complex coordinate of the wavenumber.}
+    \label{fig:muller_schema}
 \end{figure}
 
+In this section is described the algorithm that was developed around the Müller method for the automatic computation of dispersion relations. A diagram is presented in Fig.~\ref{fig:muller_schema}. The method is initialized with all necessary parameters, among which an array of frequencies and the function of interest. The first iteration usually does not contain any initial guesses, so a mapping of the function is done which depends on the range of values given as the input. An example of a map is shown in the diagram, from which each local minimum $k_g$ is easily found and represented as the black dots, corresponding to the lowest map values. Each of these solutions leads to a guess used for the initialisation of the method, which are given as $k_g - \delta k$, $k_g$ and $k_g + \delta k$, with $\delta k$ and arbitrary value set as $\delta k = 1+i\cdot 1$ for most cases. It was observed that the variation of this parameter does not affect the results as long as it is kept to rather small values of the magnitude of the solution to solve.
 
-In order to find solutions for modes in the form of complex wavenumbers $k_{1}$, we use the previously derived system from Eq.~(\ref{eq:final_system}), that can also be expressed as $\mbf M(k_1, \omega) \mbf S = 0$. The modes are found by finding the discrete set of $k_1$ that satisfy the singularity of $\mbf M$ using Eq.~\ref{eq:M_det}
+Next, the Müller method is run for each of this set of parameters. This yields a set of converged roots. If the number of converged roots is the one expected from the input value of the procedure, then the program goes to the next iteration. Otherwise, a refined map of the function is evaluated and the iterative process is run again. Roots are checked to lie in the input range for the wavenumber and that they are all unique, since converging from multiple sets of guesses does not require that the method will not converge several times to the same root; this is checked with another threshold $\varepsilon_c\approx 10^{-8}$. Once enough unique roots have been found, the latter are fed to the procedure as the new initial guesses: if the frequency change is small enough, then the roots should be close to the previous ones as each branch of a dispersion relation should be continuous in most of the frequency spectrum. If enough roots have been provided as initial guesses, the program avoids computing a mapping of the function, thus saving an rather important computation time.
 
-In practice, these solutions are found using a root-finding procedure, our own implementation of the Müller method \cite{muller1956}. It is based on a parabolic interpolation to iteratively finds complex wavenumber solutions $k_1$ given a specific frequency $\omega$ from three initial guesses. Therefore, care has to be put into the initialization of the method. Since the system $\mbf M$ is constructed from a finite elements scheme, computations will be all the more costly that a large number of iterations need to run before convergence is reached. The convergence criterion checks that threshold of the variation of the solution is below $\varepsilon$. In this paper, this criterion is taken with a magnitude around $\varepsilon = 10^{-13}$. Thus, the initialization of the method is done by evaluating the local minimas of a coarse mapping of the function in the complex plane. The latter is only computed every few frequency steps to save computation time. Additionally, the matrix $\mbf D_{ii}$ from Eq.~(\ref{eq:discrete_system}) does not depend on $k_1$ and can thus be only evaluated once per frequency step, thus saving valuable computing resourses. 
+Once the set of solutions has been finally obtained, each of the associated mode shapes can also be retrieved. Given a specific root $k_{1,j}$ that satisfies $\mathrm{det}(\mbf M) = 0$, there is $\mbf M(k_{1,j}) \mbf S = 0$, where the vector $\mbf S = \mathrm{ker}(\mbf M(k_{1,j}))$ is the nullspace of the matrix. In practice, the nullspace is computed using singular value decomposition (SVD), $\mbf M = \mbf U \mbf \Sigma \mbf V^\dagger$. The last right singular vectors, that is the last row of $\mbf V^\dagger$ provide an orthonormal basis for the null space of $\mbf M$, associated to the singular value $\sigma = \mathrm{min}(\mbf \Sigma)$.
 
-Once the set of solutions has been obtained, each of the associated mode shapes can also be retrieved. Given a specific root $k_{1,j}$ that satisfies $\mathrm{det}(\mbf M) = 0$, there is $\mbf M(k_{1,j}) \mbf S = 0$, where the vector $\mbf S = \mathrm{ker}(\mbf M(k_{1,j}))$ is the nullspace of the matrix. In practice, the nullspace is computed using singular value decomposition (SVD), $\mbf M = \mbf U \mbf \Sigma \mbf V^\dagger$. The last right singular vectors, that is the last row of $\mbf V^\dagger$ provide an orthonormal basis for the null space of $\mbf M$, associated to the singular value $\sigma = \mathrm{min}(\mbf \Sigma)$. All state vectors among which $S^t$ and $S^b$ are obtained by selecting the appropriate rows of $\mbf V^*$. By doing the whole procedure backwards, using Eq.~(\ref{eq:condensation_dof}) and then Eq.~(\ref{eq:periodicity}), we can retrieve the full degrees of freedom vector $\mbf p$ (and normalized as $ (p^i(x_1, x_2)/p^i(0, h) )e^{ik_1 x_1}$).
+\subsection{Using the code}
+In order to use the developed method, one should write a Python class formulating the problem, the requirements are that there should exist an 
+\texttt{update\_frequency} method taking an angular frequency as the only input and should update all frequency-dependant parameters. Also, there should exist a \texttt{get\_matrix} method taking a complex wavenumber (or any parameter that needs to be root-found) and returns either a matrix or a scalar. The code is available on Github \comment{déposer sur zenodo} and more practical informations are given there. 

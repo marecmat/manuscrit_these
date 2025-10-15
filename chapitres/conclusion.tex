@@ -1,16 +1,28 @@
-\chapter*{Conclusion \& Perspectives}
+\chapter*{Conclusion \& Perspectives \markboth{Conclusion}{}}
 \addcontentsline{toc}{chapter}{Conclusion}
+\setcounter{section}{0}
+Ranging from a stable method for the evaluation of the scattering properties of grating stacks to developing ways to compute leaky guided waves in homogeneous multilayer structures as well as in metaporous layers, this thesis work has thus been mainly focused on the development of numerical tools. 
 
-\begin{enumerate}
-    \item conclusion générale de la thèse
-    \begin{itemize}
-        \item ?
-    \end{itemize}
-    \item perspectives:
-    \begin{itemize}
-        \item study PEM host configurations
-        \item homogeneous PEM layer disp validation SCM \& GM avec 1 figure,
-        \item excitation of the modes: COMSOL \& line source excitations
-        \item experimental validation: porous with rigid inclusions, SLaTCoW or other method
-    \end{itemize}
-\end{enumerate}
+Throughout the literature, these metaporous structures have shown efficient absorption properties using various geometry by embedding resonant, tortuous paths, voids or inclusions inside porous and poroelastic layers. These obstacles provide additional dispersion as well as interferences of the wave at discrete frequencies. Combined with the attenuation of waves in porous layer, they provide for efficient acoustic absorption structures. Even though, these effects have been studied in the literature, they have mostly been considered as infinite systems. In this work, the considerations were extended to the study of leaky guided waves in these dissipative and highly-dispersive structure, that is to account for leakage from the structure to surrounding media. This has shown that the classification of the waves was of interest and that the physical mechanisms at stake were not so simple. The combination of these dissipation mechanisms thus have showned a complex behaviour for the studied structure. 
+
+In \textsc{chapter} 1, we laid the foundation for the work, introduced the governing motion equations for assumptions of homogeneous porous and poroelastic media and proposed a state of art for the exisitng numerical method allowing for the computation of the scattering properties as well as the dispersion of waves in these structures. 
+
+From this, in \textsc{chapter 2} we discuss as a first part a simple dissipative homogeneous (per layer) multilayer structure with outgoing radiation. These homogeneous layers can easily be discretized in a 1D stencil, using the SCM. In a general formalism, any stack of layer, dissipative or not, can be computed with the presented method. Results regarding the energy flux for specific modes were presented as well  
+
+Then, we developed a robust and stable method for the mai n configurations of interest in this work, that are grating stacks with poroelastic/porous layers as presented in \textsc{chapter 3}. The method remained stable for all tested cases contrary to the TMM and the coupling is thus quite robust and efficient, since no fem discretization of the homogneenous layers is required. 
+
+In the final \textsc{chapter 4} we adapted the previous method, in the absence of a source, solving its dispersion relation. The method relies on the same discretization as previously, therefore the root-finding solving of the method is not very efficient. However, reliable results have still been achieved. We were able to highlight the trapped mode that occurs in a perfect absorption case as well as the impact of the resonance due to an hybrization of the resonator and the cavity for split-ring resonators. 
+ 
+
+\subsection*{Perspectives and future work}
+\textbf{1.} The finite elements approach developed and presented in Chapter 3 has been tested and validated for general layers. However, in Chapter 4, dispersion relations are only studied for the case of equivalent fluid; future work thus include an extension of the study of dispersion relation of waves in metaporous structures, by assuming poroelastic layers and solid inclusions, leading to a much larger of modes to analyse due to the presence of the modes linked to the elastic phase of the materials modeled with the full Biot theory. 
+
+\textbf{2.} An extension to 3D structures can be thought of for all the studied configurations in this thesis Allowing to solve also the out-of-plane modes could allow for the study of 2D phononic crystals with leakage in surrounding space and provide more insight on real-life applications. Also this could mean that the structures could be finite in an additional direction. 
+
+\textbf{3.} Regarding the Global Method that was derived and benchmarked against TMM, an extension with the Recursive Method, formalized in \cite{dazel2013} was also worked on. Unfortunately, it has ended up on a dead end, because even if the original authors had succeded in a stabilized formulation for homogeneous stacks of layers, the coupling with finite elements revealed to still be unstable. The investigation of the stability of all these methods could be an interesting perspective of focus. 
+
+\textbf{4.} An important perspective for the metaporous structure dispersion relation computation presented in Chapter 4 would involve the development of a more robust method not relying on a root-finding procedure. Some time has been spent during the development of the method to try to write the equations in the form of an eigenvalue problem with $k_{1q}$ as the eigenvalue , although this was not achieve due to the challenges of obtaining such a formulation with the way the coupling between the surrounding medium and the structure is done. The finite elements matrices obtained in Eq.~\comment{ref the correct eq} depend on both on a term in $ e^{ik_{1q}d} $ and an integral on $ x_1 $  with a $ e^{ik_{1q}}x_1 $ term. An appropriate change of variable or a different formulation for the coupling might provide a way to achieve the writing of an eigenvalue problem. Note that this has been explained briefly in Section.~\comment{ref annexe PRB} and shows that the eigenvalue problem is easily written when not accounting for the surrounding medium. 
+
+\textbf{5.} A study the excitability of the modes could be conducted by using a numerical model done with COMSOL \& a line source excitation properly tuned according to the dispersion relation modes to confirm the form of the solutions of the modes in finite structures and a more \emph{realistic} configuration and further link the dispersion relation results to an actual observable behaviour of the structures by gaining insights on the excitability of the modes. This is an important aspect as there are many dissipation mechanisms involved, leading to very attenuated modes: seeing if they can be excited or if their existence actually affects the wave propagation in any way. 
+
+\textbf{6.} An experimental validation of these results would add value to this work and could complement the previous point. One could imagine a porous sample manufactured with rigid cylindrical inclusions. There would be challenges to this, including the precision required to engineer precisely the radius of the cylinders. Measurements need to take into account the nature of the source needed to excite the variety of these modes. A post-process of the frequency responses using SLaTCoW or some other method allowing for the retrieval of complex wavenumbers. This approach is similar to that applied in Section.\ref{sec:JAP_slatcow}.

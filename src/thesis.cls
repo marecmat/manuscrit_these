@@ -7,16 +7,20 @@
 \ProcessOptions\relax
 \LoadClass[
     12pt,
-    oneside
-    %twoside
+    % oneside
+    twoside
 ]{book}
 
 %% Some parameters
 \setlength{\headheight}{15pt}
+\everymath{\displaystyle}
 \RequirePackage{xcolor}     
 \definecolor{accent}{HTML}{620059} %{685494}% {a33c34}
+\definecolor{accent_title}{HTML}{663361} %{685494}% {a33c34}
+\definecolor{titletext}{HTML}{FFFFFF} %{685494}% {a33c34}
+
 \RequirePackage{geometry}   
-\geometry{a4paper, left=2.5cm, right=2cm, top=2cm, bottom=2cm}
+\geometry{a4paper, left=2.5cm, right=2cm, top=3cm, bottom=3cm}
 
 %% PACKAGES
 \RequirePackage[
@@ -34,11 +38,14 @@
     citecolor=accent,
     linkcolor=accent,
     ]{hyperref}
-\RequirePackage{titletoc,fancyhdr,epigraph,enumitem,nicematrix}  
+\RequirePackage{titletoc,fancyhdr,epigraph,enumitem}%,hyphenat}  
 \RequirePackage{amssymb,amsmath,amsthm}  
-\RequirePackage{graphicx,tabularx,array,tikz}   
-\usetikzlibrary{patterns, patterns.meta, calc, arrows, arrows.meta, external, decorations.pathmorphing, positioning, fit, shapes}
 \RequirePackage{pdfpages,indentfirst,microtype,etoolbox,multicol}  
+\RequirePackage{graphicx,tabularx,array,tikz}   
+
+\usetikzlibrary{patterns, patterns.meta, calc, arrows, arrows.meta, external, decorations.pathmorphing, positioning, fit, shapes}
+% \tikzexternalize
+
 % \RequirePackage{layout/jabbrv} % https://github.com/compholio/jabbrv
 %% FOR CHAPTER GM 
 \RequirePackage{cleveref,subcaption}
@@ -55,9 +62,6 @@
 \renewcommand*\l@section{\@dottedtocline{1}{1em}{2em}}
 \renewcommand*\l@subsection{\@dottedtocline{2}{4em}{3em}}
 \renewcommand*\l@subsubsection{\@dottedtocline{3}{9em}{2em}}
-\makeatother
-
-
 \setlength\epigraphrule{0pt}
 \setlength\epitextskip{2ex}
 \setlength\epigraphwidth{.5\textwidth}
@@ -92,7 +96,7 @@
                         anchor=north west,
                     ] at ([yshift=2pt, xshift=1.5cm]chaptertitle.north east){#1};
                 \end{tikzpicture}\tikzexternalenable
-                \vspace{3cm}
+                \vspace{1.5cm}
             }
             {0pt}
             {}[{\hypersetup{linkcolor=black}
@@ -110,9 +114,9 @@
             \node[
                 font=\color{white}\fontsize{42}{42}\titlestyle,
                 anchor=center,
-                ] at ([yshift=-3cm]current page.north) {#1};
+                ] at ([yshift=-3cm]current page.north) {{#1}};
             \end{tikzpicture}\tikzexternalenable
-            \vspace{3cm}
+            \vspace{1.5cm}
             }
             {0pt}
             {}
@@ -125,7 +129,7 @@
             {%
                 \vspace{2pt}
                 \begin{tabular}[t]{@{}>{\color{accent}\fontsize{18}{18}\titlestyle}p{2.5em}@{\hspace{10pt}}@{\color{accent}\vrule width 2pt\hspace{20pt}}>{\raggedright\arraybackslash}p{0.8\textwidth}@{}}
-                    \thesection & {\fontsize{18}{18}\titlestyle\color{black}#1}
+                    \thesection & {\fontsize{18}{18}\titlestyle\color{black}{#1}}
                 \end{tabular}
             }
         \titlespacing*{\section}{0pt}{\baselineskip}{20pt}
@@ -136,48 +140,49 @@
             {%
                 \vspace{2pt}
                 \begin{tabular}[t]{@{}>{\color{accent}\fontsize{18}{18}\titlestyle}p{2.5em}@{\hspace{10pt}}@{\color{accent}\vrule width 2pt\hspace{20pt}}>{\raggedright\arraybackslash}p{0.8\textwidth}@{}}
-                     & {\fontsize{18}{18}\titlestyle\color{black}#1}
+                     & {\fontsize{18}{18}\titlestyle\color{black}{#1}}
                 \end{tabular}
             }
 
         \titleformat{\subsection}
             {\fontsize{16}{16}\color{accent}\titlestyle\bfseries}
-            {\thesubsection.}{5pt}{\color{black}#1}
+            {\thesubsection.}{5pt}{\color{black}{#1}}
         \titlespacing*{\subsection}{0pt}{\baselineskip}{10pt}
-        \titleformat{\subsubsection}{\color{accent}\titlestyle\bfseries}{\thesubsubsection.}{5pt}{#1}
+        \titleformat{\subsubsection}{\color{accent}\titlestyle\bfseries}{\thesubsubsection.}{5pt}{{#1}}
         \titlespacing*{\subsubsection}{0pt}{\bigskipamount}{5pt}
         \dottedcontents{chapter}[1.5em]{\vspace{0.5\baselineskip}\bfseries}{1.5em}{0pt}
                 
-        \makeatletter
-        \providecommand{\subtitle}[1]{\apptocmd{\@title}{\par \vspace*{.5em} {\fontsize{20}{20}\titlestyle #1 \par}}{}{}}
+        \providecommand{\subtitle}[1]{\apptocmd{\@title}{\par \vspace*{.2em} {\fontsize{18}{18}\titlestyle #1 \par}}{}{}}
         \providecommand{\footer}[1]{\apptocmd{\@title}{\vfill {\fontsize{11}{11}\rmfamily\mdseries #1 \par} \vspace*{-.5em}}{}{}}
         % PAGE DE GARDE
         \renewcommand{\maketitle}{%
             \thispagestyle{empty}
+            \tikz[remember picture,overlay] \fill[accent_title, inner sep=0pt] (current page.south east) rectangle (current page.north west);
+            \tikz[remember picture,overlay] \node[opacity=.7,inner sep=0pt] at (current page.center){\includegraphics[width=\paperwidth,height=\paperheight]{background.png}};
         \begin{center}
-            {\fontsize{18}{18}\selectfont  
+            \vspace*{-1.5cm}
+            {\color{titletext}\fontsize{18}{18}\selectfont  
                 {Le Mans Université, Le Mans, France}
 
-                {École Doctorale Sciences de l’Ingénierie et des Systèmes}
-                \vskip .5em
+                {\color{titletext} École Doctorale Sciences de l’Ingénierie et des Systèmes}
+                \vskip .2em
 
-                {Doctoral thesis \, -- \, Speciality: acoustics}
+                {\color{titletext} Doctoral thesis \, -- \, Speciality: acoustics}
 
             }%
-            \vskip 2em%
+            \vskip 2.5em%
             
-            {\fontsize{18}{18}\selectfont Presented by: }
+            {\color{titletext}\fontsize{18}{18}\selectfont Presented by}\\[.2em]
 
-            {\fontsize{26}{26}\titlestyle \@author}\\[.2em]
+            {\color{titletext}\fontsize{22}{22}\titlestyle \@author}\\[.7em]
 
-            {\fontsize{18}{18}\selectfont submitted for the Doctoral degree}
-            \vskip 2.5cm
+            {\color{titletext}\fontsize{18}{18}\selectfont submitted for the Doctoral degree}
+            \vskip 3.5cm
 
-            {\fontsize{32}{32}\titlestyle\@title\par}
+            {\color{titletext}\fontsize{26}{26}\titlestyle\@title\par}
         \end{center}%
         \par
-        \vskip 4em}
-        \makeatother
+        \vskip 1em}
 
         % \renewcommand*{\cftsubsubsecindent}{2em} % reduce indent of subsubsection titles 
         % Write chapters as chapters in the toc
@@ -195,7 +200,7 @@
         \RequirePackage{emptypage}
 
         \pagestyle{fancy} 
-        \RequirePackage[lining,semibold,scaled=1.05]{ebgaramond}
+        \RequirePackage[lining,semibold,scale=1.12]{ebgaramond}
         % \RequirePackage[scale=0.85]{sourcecodepro}
         % \RequirePackage[ebgaramond,vvarbb,subscriptcorrection]{newtxmath}
         \RequirePackage[ebgaramond]{newtxmath}
@@ -220,7 +225,6 @@
             {#1}
             {\href{\thefield{url}}{#1}}}
             {\href{https://doi.org/\thefield{doi}}{#1}}}
-        \makeatletter
         \def\blx@driver#1{%
         \ifcsdef{blx@bbx@#1}
             {\usebibmacro{string+doiurl}{\csuse{blx@bbx@#1}}}
@@ -234,15 +238,12 @@
                 {I can't find a driver for the entry type
                 '\abx@field@entrytype'\MessageBreak
                 and there is no fallback driver either}}}}
-        \makeatother
         \setlength{\itemindent}{0pt}
         \renewcommand\labelitemi{{\color{accent}---}}
 
 \else
-        \makeatletter
         \providecommand{\subtitle}[1]{\apptocmd{\@title}{\par \vspace*{.5em} {\fontsize{20}{20}\titlestyle #1 \par}}{}{}}
         \providecommand{\footer}[1]{\apptocmd{\@title}{\vfill {\fontsize{11}{11}\rmfamily\mdseries #1 \par} \vspace*{-.5em}}{}{}}
-        \makeatother
         \typeout{PAS DE MISE EN PAGE, MODE DRAFT}
         \RequirePackage{newtxmath}
 
@@ -261,17 +262,8 @@
 {\endenumerate}
 {\item}
 
-
-% \renewbibmacro*{issue+date}{%
-%   \printtext[]{%
-%     \printfield{issue}%
-%     \setunit*{\addspace}%
-%     \usebibmacro{date}}%
-%   \newunit}
-
+\renewcommand*{\thefootnote}{(\arabic{footnote})}
 \renewcommand{\figurename}{Fig.}
-
-\makeatletter
 \renewcommand{\thefigure}{\arabic{chapter}.\arabic{figure}}
 \renewcommand\listoffigures{%
   \section*{\listfigurename}%
@@ -284,5 +276,3 @@
   \@starttoc{lot}%
 }
 \makeatother
-
-\tikzexternalize[optimize=true, optimize command away=\includepdf]%prefix=./tikzbuild/]

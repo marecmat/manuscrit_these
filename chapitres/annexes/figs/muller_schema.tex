@@ -7,14 +7,14 @@
         \node (freq) [text width=4cm, below=.1cm of func] {$\bullet$ Given frequency $f_i$};
         \node[case,fit={(params) (func) (freq)}, inner sep=10pt]  (init) {};
         % \node (init) [case] {parameter \\function};
-        \node (map) [case, below=2cm of init] {Determinant mapping};
+        \node (map) [rectangle, rounded corners, text width=5.5cm, minimum height=1cm,text centered, draw=black, below=2cm of init] {Function mapping\\\includegraphics[width=150pt]{det_map.pdf}};
         \node (rootfind) [case, below=3cm of map] {Müller method for each guess};
         \node (modeshape) [case, below of=rootfind] {Mode shapes};
         \node (store) [case, left= 1cm of modeshape]{Output and store data};
         \draw [arrow] (init) -- (map) node[arrowlabels] {{\color{accent} if no guesses}};
-        \draw [arrow] (init) -- ++ (-4, 0)  -- ++ (0, -8) node[arrowlabels] {{\color{accent} if guesses provided}} |- (rootfind) ;
+        \draw [arrow] (init) -- ++ (-5, 0)  -- ++ (0, -5.5) node[arrowlabels] {{\color{accent} if guesses provided}} |- (rootfind) ;
         \draw [arrow] (map) -- (rootfind) node[arrowlabels] {local minima used as guesses};
-        \draw [arrow] (rootfind) -- (modeshape)node[arrowlabels, text width=.8cm] (roots) {roots};
+        \draw [arrow] (rootfind) -- (modeshape)node[arrowlabels, text width=1.5cm] (roots) {set of roots};
         \draw [arrow] (roots) -- ++ (3.7,0) -- ++ (0, 4.5) node[arrowlabels] {{\color{accent} if not enough found roots} (only once)} |- (map);
         \draw [arrow] (roots) -- ++ (6.8,0) -- ++ (0, 9) node[arrowlabels] {{\color{accent} if enough found roots: }use roots as guesses and go to next frequency $f_{i+1}$} |- (init);
         \draw[arrow] (roots) -| (store);

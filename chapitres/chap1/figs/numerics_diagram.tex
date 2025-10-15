@@ -1,3 +1,54 @@
 \begin{tikzpicture}
-    
+    \def\n{7}; \def\nodespan{0.7}; \def\xarrowlen{1}; 
+    \def\layerlen{6}; \def\arrowspacing{1};
+    \begin{scope}[shift={(-3,0)}]
+        
+        \coordinate (repere) at (-1.2*\arrowspacing, -3*\nodespan);
+        % Draw the x-axis
+        % geometry drawing
+        \fill[porous] (0, -1*\nodespan) 
+                rectangle ++ (\layerlen, 2*\nodespan);
+        % Domains legends 
+        \draw[thick, black] (0, -1*\nodespan) node[left] {$\Gamma_n$}
+                -- (\layerlen, -1*\nodespan) ;
+        \draw[thick, black] (0, 1*\nodespan) node[left] {$\Gamma_{n+1}$}
+                -- (\layerlen, 1*\nodespan) ;
+        \draw[thick, black] (0, -1*\nodespan) 
+                -- (\layerlen, -1*\nodespan) node[midway, below] {$\vdots$};
+        \draw[thick, black] (0, 1*\nodespan) 
+                -- (\layerlen, 1*\nodespan) node[midway, above] {$\vdots$};
+    \end{scope}
+    \begin{scope}[shift={(0,0)}]
+        \coordinate (repere) at (-1.2*\arrowspacing, -3*\nodespan);
+        % Draw the x-axis
+        % geometry drawing
+        \fill[porous] (0, -1*\nodespan) 
+                rectangle ++ (\layerlen, 2*\nodespan);
+        % Domains legends 
+        \draw[thick, black] (0, -1*\nodespan) node[left] {$\Gamma_n$}
+                -- (\layerlen, -1*\nodespan) ;
+        \draw[thick, black] (0, 1*\nodespan) node[left] {$\Gamma_{n+1}$}
+                -- (\layerlen, 1*\nodespan) ;
+        \draw[thick, black] (0, -1*\nodespan) 
+                -- (\layerlen, -1*\nodespan) node[midway, below] {$\vdots$};
+        \draw[thick, black] (0, 1*\nodespan) 
+                -- (\layerlen, 1*\nodespan) node[midway, above] {$\vdots$};
+        % Draw Chebyshev nodes
+        \foreach \i in {0,...,\n} {
+            \pgfmathsetmacro\x{\nodespan*cos((\i+0.5)*180/(\n+1))}
+            \draw[black, fill=black] (3/4*\layerlen, \x) circle (0.8pt);
+            };
+            % Draw other elements
+            \draw[Latex-] (3/4*\layerlen, .38) 
+            to[bend left] ++ (-.4, .9) node[above] {node $x_i $};
+            \draw[-Latex] (\layerlen*0.2, -0.3) 
+            -- ++ (1, 0) node[midway, above] {$ k_1$};
+            \draw[Circle-] (\layerlen-0.3, 0) 
+            -- ++ (\arrowspacing, 0) node[right] {$\Omega_n$};
+    \end{scope}
 \end{tikzpicture}
+% GM: represent partial waves in each domain
+% tmm: write SV 
+% scm: cheb nodes 
+% safe: equispace nodes
+% fem: periodic cell with nodes, draw a mesh

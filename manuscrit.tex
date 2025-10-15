@@ -1,8 +1,8 @@
-\documentclass[]{src/thesis}
+\documentclass[pretty]{src/thesis}
 \hbadness=20000
-% \renewcommand{\baselinestretch}{1.5} 
 
 \graphicspath{
+    {src/}
     {chapitres/article_GM/}
     {chapitres/article_JAP/figures/} 
     {chapitres/article_DISP}
@@ -13,25 +13,25 @@
 
 \addbibresource[datatype=bibtex]{chapitres/article_GM/comparison.bib}
 \addbibresource[datatype=bibtex]{src/biblio.bib}
-
 \addbibresource[datatype=bibtex]{src/biblio_biblio.bib}
 
 \input{src/glossaries.tex}
 \input{src/commands.tex}
 
 \begin{document}
+
 % \input{chapitres/title.tex}
 % \input{chapitres/abstract_ack.tex}
-% \input{chapitres/contents.tex}
+\input{chapitres/contents.tex}
 
-% \input{chapitres/intro/intro.tex}
+\input{chapitres/intro/intro.tex}
 \input{chapitres/chap1/chap1.tex}
 
+\input{chapitres/article_JAP/multilayer.tex}
 % \input{chapitres/article_GM/main.tex}
-% \input{chapitres/article_JAP/multilayer.tex}
 % \input{chapitres/article_DISP/main.tex}
 
-% \input{chapitres/conclusion.tex}
-% \input{chapitres/annexes/main_appendix.tex}
+\input{chapitres/conclusion.tex}
+\input{chapitres/annexes/main_appendix.tex}
 \input{chapitres/refs.tex}
 \end{document}  
