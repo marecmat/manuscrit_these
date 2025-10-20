@@ -1,0 +1,90 @@
+\section{Methods for modelling metaporous surfaces and interfaces}
+\subsection{A word on periodic structures}
+A large literature that shows the enhancement of absorption properties by periodicizing porous layers with scatterers was discussed in the introduction. In this section, a presentation of the fundamental notions surrounding periodic structures is proposed. In wave physics, periodic structures have been shown to introduce interesting effects towards applications for wave control and constitute the cornerstone of acoustic metamaterials. The periodicity can be imposed in acoustic systems using the so-called Bloch-Floquet theorem. This formalism has been pioneered by Felix Bloch and Léon Brillouin among others \cite{bloch1929,brillouin1946}. Throughout this manuscript, we consider a periodic cell along only the longitudinal direction, that 1D periodicity which we denote $d$. Taking an infinitely repeating lattice or a crystal, the description of the wave propagation in only one of the so-called unit cell, one spatial period of the total structure, is enough to describe the whole structure. The layer of infinite extent is thus limited to a single unit-cell. A wavefunction $\psi(\mbf x)$ describing the propagation should thus depend on a field with the same spatial periodicity as the lattice. To do so, the wavefunction is projected onto an infinite modal basis, that is Bloch modes,
+\begin{equation}
+​	\psi_q (\mbf x) = e^{\im k_q x_1}.
+\end{equation}
+The wavefunction at the left boundary is thus related to that at the right boundary modulated by the spatial periodicity and some translation vector, that is $\psi(x + q d) = e^{\im \mbf k} \psi(x)$. 
+
+The possibility of reduction of the spatial considerations of the problem also leads to a reduction of the reciprocal wavenumber space. In periodic structure, we often restrict this reciprocal space to the first Brillouin zone, that is to wavenumbers restricted to $k_{1q} \in [0, \pi/d]$ when looking at the band structure. The consequences of periodic media are directly observable in the band structure: bands are usually folded when the wavenumber reaches this limit of the reciprocal space. This folding occurs at the Bragg frequency corresponds to a relation between the wavelength $\lambda$ of the excitation signal and the periodicity of the crystal lattices, $d \sin(\theta) = q \lambda$, with $\theta$ the angle of incidence. This condition corresponds to destructive interferences: this phenomenon is a cause of the appearance of the famous Bragg bandgaps; in these bands of frequency, waves are unable to propagate\cite{sigalas1992, laude2009}. The study of the combination of damping and dispersion in 2D phononic crystals was studied in Ref.~\cite{moiseyenko2011}. Variations of these phenomenon have been investigated in acoustic metamaterials: e.g. the addition of periodic resonators leads to hybridization stopbands\cite{fang2006,krasikova2024}.
+
+\subsection{Scattering of waves by periodic structures}
+
+\subsubsection{Multiple scattering}
+Analytical methods for the evaluation of the wave propagation in periodic structures often require tedious derivations, as the frequency regimes of interest is usually high enough to require the description of the multiple scattering happening in the structure. Simply explained, the scatterer in the unit cell onto which the incident wave impinges acts as a secondary source, which scattered field is successively scattered by each neighboring obstacles and so on. This theoretical framework is called the \acrlong{mst} has been developed to account for these phenomena in various disciplines. \cite{martin2006, jimenez2021}. Considering an array of periodic cylindrical scatterers onto which a plane wave impinges, the form of the pressure field is,
+\begin{equation}
+    p(\mbf r) = \sum_q A_q G_q + \underbrace{\sum_j \sum_q B_q^{(j)} G_{jq}(\mbf r_j)}_{\mathrm{scattered\,field}},
+\end{equation} 
+with $q$ the Bloch mode index, $G_q$ is a function involving Bessel function and depends on the angle of incidence of the plane wave. The scattered field represents the sum of the contributions of the scattered field by each $j$th cylinder with $G_{jq}(\mbf r_j)$ being a function that depends on first-kind Hankel functions, defined in the local cylindrical coordinate system of the $j$th scatterer. The unknowns of the system are the $B_q^{(j)}$ amplitudes.
+
+This method has been used to compute the acoustic response of metaporous structures with rigid inclusions \cite{groby2011} as well as metaporoelastic surfaces with solid and shell inclusions \cite{weisser2016}. Both configurations have been tuned to show a perfect absorption peak in the frequency spectrum. The challenge of the method lies in the formulated of the expressions, but leads to a system of equations that is computed at a much lower computational cost than most numerical methods, e.g. compared to finite elements.
+
+\subsubsection{Finite elements}
+Most of the literature covering the scattering of waves by periodic scatterers and specifically metaporous structures use \acrshort{fem}, for some part through the interface of commercial software like Comsol Multiphysics or Ansys. This very versatile and powerful method has been used for decades in all fields of physics and thus won't be detailed in too much details this thesis. It is recommended to the reader as an introduction on the basis of \acrshort{fem}, the textbooks from {Atalla} and {Sgard}\cite{atalla2015} related to acoustics and vibration problems and that of Dhatt \etal \cite{dhatt2005} and Solin \etal \cite{solinHigherorderFiniteElement2004} dealing specifically with higher-order finite elements problems. This method allows for the discretization of the geometry via a mesh in order to solve the appropriate motion equations. This has allowed to use rather complex geometries, e.g spirals \cite{zhong2019} and labyrinthine paths \cite{liuAcousticLabyrinthinePorous2021} as scatterers embedded in porous layers as discussed in the state of the art. Additionally, Gaborit \etal \cite{gaborit2018} have developed a method in order to couple \acrshort{fem} with Bloch modes expansion of analytical fields described by \acrshort{tmm} which also been done in Ref.~\cite{chevillotte2011}. They have used it to compute the scattering coefficients of structure that include a periodic cell sandwiched by homogeneous layers with an embedded inclusion.
+
+Other variations of the FEM include the so-called $p$-FEM or higher-order finite elements, that uses polynomial Lobatto shape functions instead of the traditional Lagrange shape functions. Several works have highlighted it as being a very powerful discretization procedure \cite{beriot2016,sanghavi2021}. The \acrfull{wfe} \cite{}
++ dgm, bem and 
+
+
+In this section, we propose a summary of the \acrfull{fem}, presented in the case of fluid domains. A simple derivation is done to describe generally the procedures involved in the method. Let us start with a simple Helmholtz equation governing the acoustic motion in a general domain $\Omega$, 
+\begin{equation}
+    \nabla^2 p + k_{eq}^2 p = 0 \quad \mathrm{in}\; \Omega.
+\end{equation}
+This equation is associated to the appropriate boundary conditions prescribed on the contour of the domain $\Gamma = \partial \Omega$. Using the Galerkin method, this strong form is cast into a variational (also called weak) formulation, as 
+\begin{equation}
+    \int_\Omega k_{eq}^2 \delta p \cdot p - \boldsymbol{\nabla}\delta p\cdot\boldsymbol{\nabla}p \,\mathrm{d}\Omega + \int_{\partial\Omega} \delta p \partial_n p\,\mathrm{d}\Gamma = 0, \quad \forall\, \delta p
+\end{equation}
+where $\delta p$ is an admissible set of test functions associated to the pressure field. \comment{primal and dual here}
+
+
+The discretization in FEM always requires the computational domain to be split into a set of small non-overlapping elements (in the present case, triangular). Within each element $e$ with domain $\Omega_e$, the pressure field is approximated by a finite sum of local shape functions $N_n^e$ and associated nodal degrees of freedom $p_n^e$.
+
+In this work, we use Lobatto shape functions. For 2D elements, there exists nodal, edge and bubble shape functions \cite{solin2004,sanghavi2021}. At the nodes, interpolation on the interval \( \xi \in [-1, 1] \) is done by using linear (Lagrange) nodal shape functions. For higher-order approximations, that is with $p > 1$, these shape functions are enriched with the so-called bubble shape functions constructed from integrated Legendre polynomials which are internal shape functions, called Lobatto shape functions. This construction leads to a hierarchical basis that spans internal nodes within each element.\cite{beriot2016}. The pressure field in a single element can thus be discretized as,
+\begin{equation}
+    p_e(\mbf x) \approx \sum_{n=1}^{n_{dof}} N_{n,e}(\mbf x) p_{n,e} = \mbf N_e(\mbf x)^\transp \mbf p_e,
+\end{equation}
+where $\mbf N_e$ is the matrix containing the shape functions and $\mbf u_e$ is the vector containing the nodal values. For each element, the local integral formulation is mapped from the physical domain $(x, y)$ to the reference element domain $(\xi, \eta)$. Thus, the local solution of an element can be computed from the reference frame and mapped into the physical space.  
+
+In a single element, the discretized volume term is expressed as,
+\begin{equation}
+    k_{eq}^2 \int_{\Omega_e} \delta \mbf p \mbf N^\transp \mbf N \mbf p d\Omega_e - \int_{\Omega_e} \delta \mbf p \nabla \mbf N^\transp \cdot \nabla \mbf N \mbf p d\Omega_e = 0, 
+\end{equation}
+which can be expressed as a matrix system with each matrix having size $2p+1$.
+In summary, the finite element solution procedure starts from the weak formulation of the governing PDEs. The domain is discretized using triangular elements, shape functions are defined on a reference element (with Lobatto basis functions used for higher-order interpolation), and the global system is constructed via numerical integration and assembly. This methodology is the foundation for deriving the discrete system equations (e.g., Eq.~(22)) discussed in Chapter~4.
+
+This formulation can be systematically extended to other physical models. For instance, applying the same Galerkin procedure to the linear elasticity equations yields the weak form used for solid domains (see Eq.~\ref{eq:safe_weakform} in Appendix~\ref{app:safe_lamb}). 
+
+%Similarly, in poroelastic media governed by Biot equations, of the $(\mbf u_s, p)$ formulation \cite{atalla1998} has the weak form,
+% \begin{equation}
+%     \begin{aligned}
+%         \int_{\Omega_p} \hat{\mbf \sigma_s}(\mbf u) : \mbf \epsilon_s(\delta \mbf u) d\Omega - \omega^2 \int_{\Omega_p} \tilde{\rho} \mbf u \delta \mbf u d\Omega - \int_{\Omega_p} \tilde \gamma \mbf \nabla p \delta \mbf u d\Omega - \int_{\partial \Omega_p} (\hat{\mbf \sigma_s}\cdot \mbf n)\delta \mbf u dS &= 0, \\
+%         \int_{\Omega_p} \left(\frac{\phi^2}{\omega^2 \tilde\rho_{22}} \mbf \nabla p \mbf \nabla \delta p - \frac{\phi^2}{\tilde R}p \delta p\right) d\Omega - \int_{\Omega_p} \tilde \gamma \mbf \nabla \delta p \mbf u d\Omega + \int_{\partial \Omega_p} \left(\tilde \gamma u_n - \frac{\phi^2}{\tilde \rho_{22}\omega^2} \partial_n p \right) \delta p dS &= 0,\\
+%         \forall (\delta \mbf u, \delta p).&\quad \quad \quad
+%      \end{aligned}
+% \end{equation}
+
+\section{Dispersion relations and band structure in periodic lattices}
+\label{sec:disp_perioic_chap1}
+\subsection{Methods for non-radiative systems}
+One of the most popular methods for the computation of band structures in periodic systems made of classical lossless materials are the \acrfull{pwe} which is semi-analytical. It relies on a Fourier transform of the motion equations, which allows an expression of the fields expanded onto Bloch modes, truncated for numerical applications. This method, while easy to implement presents important limitations due to the convergence of Fourier series and the matching of constituent materials for the lattice: materials should preferably of the same nature for the calculation to go well\cite{jimenez2021}. Generalized as the \acrfull{epwe}, the method also allows to obtain the evanescent Bloch modes in Ref.~\cite{schalcher2023}, allowing for complex dispersion diagram investigation and to account for evanescent modes in finite 2D periodic lattices. 
+
+The complexity of the system prohibits the use of such semi-analytical methods. For more complex geometries, we must turn to alternative methods. As the 1D discretization used by the \acrshort{scm} and \acrshort{safe} and the plane wave formalism used in \acrshort{tmm} and the \acrshort{gm} is not capable of providing a description of the geometry of inhomogeneous layers, in our case, the effects of the scatterer in the unit cell on wave propagation. The thesis of Magliacano\cite{magliacano2020a} was focused in the modeling of a closed system, of an equivalent fluid unit cell with an embedded rigid inclusion. The finite elements formalism was entitled with the so-called shift cell technique, that implements the Bloch-Floquet phase shift at the boundaries inside of the constitutive variational weak formulation. 
+
+% The \acrshort{wfe} as well as classical \acrshort{fem} have been applied to analogous systems. Salam Claro has developed a \acrshort{wfe} method in his thesis \cite{salam_claro_phd} to model elasto-acoustic waveguides in 3D geometries. Their modularity and versatility lead them to be good candidates for our configurations of interest. However, these methods have lacked developments to model open domains allowing the waves propagating in the structure to radiate out of the structure.  
+
+\subsection{Unpromising adaptation of existing methods}
+The complexity of the system of interest in this thesis as presented in Section\ref{jsp} of the Introduction prohibits the use of such semi-analytical methods. For more complex geometries, we must turn to alternative methods: as the 1D discretization used by the \acrshort{scm} and \acrshort{safe} and the plane wave formalism used in \acrshort{tmm} and the \acrshort{gm} is not capable of providing a description of the geometry of inhomogeneous layers, in our case, the effects of the scatterer in the unit cell on wave propagation. 
+
+Multiple scattering could also be considered. However, it has been successfully used to describe the acoustic scattering of periodically arranged rigid inclusions in equivalent fluid unit cells \cite{groby2011} as well as solid inclusions in a poroelastic unit cell\cite{weisser2016}. However, the so-called Schlömilch series that appear in the calculation, from the effect of the scattering of the neighboring cylindrical inclusions appear to be not so manipulable when considering complex longitudinal wavenumbers. Its expression is  
+\begin{equation}
+    \sigma_q^X=\sum_{l=1}^\infty H_q^{(1)}(k^Xld)\left((-1)^qe^{ik_1^Xld}+e^{-ik_1^Xld}\right),
+\end{equation}
+and indeed, separating the $k_1^X$ real and imaginary inevitably leads to at least one growing exponential term in the series, leading to it being unable to converge, up to our study. 
+
+We face challenges when trying to model this structure using the tools classically used in the literature, that is COMSOL Multiphysics. Although there are built-in tools in the software for "\emph{Eigenfrequency}" studies, the library aims at solving complex frequencies of the system, given a set of parameters for the wavenumber. As it has been discussed earlier in the chapter, the goal of this work is to solve for complex wavenumbers and real frequencies. Even trying a manual implementation of the model in the "\emph{Weak Form PDE}" interface, the tendency of this software to function as a black box introduces a new degree of complexity to this strategy. While \acrshort{fem} remains the soundest strategy for the modeling of the complex inhomogeneous geometry of the unit cell of metaporous surface, we propose to adapt in-house existing frameworks in order to develop numerical tools in this thesis.  
+
+\section{Conclusion and prospects of methods for the thesis}
+
+In the case of homogeneous multilayer systems with surrounding fluid loading, we have seen that semi-analytical have long been established in the literature in order to compute their scattering properties. For dispersion problems however, these configurations usually require some sort of numerical discretization to treat the geometry; a wide range of methods allowing for the direct formulation of an eigenvalue problem and a computation of modes was shown in Section \ref{sec:chap1_guidedwaves} with first semi-analytical tools applicable to simple cases (e.g. an equivalent fluid layer with surrounding air), and then various numerical methods like SCM or SAFE as the two main protagonist.
+
+When going to periodic systems, it appeared that the way to tackle the problem is quite different. Indeed, the resulting complex geometry (due to the obstacles) leads to much different tools. In the case of scattering properties computation, semi-analytical tools are still available. We have seen that \acrshort{fem} seems to provide promising possibilities for the modelling of complex periodic cores. However, the considerations of open systems leads to question regarding the modeling of the half-spaces surrounding the structure. Two strategies compete in the literature: either a fluid cavity is added to the geometry and terminated by some sort of absorbing layer at the end; or the harmonic fluid radiation is locally accounted for as an analytical interface condition of the structure. There is also an interest in the coupling of poroelastic homogeneous layers or periodic configurations with additional layers to model plates or sandwich structures and coatings.

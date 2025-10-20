@@ -10,7 +10,7 @@
 \renewcommand{\exp}[1]{e^{#1}}
 \newcommand{\ddfrac}[2]{\displaystyle\frac{\displaystyle #1}{\displaystyle #2}}
 \newcommand{\inputikz}[1]{\tikzsetnextfilename{#1}\input{figures/#1.tex}}
-\newcommand{\comment}[1]{\textcolor{red!80!black}{#1}} % commentaire
+\renewcommand{\comment}[1]{\textcolor{red!80!black}{#1}} % commentaire
 \newcommand{\medpt}{\kern-.25em\textperiodcentered} % point médian
 
 % ebgaramond font fucks up the hat and tilde so we need to redefine those :(
@@ -35,12 +35,13 @@
 \definecolor{cycle0}{HTML}{332288}   
 \definecolor{cycle1}{HTML}{dc267f}   
 \definecolor{cycle2}{HTML}{8fd687}   
-\definecolor{cycle3}{HTML}{ffb000}   
+\definecolor{cycle3}{HTML}{ffac00}   
 
 \DeclareRobustCommand\soliddarkline{$~\raisebox{1.5pt}{\scalebox{1}{\tikz \draw[thick] (0, 0) -- (.35, 0);}}~$}
 \DeclareRobustCommand\dasheddarkline{$~\raisebox{1.5pt}{\scalebox{1}{\tikz \draw[thick, dashed] (0, 0) -- (.35, 0);}}~$}
 \DeclareRobustCommand\pinkdashedline{$~\raisebox{1.5pt}{\scalebox{2}{\tikz \draw[thick, dashed, cycle1] (0, 0) -- (.35, 0);}}~$}
 \DeclareRobustCommand\greendashedline{$~\raisebox{1.5pt}{\scalebox{2}{\tikz \draw[thick, dashed, cycle2] (0, 0) -- (.35, 0);}}~$}
+\DeclareRobustCommand\yelodashedline{$~\raisebox{1.5pt}{\scalebox{2}{\tikz \draw[thick, dashed, cycle3] (0, 0) -- (.35, 0);}}~$}
 \DeclareRobustCommand\squigglyarrowlegend{$~\raisebox{-1pt}{\scalebox{.65}{\tikz \draw[->,ultra thick,decorate,decoration={snake,amplitude=3pt,pre length=0pt,post length=4pt}] (0, 0) -- (1, 0);}}~$}
 \DeclareRobustCommand\straightarrowlegend{$~\raisebox{-1pt}{\scalebox{.65}{\tikz \draw[->,ultra thick] (0, 0) -- (1, 0);}}~$}
 

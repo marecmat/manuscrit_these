@@ -1,9 +1,10 @@
 \setcounter{equation}{0}
 \renewcommand{\theequation}{\thesection.\arabic{equation}}
 
-\section{Implementing SAFE to compute the dispersion relation of Lamb modes}
+\section{Implementation of SAFE to compute Lamb modes in comparison to SCM}
+\label{app:safe_lamb}
 
-This section has initially been worked on as part of a letter to the reviewers of the paper\cite{marechal2025} dealing with the SCM and added to Chapter \ref{chap:chap1}. They wanted us to investigate the performance of SCM against that of SAFE, which we have done in a simple configuration, that of the free elastic plate. This work was carried out for the purpose of providing clarification for reviewers and was decided to not be included in the article. We provide it as the following appendix.
+This section has initially been worked on as part of a letter to the reviewers who took part in the publication process of paper\cite{marechal2025} dealing with the SCM which constitutes Chapter \ref{chap:jap}. Interrogations regarding the performance of SCM against that of SAFE had been raised in the review, for which we have supplied material in order to answer to this regard in the case of a simple configuration, that of the free elastic plate. This work was carried out for the purpose of providing clarification for reviewers and was decided to not be included in the article. We provide it as the following appendix.
 
 As discussed in Section.~\ref{sec:intro_jap}, the \acrshort{safe} method is an alternative to \acrshort{scm} for the numerical computation of dispersion relation of guided waves in layers. They rely on a similar formalism, that is a 1D discretizatin across the thickness of each layer and an assumption of guided harmonic waves along the longitudinal direction. An analogous method to that presented in Chapter~\ref{chap:jap} could be developed using \acrshort{safe}, the key difference being the location of nodes in the layer and the interpolation function used for discretization.
 There is a large bibliography dealing with these topics and applying this method to similar problem to ours.  
@@ -21,8 +22,7 @@ Let us start with the general variational form for the elasticity equation
 where the displacement field is
 \begin{equation}
     \mbf u (\mbf x) = \mbf u(x_2) e^{ik_1 x_1}e^{-i\omega t},
-\end{equation}
-and the double-dot product is $\mbf \sigma (u) : \mbf \varepsilon (\delta u ^\star) = \sigma_{ij}(u) \varepsilon_{ij}(\delta u ^\star)$. $\mbf \sigma$ designates the stress tensor while $\mbf \varepsilon$ is the strain tensor. Developing this part of the volume term gives the expression,
+\end{equation} the double-dot product is $\mbf \sigma (u) : \mbf \varepsilon (\delta u ^\star) = \sigma_{ij}(u) \varepsilon_{ij}(\delta u ^\star)$ and $\mbf \sigma$ designates the stress tensor while $\mbf \varepsilon$ is the strain tensor. Developing this part of the volume term gives the expression,
 \begin{equation}
     \begin{aligned}
         \sigma_{11}\varepsilon_{11} &= k_1^2 (\lambda + 2\mu) u_1 \delta u_1 + - ik_1 \lambda \nabla u_2 \delta u_1 \\
@@ -39,11 +39,11 @@ Putting these terms back into Eq.~\ref{eq:safe_weakform} yields,
 \end{equation}
 where $\nabla u_i$ denotes differentiation of the $i$-th component of the displacement along $x_2$. Note that the surface term initally expressed vanishes from the no-traction boundary condition.
 
-The displacement fields can be discretized as
+The $x_2$ components of the fields should be discretized into a set of nodes. In a single element, we use the local coordinate space, $\xi \in [-1, 1]$. The displacement field in a single element can thus be discretized as
 \begin{equation}
-    \mbf u (\mbf x) =\mbf N (\xi) \mbf U e^{ik_1 x_1}e^{-i\omega t},
+    \mbf u_e (\mbf x) =\mbf N_e (\xi) \mbf U_e e^{ik_1 x_1}e^{-i\omega t},
 \end{equation}
-with $\mbf N(\xi)$ containing the Lobatto shape functions that spans the local coordinate space $\xi \in [-1, 1]$ of a single element and $\mbf U$ is the vector of displacement amplitudes. Following the same discretization, the test function thus becomes $\forall \delta \mbf U$. By rearranging the terms of Eq.~\ref{eq:safe_rearranged_weak} and writing the weak form for one element, 
+with $\mbf N_e(\xi)$ containing the Lobatto shape functions that spans the local coordinate space of each element and $\mbf U_e$ is the vector of displacement amplitudes. The subscript $_e$ is dropped for sake of clarity, but the focus is on the discrete weak form in a single element (with domain $\Omega_e$). Following the same discretization, the test function thus becomes $\forall \delta \mbf U$. By rearranging the terms of Eq.~\ref{eq:safe_rearranged_weak} and writing the weak form for one element, 
 \begin{equation}
     \begin{aligned}
         \int_{\Omega_e} & k_1^2 \Big(
@@ -72,7 +72,7 @@ In Eq.~\ref{eq:safe_full_weakform}, the dependance on $k_1$ was highlighted and 
 \begin{equation}
     \left( k_1^2 \mbf A_2 + ik_1 \mbf A_1 + \mbf A_0 - \omega^2 \mbf M \right) \mbf U = 0.
 \end{equation}
-This quadratic generalized eigenvalue problem can be linearized using companion linearization as, \cite{tisseur2001, strang2006}
+This quadratic generalized eigenvalue problem can be linearized with the so-called companion linearization procedure so that, \cite{tisseur2001, strang2022}
 \begin{equation}
     \left[\begin{pmatrix}
          -\mbf A_1 & \mbf A_0 - \omega^2\mbf  M\\
@@ -83,7 +83,7 @@ This quadratic generalized eigenvalue problem can be linearized using companion 
         k_1 \mbf U \\ \mbf U 
     \end{pmatrix} = 0, 
 \end{equation}
-which solving is thus quite straightforward.
+which solving is thus straightforward with classical eigenvalue solvers.
 
 \subsection{Results and convergence comparison}
 \begin{figure}[hptb]

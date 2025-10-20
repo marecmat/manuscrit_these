@@ -42,7 +42,6 @@
 \RequirePackage{amssymb,amsmath,amsthm}  
 \RequirePackage{pdfpages,indentfirst,microtype,etoolbox,multicol}  
 \RequirePackage{graphicx,tabularx,array,tikz}   
-
 \usetikzlibrary{patterns, patterns.meta, calc, arrows, arrows.meta, external, decorations.pathmorphing, positioning, fit, shapes}
 % \tikzexternalize
 
@@ -71,6 +70,7 @@
     \typeout{JOLIE MISE EN PAGE}
         \RequirePackage{./src/faune}
         \newfontfamily\titlestyle{Faune}
+
         \titleformat{\chapter}[block]
             {\flushleft}
             {\thechapter\tikzexternaldisable
@@ -90,7 +90,7 @@
                         font=\color{white}\Large\normalfont
                     ] at ([yshift=3pt]num.north) (chaptertitle){\textls[180]{\textsc{\chaptertitlename}}};
                     \node[
-                        text width=15cm, 
+                        text width=14cm, 
                         minimum height=3cm,
                         font=\color{white}\fontsize{24}{24}\titlestyle,
                         anchor=north west,
@@ -248,6 +248,17 @@
         \RequirePackage{newtxmath}
 
 \fi
+
+\usepackage[most]{tcolorbox}
+\tcbset{abstract/.style={enhanced, colback=accent!5, colframe=accent, 
+  boxrule=0.8pt, left=6pt, right=6pt, top=6pt, bottom=6pt, 
+  before skip=1em, after skip=1em, fonttitle=\bfseries, title=Abstract}}
+
+\newenvironment{abstract}
+  {\begin{center}\begin{minipage}{0.9\linewidth}
+    \begin{tcolorbox}[abstract]\vspace{0.2em}\small}
+  {\vspace{0.2em}\end{tcolorbox}\end{minipage}\end{center}}
+
 
 \defbibenvironment{mespublis}
 {\enumerate[label={P\arabic*.}]

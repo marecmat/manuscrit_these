@@ -1,47 +1,20 @@
-% \documentclass[reprint,11pt,amsmath,amssymb,aps,prb
-% ]{revtex4-2}
-% \linespread{1.00}
-
-% \usepackage{xcolor}
-% \usepackage{tikz}
-% \usepackage[colorlinks=true, citecolor=green!70!black, linkcolor=red!80!black,breaklinks=true]{hyperref}
-% \usepackage{cleveref}
-% \usepackage{nicematrix}
-
-% \newcommand{\mbf}[1]{\boldsymbol{#1}}
-% \newcommand{\transp}{\mathsf T}
-% \newcommand{\im}{\mathrm i}
-
 \definecolor{fluid}{HTML}{99c2f0}
 \definecolor{porous}{HTML}{ffc042}
-% \usetikzlibrary{patterns, patterns.meta, calc, arrows.meta, external, decorations.pathmorphing, angles, quotes, decorations.markings}
-% \tikzexternalize[optimize=true, optimize command away=\includepdf, prefix=chapitres/article_DISP/tikzbuild/]
+% \newcommand{\ods}[1]{\color{red}\sout{#1}\color{black}}
 
-% \newcommand{\od}[1]{{\color{blue} \bf#1}} % olivier
-\newcommand{\ods}[1]{\color{red}\sout{#1}\color{black}}
-% \hbadness=40000
+\chapter{Dispersion relations of leaky guided waves in metaporous layers}
+    {\color{gray}{This chapter is constituted from an article in preparation for publication in Physical Review B and is authored by \textit{Mathieu Maréchal, Olivier Dazel, Vicent Romero-Garc\'ia and Jean-Philippe Groby}. The contents of the paper will not submitted as is and will undergo minor changes, without affecting the core scientific content of this chapter.}}
 
+    \vfill 
+\begin{abstract}
+    A porous layer with embedded periodic rigid inclusions coupled to semi-infinite media is investigated, which particular interest in this work is on the coupling between the periodic unit cell and the surrounding fluid and the computation of the dispersion relation of such system. The porous unit cell is modeled as an equivalent fluid with inherent viscothermal dissipations. The quasi-guided waves propagating in the periodic material are able to radiate from the layer to surrounding media, leading to energy leakage. A numerical method is presented to calculate the leaky complex waves in the system, based on a finite element discretization of the unit cell coupled using a state-vector formalism to a plane wave modelling of the surrounding fluid. Finally, an iteratively solved linear system is used to compute the dispersion relation. Studying first an homogeneous porous layer allows for the classification in terms of proper and improper solution of the solution spectrum in such dissipative layers. Results include cases for a cylindrical inclusion tuned to allow for perfect absorption at a given frequency as well as split-ring resonators.
+\end{abstract}
 
-% \begin{document}
-\chapter{Computation of leaky complex modes of a metaporous layer with rigid inclusions}
-% \author{Mathieu Maréchal}
-%     \email{mathieu.marechal@univ-lemans.fr}
-% \author{Jean-Philippe Groby}
-% \author{Olivier Dazel}
-%     \affiliation{Laboratoire d'Acoustique de l'Université du Mans (LAUM), UMR 6613, Institut d'Acoustique - Graduate School (IA-GS), CNRS, Le Mans Université, Le Mans, France}
-% \author{Vicent Romero-Garc\'ia}
-%     \affiliation{Instituto Universitario de Matem\'atica Pura y Aplicada (IUMPA), Universitat Polit\`ecnica de Valencia, Camino de Vera s/n, 46022 Valencia, Spain}
-
-\section{abstract}
-    A numerical method is developed in this paper allowing for the computation of leaky complex modes that exist in a metaporous layer with embedded rigid inclusions. The method is based on a finite element discretization of the unit cell along with a plane-wave modelling of the surrounding fluid half-spaces. The coupling of both models is imposed at the interfaces using a state vector formalism, leading to a matrix system that is solved using a root-finding procedure. The method is first applied to a homogeneous porous layer, allowing us to highlight the modal behaviour and propose a classification of the observed complex modes. Then, we investigate the case of a rigid inclusion and its modal behaviour. When tuned at a proper radius, a rigid inclusion provides a perfect absorption peak at subwavelength frequencies; the dispersion relation allows for the investigation of its modal behaviour. Further studies on the dispersion relations of split-ring resonators is also presented.
-% \end{abstract}
-
-% \maketitle
 
 \section{Introduction}
 Achieving the control of wave propagation is the main objective driving the development of phononic crystals and acoustic metamaterials. (These materials can achieve various effects, including significant sound attenuation, broadband absorption, and controlled diffusion due to their geometrical and material properties). Over the past decade, metaporous structures have been sought for their enhanced acoustic absorption properties. Notably it was shown that total absorption occured at a subwavelength frequency by tuning the inclusion radius \cite{groby2011, weisser2016}, from an effect emerging from the embedded periodic inclusion. Resonant inclusions have shown to be able to produce an additionnal absorption peak as well \cite{cavalieri2021}. 
 
-These configurations combine spatial periodicity by addition of a scatterer in the unit cell with the intrinsic material dissipations of porous and poroelastic materials, resulting in complex wave dispersion phenomena. While significant progress has been made in calculating the band structures for closed systems\cite{laude2009,magliacano2020}\comment{+autre citation ?}, existing approaches often neglect the coupling between the structure and the surrounding medium that exist. Such coupling introduces energy leakage from the structure to the surrounding medium; modes in such configurations thus become leaky \cite{}. These leaky guided waves are modes that partially radiate energy into a surrounding medium, and are not addressed in the context of lossy periodic materials. This gap becomes critical when accurate modeling of dispersion is required to capture both material losses and radiation leakage, as encountered in real-world acoustic devices but also in the case of a computation of the acoustic response of the structure, where a plane wave originated from an air medium impinges on said structure.
+These configurations combine spatial periodicity by addition of a scatterer in the unit cell with the intrinsic material dissipations of porous and poroelastic materials, resulting in complex wave dispersion phenomena. While significant progress has been made in calculating the band structures for closed 1D periodic systems \cite{laude2009, magliacano2020}, existing approaches often neglect the coupling between the structure and the surrounding medium that exist in practical cases. Such coupling introduces energy leakage from the structure to the surrounding medium; modes in such configurations thus become leaky \cite{marcuvitz1956, goldstone1959}. These leaky guided waves are modes that partially radiate energy into a surrounding medium, and are not addressed in the context of lossy periodic materials. This gap becomes critical when accurate modeling of dispersion is required to capture both material losses and radiation leakage, as encountered in real-world acoustic devices but also in the case of a computation of the acoustic response of the structure, where a plane wave originated from an air medium impinges on said structure.
 
 Diverse methods are able to compute the acoustic response of such structure like the multiple scattering theory (MST), used for porous \cite{groby2011} and metaporoelastic \cite{weisser2016} structures validated using classical finite elements method (FEM). The FEM with high-order finite elements \cite{beriot2016,lieu2016} has been addressed for various acoustic problems. Coupled to a transfer matrix formalism, it allows for the study of homogeneous multilayer configurations \cite{chevillotte2011, alimonti2015} and periodic structures when coupled to Bloch waves \cite{gaborit2018}.
 
@@ -51,9 +24,9 @@ The dispersion of waves in periodic structure containing a porous or poroelastic
 
 Accounting for leaky modes leads to a more accurate modeling of the structure in the presence of a surrounding medium. Various numerical methods among which the spectral collocation method (SCM) or semi-analytical finite elements (SAFE) have been introduced to compute the complex dispersion curves in homogeneous layers with leakage in elastic layers \cite{kiefer2019, georgiades2022}, viscoelastic \cite{kiefer2020} and in multilayer dissipative structures \cite{marechal2025}. The discretization in 1D done in this framework cannot be generalized to periodic structures wherein a 2D discretization is required.
 
-Structures composed of an array of scatterers have also been recently investigated \cite{porter1999,bennetts2022,matsushima2024, laude2025} \comment{+détails sur Rayleigh-Bloch modes}.
+Structures composed of an array of scatterers have also been investigated and their support for Rayleigh-Bloch waves has been highlighted in several works in the last decades \cite{porter1999,bennetts2022,matsushima2024,laude2025}.
 
-Leaky guided waves in lossy periodic layers has not been adressed in acoustics. Leaky waves in lossy structures was discussed in optics for plasmonic nanospheres \cite{campione2011}. However, related works in acoustics include Ref.~\cite{laude2013} where material losses in phononic crystals are studied with dispersion diagrams, and Ref.~\cite{magliacano2020} where the dispersion of waves in a 3D periodic porous layer is shown, but no leakage is accounted for in either of these papers. Computation of such dispersion relation using Comsol would result in a tedious formulation involving some perfectly-matched layer (PML) as done in homogenenous structures \cite{} and thus the need of additionally discretizing the surrounding medium and would also lead to additionnal radiation modes and cavity resonances. 
+Leaky guided waves in lossy periodic layers has not been adressed in acoustics. Leaky waves in lossy structures was discussed in optics for plasmonic nanospheres \cite{campione2011}. However, related works in acoustics include Ref.~\cite{laude2013} where material losses in phononic crystals are studied with dispersion diagrams, and Ref.~\cite{magliacano2020} where the dispersion of waves in a 3D periodic porous layer is shown, but no leakage is accounted for in either of these papers. Computation of such dispersion relation using Comsol would result in a tedious formulation involving some perfectly-matched layer (PML) as done in homogenenous structures \cite{gallezot2017, mazzotti2014, mazzotti2017} and thus the need of additionnaly discretizing the surrounding medium and would also lead to additionnal radiation modes and cavity resonances. 
 
 We propose a method that involves a finite element discretization of the unit cell coupled to a plane-wave description of its surrounding half-spaces. The coupling at the interfaces is imposed using a state vector formalism. The method will be first presented in Section.~\ref{sec:method} with the analytical description of the air surrounding media and the procedure for its coupling with the periodic structure modeled using FEM. This problem is then solved using a root-finding method to retrieve the dispersion relation of said structure. Then, the case of an homogeneous porous layer will be discussed in Section.~\ref{sec:homog_layer} in order to highlight on one hand the key modal behaviour of this simple geometry and on the other hand the classification proposed for these complex modes, which is not a trivial question. Finally, Section.~\ref{sec:results} will show some results with a rigid inclusion, a configuration showing perfect acoustic absorption and a split-ring resonator. A comparison between the modal behaviour and the acoustic response of the structure is done, highlighting the specific modes involved in the scattering processes.
 
@@ -68,7 +41,7 @@ The proposed method is based on modelling the semi-infinite media using a plane 
 
 \begin{figure}[htpb]
     \centering
-    \input{chapitres/article_DISP/tikzbuild/tikz_schema.tex}
+    \input{chapitres/article_DISP/figures/tikz_schema.tex}
     \caption{Diagram of the configuration}
     \label{fig:schema}
 \end{figure}
@@ -82,10 +55,8 @@ The pressure fields, solutions to the Helmholtz equation in the semi-infinite ai
 \end{equation}
 The longitudinal wavenumber remains to be determined and can be written as $k_1 = k_1'+\im k_1''$. Its real part $k_1'$ is related to the propagation of the phase flow while the imaginary part $k_1''$ represents the attenuation of the wave when negative. The amplitudes of each pressure field in the top and bottom semi-infinite media are respectively denoted as $a^t_q$ and $a^b_q$. The expressions for the top and bottom pressures can be written in the form of outgoing waves,
 \begin{equation}
-    \begin{aligned}        
-        p^t(\mbf x) =& \sum_{q \in \mathbb Z} a^{t}_q \psi_q(x_1) e^{ - \im k_{2, q} (x_2 - h)}, \\ p^b(\mbf x) =& \sum_{q \in \mathbb Z} a^{b}_q \psi_q(x_1) e^{+ \im k_{2, q} x_2},
+        p^t(\mbf x) = \sum_{q \in \mathbb Z} a^{t}_q \psi_q(x_1) e^{ - \im k_{2, q} (x_2 - h)}, \quad p^b(\mbf x) = \sum_{q \in \mathbb Z} a^{b}_q \psi_q(x_1) e^{+ \im k_{2, q} x_2},
     \label{eq:out_waves}
-    \end{aligned}
 \end{equation}
 where the mode index $q$ is associated to a transverse wavenumber $k_{2, q} =  \sqrt{k^2_{0} - k^2_{1, q}} $, with $k_{0} = \omega / c_0$ the wavenumber in air and $c_0$ its wave velocity. This wavenumber can also be written in algebraic form as $k_{2, q}= k_{2, q}' + \im k_{2, q}''$. The assumptions on the signs that $k_{2,q}'$ and $k_{2,q}''$ should take depend on the choice of the square root branch cut and are discussed in Section~\ref{sec:homog_layer}. At this point, we only select forward wave solutions propagating towards positive $x_1$ direction, that is $k_1' > 0$ since the spectrum of solutions for backward waves is symmetric in this reciprocal system. \\
 
@@ -118,37 +89,30 @@ In the following, we will derive a state vector expression at both interfaces in
 
 The weak formulation of the Helmholtz equation \cite{dhatt2005} reads as
 \begin{equation}
-    \begin{aligned}
-        &\underbrace{\frac 1 {\rho_0 \omega^2} \int_\Omega \nabla p \nabla \delta p \: d\Omega  - \frac 1 {\rho_0 c_0^2} \int_\Omega p \delta p \: d\Omega}_{\mathcal I_{\Omega} (p,\delta p)} \\ & \quad - \int_{\partial \Omega} u_n(M) \:\delta p(M)\:dS = 0, \quad \forall\: \delta p \in V,
+        \underbrace{\frac 1 {\rho_0 \omega^2} \int_\Omega \nabla p \nabla \delta p \, d\Omega  - \frac 1 {\rho_0 c_0^2} \int_\Omega p \delta p \, d\Omega}_{\mathcal I_{\Omega} (p,\delta p)} \quad - \int_{\partial \Omega} u_n(M) \,\delta p(M)\,dS = 0, \quad \forall\, \delta p \in V,
         \label{eq:weak_form_helmholtz}
-    \end{aligned}
 \end{equation}
 with $V$ is a set of admissible test functions. $\mathcal I_{\Omega} (p,\delta p)$ corresponds to the volume term. The pressure field $p$ is associated to the unknown function while the normal outward displacement field $u_n$ is associated to boundaries. The volume terms will be discretised using a classical FEM procedure \cite{atalla2015,solin2004} and won't then be detailed in this paper. A focus is put on the boundary term, which is separated into five different regions denoted as $\Gamma_l$, $\Gamma_r$, $\Gamma_t$, $\Gamma_b$, and $\Gamma_i$ respectively for the left, right, top, bottom and interior boundaries. The inclusion being rigid, the normal velocity at boundary $\Gamma_i$ is zero and thus the associated boundary term is zero. We then finally focus on the the external boundary of the periodic cell, and the top interface is first considered. The associated boundary term $\mathcal I_t$ can be written as
 \begin{equation}
-    \begin{aligned}
-        \mathcal I_t &= \int_{\Gamma_t} u_2(x_1)\delta p(x_1) dx_1 \\ &= \int_{\Gamma_t}\left( \sum_{q \in \mathbb Z} \:S^{t}_{1,q} \psi_q(x_1)  \right)\delta p(x_1) dx_1
+        \mathcal I_t = \int_{\Gamma_t} u_2(x_1)\delta p(x_1) dx_1 = \int_{\Gamma_t}\left( \sum_{q \in \mathbb Z} \,S^{t}_{1,q} \psi_q(x_1)  \right)\delta p(x_1) dx_1
     \label{eq:top_boundary},
-    \end{aligned}
 \end{equation}
 where $S^t_{1, q}$ is the first component of $\mbf S^t_q$ defined in \cref{eq:S^top}. A boundary term for $\Gamma_b$ denoted $\mathcal I_b$ is defined in a similar way as $\mathcal I_t$. Therefore, the weak form in Eq.~(\ref{eq:weak_form_helmholtz}) can be rewritten as,
 \begin{equation}
-    \begin{aligned}
-        \mathcal I_{\Omega_1} (p,\delta p) + \mathcal I_t + \mathcal I_b = &- \int_{\Gamma_{r}} u_2^{r}(x_2) \delta p (x_2)\:dx_2 \\ &- \int_{\Gamma_{l}} u_2^{l}(x_2) \delta p (x_2) \:dx_2.
+        \mathcal I_{\Omega_1} (p,\delta p) + \mathcal I_t + \mathcal I_b = - \int_{\Gamma_{r}} u_2^{r}(x_2) \delta p (x_2)\,dx_2 - \int_{\Gamma_{l}} u_2^{l}(x_2) \delta p (x_2) \,dx_2.
         \label{eq:weak_form_bloch}
-    \end{aligned}
 \end{equation}
 
-Since we introduced a state vector notation for the fields at the interface, we need also need to express an expansion on Bloch modes for the pressure field in order to provide the required new set of equations. Making use of the orthogonality properties of Bloch modes allows to write a relation such that, $\forall \:q' \in \mathbb Z$,
+Since we introduced a state vector notation for the fields at the interface, we need also need to express an expansion on Bloch modes for the pressure field in order to provide the required new set of equations. Making use of the orthogonality properties of Bloch modes allows to write a relation such that, $\forall \,q' \in \mathbb Z$,
 \begin{equation}
-        \quad\int_{\Gamma_t} \left(\sum_{q \in \mathbb Z} p(x_1) \psi_{q'}^{-1}(x_1) \right) \:dx_1 = S^t_{2,q'} d,
+        \quad\int_{\Gamma_t} \left(\sum_{q \in \mathbb Z} p(x_1) \psi_{q'}^{-1}(x_1) \right) \,dx_1 = S^t_{2,q'} d,
     \label{eq:bloch_ortho_top}
 \end{equation}
 with $d$ the periodicity and $S_{2,q'}^t$ the second component of $\mbf S_{q'}^t$. In this expression, the orthogonality of Bloch modes is satisfied using $\psi_{q'}^{-1}(x_1)= e^{ik_{1,q'}x_1}$ instead of the usual complex conjugate, due to the complex nature of the Bloch wavenumber.
 
-
 In summary, two main expressions were derived. The first one in Eq.~(\ref{eq:weak_form_bloch}) contains the weak form and expresses the first component of the state vector (displacement involved in the surface term) $S_{1,q}^t$ at the top and $ S_{1,q}^b$ at the bottom interface, while Eq.~(\ref{eq:bloch_ortho_top}) expresses the second component of the state vector (pressure involved in the volume term as nodal values) $S_{2,q}^t$ at the top interface $S_{2,q}^b$ at the bottom interface. \\
 
-The discretization process involves multiple steps regarding both the Bloch wave basis and the finite element formulation. First, the infinite sums over $q\in \mathbb Z$ involved in the previous expressions are truncated so that $q = -Q,\ldots0\ldots Q$, with $Q$ accounting for the necessary integer number of Bloch to take into the sum. This discrete basis is denoted $\mbf \Psi(x_1) = \sum_{q =-Q}^Q \psi_q(x_1)$, and contains $\mathcal Q = 2Q+1$ values. Additionally, using the standard procedure in finite elements, the nodal values and test functions are discretized using second-order Lagrange shape functions contained in matrix $\mbf N(\mbf x)$. The pressure field is thus $p(x_1) = \mbf N(x_1) \mbf p$ the test function is ${\delta p} = \mbf N(x_1) \mbf {\delta p}$.
+The discretization process involves multiple steps regarding both the Bloch wave basis and the finite element formulation. First, the infinite sums over $q\in \mathbb Z$ involved in the previous expressions are truncated so that $q = -Q,\ldots0\ldots Q$, with $Q$ accounting for the necessary integer number of Bloch to take into the sum. This discrete basis is denoted $\mbf \Psi(x_1) = \sum_{q =-Q}^Q \psi_q(x_1)$, and contains $\mathcal Q = 2Q+1$ values. Additionnaly, using the standard procedure in finite elements, the nodal values and test functions are discretized using second-order shape functions contained in matrix $\mbf N(\mbf x)$. The pressure field is thus $p(x_1) = \mbf N(x_1) \mbf p$ the test function is ${\delta p} = \mbf N(x_1) \mbf {\delta p}$.
 
 Finally, putting together the discretized equations allows to write a full system of equations for the discretized problem. It has three main rows; the first and last set of equations respectively contains the discrete Bloch orthogonality relation discretized from Eq.~(\ref{eq:bloch_ortho_top}), while the second row contains the discretized weak form in Eq.~(\ref{eq:weak_form_bloch}). The system is composed of block matrices which indices relate to either the top or bottom interface and index $i$ relates to the inner nodal values. Denoting $\mbf S^t = ( S_{-Q}^t, \ldots, S_Q^t )^\transp$ and $\mbf S^b = ( S_{-Q}^b, \ldots, S_Q^b )^\transp$, the system thus writes as
 \begin{equation}
@@ -165,15 +129,15 @@ Finally, putting together the discretized equations allows to write a full syste
 \end{equation}
 The first row contains matrices explicited as
 \begin{equation}
-    \mbf D_{ti} = \int_{\Gamma_t} \mbf \Psi^{-1} (x_1) \mbf N(x_1) \:dx_1, \quad \mbf D_{tt} = - d \mbf I.
+    \mbf D_{ti} = \int_{\Gamma_t} \mbf \Psi^{-1} (x_1) \mbf N(x_1) \,dx_1, \quad \mbf D_{tt} = - d \mbf I.
 \end{equation}
 Similar forms can be obtained for $\mbf D_{bi}$ and $\mbf D_{bb}$. In the second set of equations, $\mbf D_{ii}$ is the discretized volume term with size $(n_{dof}, n_{dof})$ that only depends on the degrees of freedom (DOF) vector $\mbf p$ and,
 \begin{equation}
-     \mbf D_{it} = \int_{\Gamma_t}\mbf N^\transp(x_1) \mbf \Psi(x_1) \:dx_1, 
+     \mbf D_{it} = \int_{\Gamma_t}\mbf N^\transp(x_1) \mbf \Psi(x_1) \,dx_1, 
 \end{equation}
 is the discretized surface term for the top interface which is $(n_{dof}, 2\cdot \mathcal Q)$. A similar form can be found for $\mbf D_{ib}$. In Eq.~\ref{eq:discrete_system}, $\mbf p$ contains the inner nodal pressure values and the right-hand side $\mbf f$ contains the nodal force vector acting on the nodal values, the discrete form of the right-hand side of Eq.~(\ref{eq:weak_form_bloch}) related to the right and left boundaries surface terms. Each of the state vector $\mbf S^t$, $\mbf S^b$ has size $(2\mathcal Q, 1)$.
 
-In the cell, the displacement field from the right-hand side boundary $u_r$ is related to that of the left side $u_l$, periodically modulated by $\Delta = e^{-\im k_{1,q} d}$. The physical periodicity is thus written as $\mbf u_r = \Delta \mbf u_l$. Similarly, the periodicity relates the pressures fields between the left and right boundaries as $\mbf p^r = \Delta \mbf p^l$. Among other methods for the implementation of periodic boundary conditions in FEM \cite{langlet1995, mace2005}, we propose our own implementation. In the previously derived system, the nodal values vector can be written as $\mbf p= \left(\mbf p^l \:\:  \mbf p^i \:\:  \mbf p^r \right)^\transp$ which contains respectively the pressure values at the left boundary, the inner DOFs and at the right boundary, respectively. Applying the periodicity relations, it follows that 
+In the cell, the displacement field from the right-hand side boundary $u_r$ is related to that of the left side $u_l$, periodically modulated by $\Delta = e^{-\im k_{1,q} d}$. The physical periodicity is thus written as $\mbf u_r = \Delta \mbf u_l$. Similarly, the periodicity relates the pressures fields between the left and right boundaries as $\mbf p^r = \Delta \mbf p^l$. Among other methods for the implementation of periodic boundary conditions in FEM \cite{langlet1995, mace2005}, we propose our own implementation. In the previously derived system, the nodal values vector can be written as $\mbf p= \left(\mbf p^l \,\,  \mbf p^i \,\,  \mbf p^r \right)^\transp$ which contains respectively the pressure values at the left boundary, the inner DOFs and at the right boundary, respectively. Applying the periodicity relations, it follows that 
 \begin{equation}
     \mbf{\hat P}\mbf D \mbf P\begin{pmatrix}
         \mbf p^l \\ \mbf p^i
@@ -195,23 +159,21 @@ Doing so allows the right-hand side from Eq.~(\ref{eq:periodicity}) to vanish, a
 
 \subsection{\label{coupling-models} Final homogeneous linear system}
 
-The discrete system can be further manipulated so that most of the inner DOF related to $p^i$ from the FE formulations are condensed. In a way, this comes back to writing a transfer matrix relating the top state vector to the bottom state vector. Further manipulation of the condensed matrix will therefore be much more computationnaly effective, due to the drastic reduction in matrix size. The matrix $\mbf{\tilde D} = \mbf{\hat P}\mbf D \mbf P$ denotes the full system and the $\:\tilde{}\:$ symbol denotes that the periodicity has been imposed on the matrix or vector. Let us write that the nodal values $\tilde{\mbf p} = (\mbf p_l, \: \mbf p_i)^\transp$ can be written as a combination of $\mbf S^t$ and $\mbf S^b$ by manipulating Eq.~(\ref{eq:discrete_system}) as,
+The discrete system can be further manipulated so that most of the inner DOF related to $p^i$ from the FE formulations are condensed. In a way, this comes back to writing a transfer matrix relating the top state vector to the bottom state vector. Further manipulation of the condensed matrix will therefore be much more computationnaly effective, due to the drastic reduction in matrix size. The matrix $\mbf{\tilde D} = \mbf{\hat P}\mbf D \mbf P$ denotes the full system and the $\,\tilde{}\,$ symbol denotes that the periodicity has been imposed on the matrix or vector. Let us write that the nodal values $\tilde{\mbf p} = (\mbf p_l, \, \mbf p_i)^\transp$ can be written as a combination of $\mbf S^t$ and $\mbf S^b$ by manipulating Eq.~(\ref{eq:discrete_system}) as,
 \begin{equation}
     \tilde{\mbf p} = \mbf R_t \mbf S^t + \mbf R_b \mbf S^b, 
     \label{eq:condensation_dof}
 \end{equation}
 with $\mbf R_t = - \tilde{\mbf D}_{ii}^{-1} \tilde{\mbf D}_{it}$, $\mbf R_b = - \tilde{\mbf D}_{ii}^{-1} \tilde{\mbf D}_{ib}$ and the indices used for those matrices are the same as the blocks of Eq.~(\ref{eq:discrete_system}). The following system can thus be derived,
 \begin{equation}
-    \begin{aligned}
-        & \begin{pmatrix}
+    \begin{pmatrix}
             \tilde{\mbf D}_{tt} + \tilde{\mbf D}_{ti} \mbf R_t & \tilde{\mbf D}_{ti}\mbf R_b \\
             \tilde{\mbf D}_{bi}\mbf R_t & \tilde{\mbf D}_{bb} + \tilde{\mbf D}_{bi} \mbf R_b
         \end{pmatrix} \begin{pmatrix}
             \mbf S^t \\ \mbf S^b 
-        \end{pmatrix} \\ & \quad \quad \quad= 
+        \end{pmatrix} = 
         \mbf M^t \mbf S^t + \mbf M^b \mbf S^b = 0, 
         \label{eq:condenS^tb}
-    \end{aligned}
 \end{equation}
 which is an expression that relates the fields from the upper interface to those at the lower interface. Using the latter as well as the expressions relating the semi-infinite domain wave amplitudes with the state vector in the second line of Eq.~(\ref{eq:S^top}) and Eq.~(\ref{eq:S^bottom}), the final linear system is obtained as,
 \begin{equation}
@@ -225,7 +187,7 @@ which is an expression that relates the fields from the upper interface to those
     \end{pmatrix} = \mbf 0.
     \label{eq:final_system}
 \end{equation}
-In this case, the final system matrix size does not depend upon the FE discretization number of DOFs. The matrices $\mbf M^b$, $\mbf M^t$ each have a size $(4\mathcal Q, 2\mathcal Q)$, both $\mbf \sigma^t$ and $\mbf \sigma^b$ have size $(\mathcal Q, \:\mathcal Q)$, the identity matrix is $(\mathcal Q, \:2\mathcal Q)$ and the state vectors are $(2\mathcal Q, \:1)$. Thus, the final system has a size $(6\mathcal Q, \:6\mathcal Q)$.
+In this case, the final system matrix size does not depend upon the FE discretization number of DOFs. The matrices $\mbf M^b$, $\mbf M^t$ each have a size $(4\mathcal Q, 2\mathcal Q)$, both $\mbf \sigma^t$ and $\mbf \sigma^b$ have size $(\mathcal Q, \,\mathcal Q)$, the identity matrix is $(\mathcal Q, \,2\mathcal Q)$ and the state vectors are $(2\mathcal Q, \,1)$. Thus, the final system has a size $(6\mathcal Q, \,6\mathcal Q)$.
 
 In order to apply rigid boundary conditions on either one of the interface to obtain a rigidly-backed configuration, the same method can be applied by taking $\mathcal I_t = 0$ in Eq.~(\ref{eq:weak_form_bloch}) and thus the expression for $\mbf S^t$ is removed. 
 
@@ -234,19 +196,23 @@ The final matrix system that arise is iteratively solved using a root-finding me
     \mathrm{det}(\mbf M(k_1, \omega)) = 0. 
     \label{eq:M_det}
 \end{equation}
-While an eigenvalue problem formulation would be much more efficient and reliable, this seems unfeasible due to the content of the block matrices of the system. More informations on the root-finding procedure is given in Appendix.~ \ref{app:rootfinding}.
+While an eigenvalue problem formulation would be much more efficient and reliable, this seems unfeasible due to the content of the block matrices of the system, especially the dependances of the terms on both $e^{\pm k_{1q}d}$ and $e^{\pm k_{1q}x_1}$, leading to a possibly complicated procedure to write an eigenvalue problem on $k_{1q}$. The root-finding procedure is based on the Müller method, which iteratively converges to a zero of the determinant of the matrix, leading to the modes of the systems. Extension of it allows to retrieve the mode shapes, as done in Ref.~\cite{marechal2025}.
 
 An intermediate validation case is presented in Appendix~\ref{app:neumann_bc}. Neumann boundary conditions are applied at both top and bottom interfaces. The dispersion relation is presented for this simple case and is compared to both a generalized eigenvalue problem formulated from the same method (only valid in this particular case) and a Comsol model comparison. Presented results appear similar to those presented in Ref.~\cite{magliacano2020}
 
-The computation of the acoustic response of the considered structures can also be achieved by modifying slightly the method; the matrix system described Eq.~(\ref{eq:final_system}) can be modified by adding a right-hand side state vector corresponding to the incident wave at the rows associated to the $\mbf a^b$ wave amplitudes. Therefore, $\mbf a^t$ can be understood as the transmission coefficients while the $\mbf a^b$ becomes the reflection coeffcients.
+The computation of the acoustic response of the considered structures can also be achieved by modifying slightly the method; the matrix system described Eq.~(\ref{eq:final_system}) can be modified by adding a right-hand side state vector corresponding to the incident wave at the rows associated to the $\mbf a^b$ wave amplitudes, which can thus be understood as the reflection coefficients, while $\mbf a^t$ becomes the transmission coeffcients. Details for this variation of the method are given in Appendix~\ref{app:direct_pb}
 
 \begin{figure*}[htpb]
-    \input{chapitres/article_DISP/tikzbuild/tikz_classification.tex}
+    \centering
+    \input{chapitres/article_DISP/figures/tikz_classification.tex}
     \caption{Classification of the solutions in the complex a) $k_1$ and b) $k_{20}$ plane. Diagram for the form of the field for solution d) I, e) II, f) III.}
     \label{fig:classification}
 \end{figure*}
 
-\subsection{Classification of proper solutions}
+\section{Classification of solutions}
+\label{sec:homog_layer}
+\subsection{Proper and improper modes}
+
 All solutions obtained from Eq.~(\ref{eq:M_det}) are mathematical solutions; only a subset of those are physical modes that actually represent the modal behaviour of the studied configuration. In order to sort out "unphysical" solutions, a classification is therefore proposed in this section depending on their locii in the complex plane. Considering the case of an homogeneous layer, there are no Bloch modes in this case. Thus we study the signs of real and imaginary component of $k_1=k_1' + i k_1''$ and their corresponding transverse wavenumber in the fluid, $k_{2} = \pm \sqrt{k_0^2 - k_1^2} = k_2' + \im k_2''$. As explained in Section \ref{ssec:pb_pres}, backward waves are not sought since the wavenumber spectrum is symmetric with respect to the $k_1' = 0$ plane. 
 
 In the case of leaky waves originated from a lossless layer, the selection of the branch cuts of the wavenumber is straightforward and has been widely discussed in the literature \cite{goldstone1959,monticone2015}; they take the form of outgoing growing waves in the semi-infinite medium. However, the challenges faced with this configuration resides in the coupling in the system between two losses mechanisms that are viscothermal losses in the layer and radiation losses due to the fluid coupling.
@@ -254,10 +220,13 @@ In the case of leaky waves originated from a lossless layer, the selection of th
 The classification defined in Ref.~\cite{campione2011}, in which complex wavenumber solutions to a problem involving both material losses and radiation to a surrounding medium are categorized into either \textit{proper} or \textit{improper} modes, is adopted for the present work. Starting from the Snell-Descartes relation between the wavenumbers, stating that $k_1^2 + k_{2,0}^2 = k_0^2$ and taking the imaginary part of that equation yields,
 \begin{equation}
     k_1' k_1'' = -k_{2,0}' k_{2,0}'',    
+    \label{eq:im_snell}
 \end{equation}
 which should hold for all cases \cite{treyssede2014}. Restricting {proper} solutions $k_1'> 0$ and $k_1'' < 0$ (wave attenuated along the layer in the $x_1$ direction), leads to either $k_{2,0}' k_{2,0}'' < 0$ or $k_{2,0}'k_{2,0}'' > 0$. The latter is regarded as an {improper} solution due to the growing nature of the mode in the semi-infinite domain (positive imaginary part).
 
 These categories of the encountered wave solutions are presented in diagrams in Fig.~\ref{fig:classification}a and \ref{fig:classification}b, respectively for $k_1$ and $k_2$ complex plane. Each quadrant represents the solution whether it is forward or backward, growing or attenuated, outgoing or ingoing. Three types of solutions are also highlighted in Fig.~\ref{fig:classification}c-e, of which only one is considered as a {proper} solution. In Fig.~\ref{fig:classification}d, mode I corresponds to an attenuated field in the layer with ingoing attenuated radiation. The two other types of solutions are deemed {improper}: II is a growing field in the layer with ingoing growing radiation and III is an attenuated field in the layer with outgoing growing radiation respectively in Fig.~\ref{fig:classification}e and Fig.~\ref{fig:classification}f. 
+
+\subsection{Case of a lossless homogeneous layer coupled to a half-space on one side}
 
 \begin{figure*}[htpb]
     \centering
@@ -266,22 +235,12 @@ These categories of the encountered wave solutions are presented in diagrams in 
     \label{fig:lossless_porous}
 \end{figure*}
 
-\begin{figure*}[htpb]
-    \centering
-    \includegraphics{figures/losses_porous.pdf}
-    \caption{Homogeneous porous dispersion relation accounting material losses with views: a) complex $k_1$ plane, b) $k_1'$, c) $k_1''$, d) complex $k_{20}$ plane, e) $k_{20}'$ and f) $k_{20}''$. The figure shares the same legend as Fig.~\ref{fig:lossless_porous}}
-    \label{fig:losses_porous}
-\end{figure*}
-
-\section{Case of an homogeneous layer with half-space coupling on one side: branch cut selection}
-\label{sec:homog_layer}
 To highlight the modal behaviour of the system and the coupling between the various loss mechanisms, we start by studying a rigidly-backed homogeneous porous layer of thickness $h$ with a fluid half-space above. This configuration is described using its dispersion equation, 
 \begin{equation}
     \frac{k_{2,0}}{\rho_0} \cos(k_{2,eq}h) + \im \frac{k_{2,eq}}{\rho_{eq}} \sin(k_{2,eq}h) = 0, 
     \label{eq:homog_disp_eq}
 \end{equation}
-
-onto which solution for $k_{20}$ are sought, with $k_1 = + \sqrt{k_{0}^2 - k_1^2}$, and $k_{2,eq} = + \sqrt{k_{eq}^2 - k_1^2}$. Here we impose $k_1' > 0$ for forward propagating waves and will retrieve all possible solutions for complex values of $k_{20}$ in a given frequency range. The parameters for the JCA model for the porous layer are given in Table~\ref{tab:poroelastic_params} and its effective parameters are given in Appendix \ref{app:jca}. The saturating fluid and that occupying the half-space is air with density $\rho_f = 1.213\textrm{ kg.m}^{-3}$, the heat capacity ratio $\kappa = 1.4$, kinematic compressibility $\mu_f = 1.839 \times 10^{-5} \textrm{ Pa.s}$, the Prandtl number $\textrm{Pr} = 0.71$, and adiabatic bulk modulus $\kappa P_0$, where the atmospheric pressure is $P_0 = 1.013 \times 10^5 \textrm{ Pa}$.
+onto which solutions for $k_{20}$ are sought, with $k_1 = + \sqrt{k_{0}^2 - k_1^2}$, and $k_{2,eq} = + \sqrt{k_{eq}^2 - k_1^2}$. Choosing this convention for $k_1$ leads to selecting forward propagating waves $k_1' > 0$, an arbitrary choice that yields a set of solutions reciprocal to $k_1' < 0$ which corresponds to backward (left) propagating waves. The root-finding procedure is applied to Eq.~(\ref{eq:homog_disp_eq}) and retrieve all possible solutions for complex values of $k_{20}$ in a given frequency range. The parameters for the JCA model giving the effective densities $\rho_{eq}$ and compressibilities $K_{eq}$ for the porous layer are given in Table~\ref{tab:poroelastic_params} and its effective parameters are given in Appendix \ref{app:jca}. The saturating fluid and that occupying the half-space is air with density $\rho_f = 1.213\textrm{ kg.m}^{-3}$, the heat capacity ratio $\kappa = 1.4$, kinematic compressibility $\mu_f = 1.839 \times 10^{-5} \textrm{ Pa.s}$, the Prandtl number $\textrm{Pr} = 0.71$, and adiabatic bulk modulus $\kappa P_0$, where the atmospheric pressure is $P_0 = 1.013 \times 10^5 \textrm{ Pa}$.
 \begin{table}[htpb]
         \centering
              \caption{JCA parameters of the porous material (melamine foam)}
@@ -299,83 +258,105 @@ onto which solution for $k_{20}$ are sought, with $k_1 = + \sqrt{k_{0}^2 - k_1^2
         \end{tabular}\\[2em]        
         \end{table}
 
-The layer has a thickness $h = 50~\mathrm{mm}$. At first, the dispersion relation is computed for a lossless porous layer, that is keeping only the real components of $\rho_{eq}$ and $K_{eq}$ and thus $k_{eq} = k'_{eq} \in \mathbb R$. In Fig.~\ref{fig:lossless_porous}a and Fig.~\ref{fig:lossless_porous}d, the non-zero imaginary part of the dispersion relation in $k_1$ or $k_{20}$ are solely due to radiation losses as the dissipation in the porous layer is not accounted for. In Fig.~\ref{fig:lossless_porous}b, mode I is always propagating ($k_1' \in (k_0, k_{eq})$) and always proper as it represents a purely guided wave radiating as a purely evanescent wave in the air domain. Modes II and III have a large $k_1''$ and are both improper below the cutoff frequency (around $k_0 h \approx 5$) as seen on Fig.~\ref{fig:lossless_porous}e as they respectively correspond to a growing wave in the layer with exponentially growing radiation and an attenuated wave in the layer with exponentially growing radiation. Above the cutoff, mode III is still improper for the same reasons and mode II changes $k_{20}''$ sign, becoming proper with the same behaviour to that of mode I (purely guided wave). 
+The layer has a thickness $h = 50~\mathrm{mm}$. At first, the dispersion relation is computed for a lossless porous layer, that is keeping only the real components of $\rho_{eq}$ and $K_{eq}$ and thus $k_{eq} = k'_{eq} \in \mathbb R$. The obtained solutions are presented in Fig.~\ref{fig:lossless_porous} for $k_1$ and $k_{20}$ wavenumber in selected views of the complex plane. Each set of solution throughout the remaining of this paper is shown as lines which have been tracked from the raw data using a method akin to the MAC sorting criterion \cite{vacher2010, pastor2012} with a few manual fixes for outlier points and coalescent solutions. Note that since a root-finding procedure is used, results are not as robust as solving a set of eigenvalues. The iterative scheme leads to a few seldom missing solutions, occuring e.g. for iterations trapped in local minima or when the algorithm is unable to converge for reasons due to a particular shape of the function in given sparse locations. These unavoidable missed solutions are seemingly mostly dependant on the matrix conditioning.
 
-For modes II and III, $k_1''$ is large at lower frequencies, meaning that radiation losses are prominent in this frequency range and that no energy is radiated from the layer past the cut-on frequency since $k_1'' = 0$. Additionally, the I mode is unaffected by these losses regardless of the frequency. As an amount of 1\% of losses are introduced in the layer (that is $k_{eq} = k'_{eq} + 0.01\cdot \im  k''_{eq}$) in Fig.~\ref{fig:lossless_porous}c, the point where the 2 modes coincide is lost and the 2 branches are fully separated, both wavenumbers $k_1$ and $k_{20}$ become fully complex over the whole frequency range.
+In Fig.~\ref{fig:lossless_porous}a and Fig.~\ref{fig:lossless_porous}d, the non-zero imaginary part of the dispersion relation in $k_1$ or $k_{20}$ are solely due to radiation losses as the dissipation in the porous layer is not accounted for. Nevertheless, the homogeneous layer remains slightly dispersive as the real components of the fluid parameters computed with the JCA model faintly varies with frequency, thus explaining the dissymetry in Fig.~\ref{fig:lossless_porous}e. In Fig.~\ref{fig:lossless_porous}b, mode I is always propagating ($k_1' \in (k_0, k_{eq})$) and always proper as it represents a purely guided wave radiating as a purely evanescent wave in the air domain. Modes II and III have a large $k_1''$ and are both improper below the cutoff frequency (around $k_0 h \approx 5$) as seen on Fig.~\ref{fig:lossless_porous}e as they respectively correspond to a growing wave in the layer with exponentially growing radiation and an attenuated wave in the layer with exponentially growing radiation. Above the cutoff, mode III is still improper for the same reasons and mode II changes $k_{20}''$ sign, becoming proper with the same behaviour to that of mode I (purely guided wave). 
 
-The next step is the addition of the full losses to the porous layer, with results presented in Fig.~\ref{fig:losses_porous}. In this case, the symmetries shown for modes II and III the lossless case in Fig.~\ref{fig:lossless_porous}a and Fig.~\ref{fig:lossless_porous}d with respect to the $k'_{20}$ and $k''_1$ planes are lost. The introduction of the viscothermal losses in the porous layer leads all modes to be somewhat attenuated, as expected. It can first be observed that $k_{20}$ is shifted for both the real and imaginary part for all branches. However, the proper part of mode II shifts towards negative values, indicating an attenuated field in the fluid half-space $k_{2,0}'' < 0$ but also an ingoing wave $k_{2,0}' < 0$. This shift direction is explained in greater details in Appendix~ \ref{app:sign_k20}. Mode I keeps the same trend to that of the lossless case with a small $k_1'' < 0$ value in Fig.~\ref{fig:losses_porous}c) and is shifted to negative $k_{20}'$. Mode II follows the same shift as mode I and remains \textit{improper} below its cutoff frequency, identified in this case by a change of sign in $k_1''$ and $k_{20}''$.
+For modes II and III, $k_1''$ is large at lower frequencies, meaning that radiation losses are prominent in this frequency range and that no energy is radiated from the layer past the cut-on frequency since $k_1'' = 0$. Additionnaly, the I mode is unaffected by these losses regardless of the frequency. As an amount of 1\% of losses are introduced in the layer (that is $k_{eq} = k'_{eq} + 0.01\cdot \im  k''_{eq}$) in Fig.~\ref{fig:lossless_porous}c, the point where the 2 modes coincide is lost and the 2 branches are fully separated, both wavenumbers $k_1$ and $k_{20}$ become fully complex over the whole frequency range. The symmetry between the positive and negative $k_1''$ planes is thus lost because of the introduction of losses into the system. These results are reminiscent of those obtained by Laude \etal \cite{laude2013} who showed the splitting of the left and right-propagating Bloch wave in a crystal lattice dispersion relation by the addition of losses.
 
-In the study of leaky modes in lossless layers, as has been done for elastic materials in several papers, both II and III modes could be selected equivalently, and corresponds to either a growing solution in the layer which implies an ingoing growing wave in the fluid (backward leaky waves), or an attenuated solution in the layer with outgoing growing wave in the fluid (forward leaky waves). In this configuration, the latter is chosen for its more physically meaningful behaviour. However, the desymmetrization of these two modes in the case of a porous layer with losses means that the selection of the branch cut is not straightforward. The choice of the branch cut is made so that mode II is selected as a proper solution, with $k_1'' < 0$ and $k_{20}'' < 0$, which is considered the physically meaningful solution in our case. Mode III will be thus discarded as a solution in upcoming results as it is always improper.
+\subsection{Lossy homogeneous porous layer}
+The next step is the addition of the full losses to the porous layer, with results presented in Fig.~\ref{fig:losses_porous}. In this case, the symmetries shown for modes II and III the lossless case in Fig.~\ref{fig:lossless_porous}a and Fig.~\ref{fig:lossless_porous}d with respect to the $k'_{20}$ and $k''_1$ planes are lost. The introduction of the viscothermal losses in the porous layer leads all modes to be somewhat attenuated, as expected. It can first be observed that $k_{20}$ is shifted for both the real and imaginary part for all branches. However, the proper part of mode II shifts towards negative values, indicating an attenuated field in the fluid half-space $k_{2,0}'' < 0$ but also an ingoing wave $k_{2,0}' < 0$, which is a consequence of Eq.~\ref{eq:im_snell}.
+
+\begin{figure*}[htpb]
+    \centering
+    \includegraphics{figures/losses_porous.pdf}
+    \caption{Dispersion relation of waves in a homogeneous porous layer accounting for attenuation with view planes: a) $k_1$, b) $k_1'$, c) $k_1''$, d) $k_{20}$, e) $k_{20}'$ and f) $k_{20}''$. g) Absolute error between the roots obtained from the analytical expression (results presented in the figures) compared to those obtained with the FEM, with a color-coding consistant with the rest of the figure. Arrows for a) and d) indicates the direction of each branch with increasing frequencies.}
+    \label{fig:losses_porous}
+\end{figure*}
+
+Mode I keeps the same trend to that of the lossless case with a small $k_1'' < 0$ value in Fig.~\ref{fig:losses_porous}c) and is shifted to negative $k_{20}'$. Mode II follows the same shift as mode I and remains \textit{improper} below its cutoff frequency, identified in this case by a change of sign in $k_1''$ and $k_{20}''$.
+Finally, Fig.~\ref{fig:losses_porous}g presents the error on the calculated dispersion solutions for modes I and II between the analytical results discussed previously and those obtained by the FE formulation of the presented method. While both depending on the developed root-finding algorithm, the solution show low error which is increasing with frequency, expected to be dependant on the mesh size. The error for both shown branches appear to be the same after mode II (in pink) is above the cut-off frequency.
+
+
+In the study of leaky modes in lossless layers, as has been done for elastic materials in several papers, both modes II and III could be selected equivalently, and corresponds to either a growing solution in the layer which implies an ingoing growing wave in the fluid (backward leaky waves), or an attenuated solution in the layer with outgoing growing wave in the fluid (forward leaky waves). In this configuration, the latter is chosen for its more physically meaningful behaviour. However, the desymmetrization of these two modes in the case of a porous layer with losses means that the selection of the branch cut is not straightforward. The choice of the branch cut is made so that mode II is selected as a proper solution, with $k_1'' < 0$ and $k_{20}'' < 0$, which is considered the physically meaningful solution in our case. Mode III will be thus discarded as a solution in upcoming results as it is always improper.
 
 \section{Results}
 \label{sec:results}
 \begin{figure}
+    \centering
     \includegraphics{figures/fig_var_incl.pdf}
-    \caption{Dispersion relation for a periodic unit-cell with diameter $d/h = 1/2$, with views of: a) the complex $k_1$ plane view with the arrow indicating the direction for growing frequency, b) $k_1'$ depending on the adimensional frequency, c) $k_{20}$ complex plane view and d) view with $k_{20}'$ depending on frequency. The grey lines denote the modes originating from $k_1' = 2\pi/d$, and are symmetric in the $k_1$ plane with those denoted in colors. The figure shares the same legend as Fig.~\ref{fig:lossless_porous}.}
+    \caption{Dispersion relation for a periodic unit-cell with diameter $d/h = 1/2$, a) Complex $k_1$ plane view b) $k_1'$ view, c) Complex $k_{20}$ plane view and d)$k_{20}'$. The grey branches denote the modes originating from $k_1' = 2\pi/d$, and are reciprocal (and symmetric) solutions to those denoted in colors. The figure shares the same legend as Fig.~\ref{fig:lossless_porous}.} 
     \label{fig:small_incl}
 \end{figure}
 
 \subsection{Dispersion relation of a unit cell with rigid inclusions}
-The first numerical results for the periodic geometry are presented in this section. A rigid cylindrical inclusion is embedded into the porous layer. The unit cell is considered with fluid radiation on the bottom side and a rigid-backing is imposed at the upper boundary. Results for an inclusion with radius $r=5$ mm are presented in Fig.~\ref{fig:small_incl} and are significantly different from those presented for the homogeneous layer, due to the addition of periodicity and the scatterer in the system. The obtained dispersion relation has some of the classical features of periodic materials: the various branches in $k_1'$ in Fig.~\ref{fig:small_incl} are $\pi/d$ periodic and are folded at a frequency corresponding to the system's Bragg frequency. The same topology of modes as that of the homogeneous layer are observed but their shape is significantly changed by the addition of the rigid inclusion. No bandgap is opened for this configuration. III is still improper from the discussion in Section~\ref{sec:homog_layer}. Mode I is folded at a wavenumber $k_1' > \pi/d$ while Mode II is folded before reaching the end of the Brillouin zone. This seemingly appearing as a wavenumber bandgap around $k_0d = 3$ might rather be explained by a deformation of the complex plane of the solution due to the losses in the material. This unexpected interaction between the two modes I and II could be explained by the frequency dependance of the JCA model. In further results, the classification of the modes will not be detailed and mode III won't be represented in the dispersion relations as well as the proper and improper parts of each mode.
-
-Transmission case described in Appendix.~\ref{app:transmission}
+\label{ssec:rigid_incl}
+The periodic geometry numerical results are presented in this section. A rigid cylindrical inclusion with radius $r$ is embedded into the porous layer. The unit cell is considered with periodic boundary conditions at each right and left edges as described in Section~\ref{sec:method} wuth fluid radiation on the bottom side and a rigid-backing imposed at the upper boundary. Results with an $r=5$ mm inclusion are presented in Fig.~\ref{fig:small_incl} and are significantly different from those presented in the case of the homogeneous layer, due to the effects of the periodicity and the scatterer in the system. Figure~\ref{fig:small_incl}a depicts the modes in color as those originated from $k_1' = 0$ and their symmetric counterparts from $k_1' = 2\pi/d$ which constitutes equivalent solutions, with an opposite phase velocity. The same topology of modes as that of the homogeneous layer are observed but their frequency evolution is strongly changed. The same classification as that of the homogeneous layer is used for this case. The obtained dispersion relation has some of the classical features of periodic materials: the $k_1'$ branches in Fig.~\ref{fig:small_incl}b all have a $\pi/d$ periodicity and are folded at a frequency corresponding to the system's Bragg frequency around $k_0 d/ \pi = 1$. No bandgap is opened for this configuration, even though mode I (the only proper mode around the Bragg frequency) presents a maximum attenuation at this location. 
+III is still improper from the discussion in Section~\ref{sec:homog_layer}. Mode I is folded at a wavenumber $k_1' > \pi/d$ while Mode II is folded before reaching the end of the Brillouin zone. This seemingly appearing as a wavenumber bandgap around the Bragg frequency might rather be explained by a deformation of the complex plane of the solution due to the losses in the material. This unexpected interaction between the two modes I and II could be explained by the frequency dependance of the JCA model. In further results, the classification of the modes will not be detailed and mode III won't be represented in the dispersion relations as well as the proper and improper parts of each mode. The case of a similar geometry with fluid radiation at both top and bottom interface is described in Appendix.~\ref{app:transmission}.
 
 \subsection{Rigid inclusion tuned to perfect absorption}
-In order to study the following configurations, their scattering properties should be computed as well. Adapting the formulation of the problem to that of a forced configuration, a right-hand side is added to the matrix system in Eq.~(\ref{eq:final_system}), corresponding to an incident plane wave. The $a^b$ coefficients can become reflection coefficients denoted as $R_q$. The reflection coefficient is thus computed as follows, 
-\begin{equation}
-        \mathcal R = \sum_q \frac{k_{2,q}'}{k_{2, 0}} |R_q|^2,
-\end{equation}
-and the absorption coefficient is thus, $\alpha = 1 - \mathcal R$.
+\label{ssec:perfect_absorption}
 
-\begin{figure*}[htpb]
+\begin{figure*}
     \centering  
     \includegraphics{figures/fig_perfect_absorption.pdf}
-    \caption{a) Absorption coefficient map depending on the incidence angle and the frequency. Dispersion relation b) for the real part of $k_1$ c) and the real part of $k_{20}$. d) Absorption taken at the angles corresponding to the dashed lines on a). Dispersion relation for e) the imag part of $k_1$ c) and the imag part of $k_{20}$. g) Field in the unit cell produced by the incident wave. h) i) Mode shapes of each of the two modes labelled as 2. and 3. with their location marked on b), e) The 3 snapshots are taken at 3.2 kHz, the peak absorption frequency.}
+    \caption{a) Absorption coefficient map with respect to the incidence angle and the frequency. b) $k_1'$ dispersion relation. c) Pressure field generated by the normally-incident plane wave in the layer corresponding to the unitary absorption at normal incidence and denoted 1.  d) Mode shapes of mode II, at location in the dispersion relation denoted by 2. e) Absorption coefficient for incident angles corresponding to the dashed lines on a). f) $k_1''$ dispersion relation g) Mode shapes of mode I, at location 3. h) Complex frequency plane of the reflection coefficient, at normal incidence.}
     \label{fig:perfect_absorption}
 \end{figure*}
 
-In the same 2 by 2 cm unit cell, a unitary absorption coefficient can be obtained by tuning the inclusion radius. Increasing the radius to $r = 7.3$ mm in this case leads to perfect absorption, at normal incidence. This result is presented in Fig.~\ref{fig:perfect_absorption}a, where the absorption coefficient is plotted depending on the frequency and the incident angle. The absorption peak is located at $f = 3.2$ kHz and $\theta = 0$. The in-plane mode can be excited in this configuration due to the proximity of $k_1'$ to the excitation line at 0 which has a steep slope in $k_1'$ at low frequency, remaining in the vicinity of 0. This corresponds also to a proximity of an hybridation of this mode to a trapped mode as shown in the inset of Fig.~\ref{fig:perfect_absorption}d. This mode is responsible for this behaviour as proven by the comparison between the field excited by the incident wave in Fig.~\ref{fig:perfect_absorption}e and the mode shapes in Fig.~\ref{fig:perfect_absorption}f and g. 
+In the same unit cell (2 cm by 2 cm porous layer) presented in Section~\ref{ssec:rigid_incl}, the acoustic response of the structure is computed by adapting the method as detailed in Appendix~\ref{app:direct_pb} and the inclusion radius can be tuned to obtain a unitary absorption coefficient at a given frequency. The increase of the radius to $r = 7.3$ mm in this case leads to perfect absorption at normal incidence. This result is presented in Fig.~\ref{fig:perfect_absorption}a, where the absorption coefficient is plotted depending on the frequency and the incident angle. The cases $\theta = 0$°, 45° and 80° are specifically highlighted as line graph in Fig.~\ref{fig:perfect_absorption}e. The absorption peak at $\theta = 0$ is located at $f = 3.2$ kHz. 
 
-With an increasing incident angle, the absorption peak is shifted towards high frequency as seen on Fig.~\ref{fig:perfect_absorption}a, due to the tilt of the excitation line which thus crosses the mode at higher frequencies, the higher the angle. The high absorption is still due to the same mode. Beyond $\theta = 50$°, a weaker peak at low frequencies can be observed: this one is due to an excitation line in the vicinity of the other mode. \comment{citer appendix E2}
+The dispersion relation corresponding to this case is shown in Fig.~\ref{fig:perfect_absorption}b and Fig.~\ref{fig:perfect_absorption}f, respectively for $k_1'$ and $k_1''$. Using the previous classification introduced in Section~\ref{sec:homog_layer}, we focus on modes I and II. Key differences exist when comparing the dispersion relation with the smaller inclusion radius shown in Fig.~\ref{fig:small_incl}b. While mode II was improper on the whole range of frequencies displayed in the 5 mm radius case, with 7.3 mm radius inclusion this mode is proper from low frequencies to where the branch changes sign around 3.2 kHz, highlighted with the inset of Fig.~\ref{fig:perfect_absorption}f.
 
-This total absorption case is illustrated by an exceptional point of $k_1$ as well as a zero of the scattering matrix as illustrated in Fig.~\ref{fig:perfect_absorption}h. Taking the absolute value of the reflection coefficient map depending on complex frequencies, it can be seen that a zero is reached at total absorption corresponding to $f''=0$ as investigated in previous papers \comment{+citer des trucs}.
+Focusing specifically around the frequency $f = 3.2$ kHz a sign change of $k_1''$ for mode II is seen on Fig.~\ref{fig:perfect_absorption}f and three modes are shown on the dispersion relation instead of the two studied so far, this occurs covering a small frequency range from around 3.25 to 3.4 kHz for very low values of $k_1''$. Two branches are in close proximity in the wavenumber space, thus said to be hybridized. The branch existing at lower frequencies moves to a different Riemann sheet while another solution emerges as seen on the inset of Fig.~\ref{fig:perfect_absorption}f, that correspond to a trapped mode, which constitutes the cause of existence of the unitary acoustic absorption peak at this frequency. The trapped mode does not show as a single point in the dispersion relation, but rather covers a small frequency range, due to the attenuation of the waves in the structure. Additionally, the mode shape of the hybridized mode in Fig.~\ref{fig:perfect_absorption}d corresponds to the pressure field generated in the structure by the incident field represented in Fig.~\ref{fig:perfect_absorption}c. The mode shape are characteristic of a trapped mode, the pressure field being concentrated between the upper edge of the inclusion and the rigid backing located $x_2 = 2$ cm. These results are in agreement with prior work focused on a very similar configuration, analysed only through the acoustic response of the structure \cite{groby2011}.
+
+Mode I is proper for all frequencies covered: while the branch changes sign at the $k_1'$ folding around 7 kHz, the phase velocity changes direction since the folded branch has an opposite slope and originates from the next Brillouin zone.
+Another noticeable feature of this solution is the discontinuity of $k_1''$ at the Bragg frequency. In the previous result with $r = 5$ mm, the branches were folded at wavenumbers deviating from the end of the Brillouin zone. This is not the case here, and since the branches are not folded, those picked up after the end of the Brillouin zone are effectively different solution, corresponding to a different phase velocity sign hence the change of sign of the attenuation.
+
+Around the location of the sign change for $k_1''$ of mode II, that is around $f = 3.2$ kHz, three modes exists instead of the expected two. This happens at very low attenuation of the wavenumber $k_1''$ and shows the existence of a trapped mode. The branch coming from lower frequencies moves to a different Riemann sheet while another solution emerges as seen on the inset of Fig.~\ref{fig:perfect_absorption}f. Another noticeable feature of this solution is the discontinuity of $k_1''$ at the Bragg frequency. In the previous result with $r = 5$ mm, the branches were folded at wavenumbers deviating from the end of the Brillouin zone. This is not the case here, and since the branches are not folded, those picked up after the end of the Brillouin zone are effectively different solution, corresponding to a different phase velocity sign hence the change of sign of the attenuation.
+
+Tuning the incidence angle shifts the inclination of the sound line (designated in analogy to the light line in optics) and thus the location of the crossing with the dispersion relation, which shifts the location of the excited mode of the system. The (in-plane) mode II can indeed be excited at normal incidence (which sound line is represented as a vertical line at $k_1'=0$) in this configuration due to the proximity of $k_1'$ to the excitation line at 0. This can be shown as well by comparing the pressure field generated by the incident wave denoted as 1, in Fig.~\ref{fig:perfect_absorption}c at the absorption peak, and the two mode shapes of the system in Fig.~\ref{fig:perfect_absorption}d and Fig.~\ref{fig:perfect_absorption}g, respectively corresponding to mode II and I. The pressure field is very alike the mode shape of II so one can conclude that this mode is governing the response of the structure for these conditions. 
+
+With an increasing incident angle, the absorption peak is shifted towards high frequency as seen on Fig.~\ref{fig:perfect_absorption}a, due to the tilt of the excitation sound line which thus crosses the mode at higher frequencies for higher angles. The high absorption is still due to the same mode for the peak at $f=8$ kHz and $\theta = 80$°. Beyond $\theta = 50$°, a weaker peak at low frequencies can be observed, due to an excitation line located in the vicinity of mode I. 
 
 \subsection{Split-ring resonators}
 \label{sec:split_ring_resonator}
 \begin{figure*}[htpb]
+    \centering
     \includegraphics{figures/fig_split_ring.pdf}
-    \caption{$k_1'$ - $f$ diagram, $k_1''$ - $f$ diagram, absorption coefficient and mode shapes a-e) \textit{up1} configuration, f-h) \textit{up2} configuration, k-o) \textit{down1} configuration. The mode shapes are taken at the frequency corresponding to the absorption peak and only one of the two modes is shown, as represented by the arrows.}
+    \caption{Dispersion relation and absorption curves of the split-ring configurations. Each row represents the $k_1'$ - $f$ diagram with dashed line corresponding to the incident wave angle, $k_1''$ - $f$ diagram, absorption coefficient with the theoretical resonance frequency in dashed lines and mode shapes, respectively. The results in dark blue correspond to the split-ring and those in light red correspond to rigid inclusion with the same radius as the outer radius of the resonator.  a-e) \textit{up1} configuration, f-h) \textit{up2} configuration, k-o) \textit{down1} configuration. The mode shapes shown correspond to the dispersion relation location indicated by the arrows.}
     \label{fig:split_ring}
 \end{figure*}
 
-Other inclusion geometries can also be investigated with the proposed method. In this section, we propose the case of a split-ring resonator (SRR) embedded in the porous layer. It was found to provide an additional absorption peak in metaporous surfaces \cite{lagarrigue2013,zhou2019}. The SRR orientation towards the fluid or the rigid backing leads to different modal behaviours. Two configurations \textit{up1} and \textit{up2} are considered with the resonator slit towards the backing and \textit{down1} with the slit towards the fluid. The results for the 3 configurations are presented in Fig.~\ref{fig:split_ring} and the parameters for the geometry for each configurations are given in Table~\ref{tab:srr_params} in Appendix~\ref{app:split_ring_params}.   
+In this section, we propose to study configurations with more complex geometries, in particular with the case of a split-ring resonator (SRR) embedded in the porous unit cell. It was found to provide an additional absorption peak compared to the absorption peak linked to the trapped mode, in configurations where the slit of the resonator is oriented towards the rigid-backing of the structure, involving a coupling. \cite{lagarrigue2013,zhou2019}. Two configurations denoted as \textit{up1} and \textit{up2} are considered with different geometries and the resonator slit facing the rigid backing. The \textit{down1} configuration is shown with the slit facing towards the fluid. The results for the 3 configurations are presented in Fig.~\ref{fig:split_ring} and the parameters for the geometry for each configurations are given in Table~\ref{tab:srr_params} in Appendix~\ref{app:split_ring_params}.   
 
-In each case, the dispersion relation of a rigid inclusion with a radius $r$ equal to that of the outer radius $r_{out}$ of the SRR is also shown, as well as its absorption coefficient. 
+In each case, the dispersion relation of a rigid inclusion with a radius $r$ equal to that of the outer radius $r_{out}$ of the SRR is also shown, as well as its corresponding absorption coefficient on Figs.~\ref{fig:srr}c, \ref{fig:srr}h and \ref{fig:srr}m for an incident wave with an angle as noted in Table~\ref{tab:srr_params} and excitation line in dashed line in the $k_1'$ diagrams of the configurations, respectively Fig.~\ref{fig:split_ring}a, \ref{fig:split_ring}f, and \ref{fig:split_ring}k. In each case, it can be seen that the absorption coefficient is generally enhanced by the SRR compared to the rigid inclusion and shows two peaks and the second absorption peak frequency corresponds to that of the theoretical SRR resonance frequency, represented by the dashed lines in the absorption plot and computed using the formula given in Appendix~\ref{app:split_ring_params}. 
 
-Oriented towards the rigid-backing, a second absorption seems to originate from some exceptional for each point. Coincidently, corresponding to the SRR resonance frequency. Towards the fluid, the resonance frequency appears strongly, the second absorption peak is close to that of the trapped mode, which seems slighltly shifted to higher frequency than with the rigid inclusion.
+The \emph{up1} configuration, represented on Figs.~\ref{fig:srr}a to c shows a branch corresponding to mode II (from the classification in Section~\ref{sec:homog_layer}), goes to $k_1'=0$ slightly below 3 kHz and indicated by arrow d), and corresponds to a trapped mode, analogous to that of the perfect absorption case. Compared to the latter, the inclusion size is smaller while the absorption peak is located at a lower frequency. On the other hand, the second peak in the absorption spectrum is caused by a strong shift in the dispersion relation for mode I. At low frequency, its behaviour remains similar to the rigid inclusion configuration. However, this mode hybridizes with the cavity mode around 4.5 kHz, occuring accordingly to the predicted resonance frequency of the SRR. This causes the left-propagating branch (not represented in the plot) and its reciprocal right-propagating branch to cross at $k_1'=0$ as a change of sign in $k_1''$ can be noticed around 4.5 kHz while $k_1'$ goes to 0. In reality, the branch just above marker e) originates from $k_1'<0$ and corresponds to the solution propagating in the other direction. This second absorption peak matches this phenomenon as well as the computed SRR resonance, represented by the dashed lines (formula provided in Appendix~\ref{app:split_ring_params}).
 
-For the \emph{up1} configuration, there is a lowered branch with a $k_1'$ crossing, analogous to the perfect absorption case. Compared to the latter, the inclusion size is smaller while the absorption peak is located at a lower frequency. A second peak due to the hybridation of the left-propagating mode and the right-propagating mode appears as well: change of sign in $k_1''$ so the branch just above e) originates from $k_1'<0$. This second peak matches the computed SRR resonance, represented by the dashed lines (formula provided in Appendix~\ref{app:split_ring_params}). \comment{Mode shapes }
+The \emph{up2} geometry reveals, for this case, that only the second peak shows perfect absorption, while the first one remains close to one, but not exactly unitary. This first peak is due to the excitation lying in the vicinity of an avoided crossing of two branches shown by the dispersion relation located by arrow i) on Fig.~\ref{fig:split_ring}. The two branches have a $k_1''$ crossing but the one at $k_1'$ is avoided, hence the very high but not unitary absorption. At this frequency, the two branches cross and lead both to a low attenuation of the wavenumber, thus explaining the large absorption value. The second peak is due to the same phenomenon as the second absorption peak for the \emph{up1} configuration and mode shapes are indeed alike in this case. 
 
-The \emph{up2} geometry reveals that only the second peak shows perfect absorption, and the one below seems to be in the vicinity of an avoided crossing of an exceptional point as shown by the dispersion relation. The two branches have a $k_1''$ crossing but the one at $k_1'$ is avoided, hence the very high but not unitary absorption. The second peak is due to the same phenomenon as the \emph{up1} configuration and mode shapes are alike in this case. 
-
-The \emph{down1} configuration is excited at an incidence angle $\theta_0 = 10$°, allowing to locate the excitation line close to the trapped mode that is appearing at o). First peak is the excitation with the cut-offed mode, which has still an important attenuation hence, the non-unitary absorption. The second peak seems due to the SRR resonance, even though the modes seems to be quite different from the previous two cases as they are not hybridized, it is only the excitation of a mode with low $k_1'$ and low attenuation. 
-
+The \emph{down1} configuration shows an absorption spectrum corresponding to an incident wave a $\theta_0 = 10$° incidence angle. In this configuration, the first peak corresponds to the crossing between the excitation line and mode II. Since this is the in-plane mode with a cut-off frequency (mode II) and the excitation line crosses the mode at low frequency, this mode is still strongly attenuated, explaining thus the non-unitary absorption. There, the absorption is similar to the case of the rigid inclusion: at this frequency range, both dispersion relation are alike, explaining the similar results. The second peak is due to the SRR resonance, although the mode shapes are different from the previous two cases as they are not hybridized, it is only the excitation of a mode with low $k_1'$ and low attenuation, remaining far from $k_1'=0$.
 
 \section{Conclusion}\label{sec:conclusion}
+In this work, we have developed a numerical procedure for the computation of the dispersion relation of the leaky guided waves in porous periodic layers with embedded rigid scatterers of arbitrary shape. The dispersion relation allows for an explanations for the modal behaviour of metaporous layers in various configurations. The dispersion relation for a cylindrical inclusion tuned to a perfect absorption peak was shown to highlight a trapped mode. The modification of the inclusion to a split-ring resonator was discussed as well; the dispersion relation allowed to understand the scattering properties of this system in a new light. Three different configurations were studied with varying geometrical parameters: these cases showed two absorption peak for each configuration, explained using the dispersion relation and highlighted different effects such as the hybridization of a mode with the resonance of the cavity for the \textit{up1} and \textit{up2} configuration, and an avoided crossing close to an exception point in the \textit{up2} configuration. \\
 
-In this work, we have developed a numerical procedure for the computation of the dispersion relation of the leaky surface waves in porous periodic layers with embedded rigid inclusions. The dispersion relation allow for an explanations for the modal behaviour of metaporous layers. Particular cases of a cylindrical inclusion tuned to a perfect absorption peak and split-ring resonators were studied and their scattering properties could be understood in a new light.
+Next steps for this study include the investigation of these metaporous surfaces with heavy fluids both saturating the porous material and loading the structure. The stronger leakage effects could help to understand better these mechanisms and highlight the related behaviour in this work. 
 
-While the dispersion relation evaluation lies on a root-finding procedure, a costly and non robust method (in isolated cases and seemingly depending on the matrices conditioning, some roots can be missed, which is unavoidable), it is the only known way to solve the present system and the proposed method allows for the evaluation of both the dispersion relation and the scattering properties (reflection and transmission coefficients) when adding a right-hand side and solving directly the matrix system.
+A generalization of this approach to multilayer systems of arbitrary nature, and more importantly the extension to allow for the modelling of poroelastic-based structures is in progress. The investigation of the contributions of the skeleton motion to the modal behaviour of the structure could provide a better understanding of these structures, while leading to a much more complex modal behaviour as was studied for homogeneous layers \cite{boeckx2005, marechal2025} and periodic structures\cite{wang2020}. 
 
-Next steps for this work include generalizing this approach to multilayer systems of arbitrary nature and an extension of poroelastic periodic structures. The investigation of the contributions of the skeleton motion to the modal behaviour of the structure could provide a better understanding of these structures.
+The dispersion relation evaluation lies on a root-finding procedure aiming to find solutions of the final matrix system from Eq.~\ref{eq:M_det}. While this method is very computationally intensive, it is the only way, as far as we know, to solve the present system. A reframing of the method used for the solution research on might allow for an improvement in numerical performances and reliability of the method. Ideally, the system could be formulated in the form of an eigenvalue problem. Since the final system has a small matrix size, traditional solvers could provide solutions very efficiently. The issue remains the writing of the eigenvalue problem which remains a significant challenge. Other prospects would be in turning to other solvers for such systems including, contour integral methods
 
+
+\begingroup
 \section{Appendices}
+\renewcommand{\thesubsection}{\thesection.\Alph{subsection}}
+% \appendix
 \begin{widetext}
-\section{Expression of the effective parameters in porous materials with the JCA model.}
+\subsection{Expression of the effective parameters in porous materials with the JCA model.}
 \label{app:jca}
 
-The complex and frequency dependent density and bulk modulus of the fluid phase, which
-accounts respectively for the viscous and thermal losses are \cite{johnson1987,champoux1991} as,
+The complex and frequency dependent density and bulk modulus accounting for the viscothermal losses of the equivalent fluid \cite{johnson1987,champoux1991} are,
 \begin{equation}
 \begin{aligned}
  \rho_{\text{eq}}(\omega) &= \frac{\rho_{f} \alpha_{\infty}}{\phi}\left(1+\frac{\im R_f \phi}{\rho_f \alpha_\infty\omega} \sqrt{1- \im  \omega  \rho_{f} \mu_f \left(\frac{ 2\alpha_{\infty}}{R_f \phi \Lambda}\right)^2 }\right),\\
@@ -384,27 +365,14 @@ K_{\text{eq}} &=\frac{\kappa P_{0}}{\phi}\left(\kappa-(\kappa-1)/\left(1+ \cfrac
 \end{equation}
 \end{widetext}
 
-where $\phi$ is the porosity, $\alpha_{\infty}$ is the tortuosity, $\Lambda$ and $\Lambda'$ are respectively the viscous and thermal characteristic lengths, $R_f$ is the flow resistivity, $\mu_f$ is the dynamic viscosity, $\kappa$ is the heat capacity ratio, $\rho_f$ the density of the saturating fluid, and $P_0$ is the ambient pressure.
+where $\phi$ is the porosity, $\alpha_{\infty}$ the tortuosity, $\Lambda$ and $\Lambda'$ are respectively the viscous and thermal characteristic lengths, $R_f$ is the flow resistivity, $\mu_f$ is the dynamic viscosity, $\kappa$ is the heat capacity ratio, $\rho_f$ the density of the saturating fluid, and $P_0$ is the ambient pressure.
 
-\begin{figure}[htbp]
-    \includegraphics{figures/rigid_rigid_fig.pdf}
-    \caption{Complex dispersion relation of the rigid-rigid unit cell with a $r=8$ mm rigid inclusion. a) $k_1'$ b) $k_1''$. The two branches are denoted 1 and 2 and their path is highlighted with arrows. c) Absolute error of the Comsol (pink) and root-finding (blue) solutions w.r.t the GEP solution }
-    \label{fig:neum}
-\end{figure}
 
-\section{Root-finding: Müller method}
-\label{app:rootfinding}
-In order to find solutions for modes in the form of complex wavenumbers $k_{1,q}$, we use the previously derived system from Eq.~(\ref{eq:final_system}), that can also be expressed as $\mbf M(k_1, \omega) \mbf S = 0$. The modes are found by finding the discrete set of $k_1$ that satisfy the singularity of $\mbf M$ using Eq.~\ref{eq:M_det}
-
-In practice, these solutions are found using a root-finding procedure, our own implementation of the Müller method \cite{muller1956}. It is based on a parabolic interpolation to iteratively finds complex wavenumber solutions $k_1$ given a specific frequency $\omega$ from three initial guesses. Therefore, care has to be put into the initialization of the method. Since the system $\mbf M$ is constructed from a finite elements scheme, computations will be all the more costly that a large number of iterations need to run before convergence is reached. The convergence criterion checks that threshold of the variation of the solution is below $\varepsilon$. In this paper, this criterion is taken with a magnitude around $\varepsilon = 10^{-13}$. Thus, the initialization of the method is done by evaluating the local minimas of a coarse mapping of the function in the complex plane. The latter is only computed every few frequency steps to save computation time. Additionally, the matrix $\mbf D_{ii}$ from Eq.~(\ref{eq:discrete_system}) does not depend on $k_1$ and can thus be only evaluated once per frequency step, thus saving valuable computing resourses. 
-
-Once the set of solutions has been obtained, each of the associated mode shapes can also be retrieved. Given a specific root $k_{1,j}$ that satisfies $\mathrm{det}(\mbf M) = 0$, there is $\mbf M(k_{1,j}) \mbf S = 0$, where the vector $\mbf S = \mathrm{ker}(\mbf M(k_{1,j}))$ is the nullspace of the matrix. In practice, the nullspace is computed using singular value decomposition (SVD), $\mbf M = \mbf U \mbf \Sigma \mbf V^\dagger$. The last right singular vectors, that is the last row of $\mbf V^\dagger$ provide an orthonormal basis for the null space of $\mbf M$, associated to the singular value $\sigma = \mathrm{min}(\mbf \Sigma)$. All state vectors among which $S^t$ and $S^b$ are obtained by selecting the appropriate rows of $\mbf V^*$. By doing the whole procedure backwards (using Eq.~(\ref{eq:condensation_dof}) and then Eq.~(\ref{eq:periodicity})), we can retrieve the full degrees of freedom vector $\mbf p$ (and normalized as $ (p^i(x_1, x_2)/p^i(0, h) )e^{ik_1 x_1}$).
-
-\section{Validation of the method in the case of a layer with rigid boundary conditions}
+\subsection{Validation of the method in the case of a layer with rigid boundary conditions}
 \label{app:neumann_bc}
 
-\subsection{Generalized eigenvalue problem}
-With the full problem described in Section.~\ref{sec:method}, writing an eigenvalue problem proves to not be possible. However, in the case where no outgoing wave radiation are considered and by imposing Neumann boundary conditions at the interface instead, an eigenvalue problem can be obtained in this specific case. Equation~\ref{eq:periodicity} is rewritten with $\mbf P$ decomposed as $\mbf P = \mbf P_m + \Delta \mbf P_\Delta$ and $\hat {\mbf P} = \mbf{\hat{P}}_m + \Delta^{-1} \mbf{\hat{P}}_\Delta$ such that 
+\subsubsection{Generalized eigenvalue problem}
+With the full problem described in Section.~\ref{sec:method}, writing an eigenvalue problem proves to not be possible. However, in the case where no outgoing wave radiation are considered and replacing the coupling by imposing Neumann boundary conditions at the interface, an eigenvalue problem can be obtained in this specific case. Equation~\ref{eq:periodicity} is rewritten with $\mbf P$ decomposed as $\mbf P = \mbf P_m + \Delta \mbf P_\Delta$ and $\hat {\mbf P} = \mbf{\hat{P}}_m + \Delta^{-1} \mbf{\hat{P}}_\Delta$ such that 
 \begin{equation}
     \bigg(\mbf{\hat{P}}_m + \Delta^{-1} \mbf{\hat{P}}_\Delta\bigg) \mbf D \bigg(\mbf P_m +\Delta \mbf P_\Delta\bigg) \mbf p = 0.
 \end{equation}
@@ -413,19 +381,23 @@ Developing the expression yields the form of a polynomial eigenvalue problem of 
 \begin{equation}
     \bigg( \Delta^2 \mbf A_2 + \Delta \mbf A_1 + \mbf A_0 \bigg) p_i = 0,
 \end{equation}
-with matrices $\mbf A_2 = \mbf{\hat{P}}_m \mbf D \mbf P_\Delta$, $\mbf A_1 = \mbf{\hat{P}}_m \mbf D \mbf P_m + \mbf{\hat{P}}_\Delta \mbf D \mbf P_\Delta$ and $\mbf A_0 = \mbf{\hat{P}}_\Delta \mbf D \mbf P_m$. This can be put into a generalized eigenvalue problem,
+with matrices,
 \begin{equation}
-    \left( \mbf A - \Delta \mbf B \right) p = 0, \\
+        \mbf A_2 = \mbf{\hat{P}}_m \mbf D \mbf P_\Delta, \quad \mbf A_1 = \mbf{\hat{P}}_m \mbf D \mbf P_m + \mbf{\hat{P}}_\Delta \mbf D \mbf P_\Delta, \quad \mbf A_0 = \mbf{\hat{P}}_\Delta \mbf D \mbf P_m.
 \end{equation}
-with $\mbf A = \begin{pmatrix}
+This can be put into a generalized eigenvalue problem,
+\begin{equation}
+    \left( \mbf A - \Delta \mbf B \right) \mbf p = 0, \\
+\end{equation}
+with $\Delta$ the eigenvalue, $\mbf A = \begin{pmatrix}
     -\mbf A_1 & - \mbf A_0 \\ I & 0
 \end{pmatrix}, \mbf B  = \begin{pmatrix}
     \mbf A_2 & 0 \\ 0 & I
-\end{pmatrix}$ and $\mbf p = \begin{pmatrix}
+\end{pmatrix}$, $\mbf p = \begin{pmatrix}
     \Delta \mbf p_l & \Delta \mbf p_i & \mbf p_l & \mbf p_i
 \end{pmatrix}^\transp$.
 
-\subsection{Comsol model}
+\subsubsection{Comsol model}
 Although it has been mentioned in the introduction that Comsol Multiphysics could not be used for modeling the full problem of the present work, it can still be used to validate the method in the case of a layer with rigid boundary conditions. The geometry is thus constituted of the sole unit cell, with Neumann boundary conditions at $\Gamma_t$, $\Gamma_b$. The Helmholtz equation is written as $(\nabla^2 + k^2_{eq})\tilde p(\mbf x) e^{\kappa x_1} = 0$, with the eigenvalue of the problem denoted as $\kappa = -ik_{1,q}$. The coefficient form PDE interface is used for the model, which requires the Helmholtz equation to be written as,
 \begin{equation}
     \kappa^2 \tilde p + \nabla \cdot \left(\mbf A_0 \nabla \tilde p + \mbf A_1 \tilde p\right) + \mbf A_1' \nabla \tilde p + k^2_{eq} \tilde p = 0, 
@@ -434,9 +406,9 @@ with $\nabla = \begin{pmatrix}
     \partial_{1} \\ \partial_{2}
 \end{pmatrix}$, $\mbf A_0 = \begin{pmatrix}
     1 & 0 \\ 0 & 1
-\end{pmatrix}$, $\mbf A_1 = \begin{pmatrix} \kappa \\ 0 \end{pmatrix}$ and $\mbf A_1' = \begin{pmatrix} \kappa \\ 0 \end{pmatrix}$. Around the inclusion, rigid boundary conditions are applied, as $-\mbf n \cdot \nabla p - n_2 \cdot \kappa p = 0$ with $\mbf n$ the normal vector to the boundary and $n_2$ its $x_2$ component. At the top and bottom interfaces, the Neumann boundary conditions simply writes as $\partial_2 p(x_1, 0) = 0$ and $\partial_2 p(x_1, H) = 0$. The periodicity is imposed on the right and left boundaries with a continuity condition and since the pressure field $\tilde p$ is defined as a periodic function, the sole imposition of $\tilde p(0, x_2) = \tilde p(d, x_2)$ fully imposes the periodicity in the problem. 
+\end{pmatrix}$, $\mbf A_1 = \begin{pmatrix} \kappa \\ 0 \end{pmatrix}$ and $\mbf A_1' = \begin{pmatrix} \kappa \\ 0 \end{pmatrix}$. Around the inclusion, rigid boundary conditions are applied, as $-\mbf n \cdot \nabla p - n_2 \cdot \kappa p = 0$ with $\mbf n$ the normal vector to the boundary and $n_2$ its $x_2$ component. At the top and bottom interfaces, the Neumann boundary conditions simply writes as $\partial_2 p(x_1, 0) = 0$ and $\partial_2 p(x_1, H) = 0$. The periodicity is imposed on the right and left boundaries with a continuity condition such that $\tilde p(0, x_2) = \tilde p(d, x_2)$ and since the pressure field $\tilde p$ is defined as a periodic function, this fully imposes the periodicity in the problem. 
 
-\subsection{Results}
+\subsubsection{Results}
 For the procedure that uses root-finding, the system is constructed following Eq.~(\ref{eq:condenS^tb}) and setting $Q = 0$, since there is no coupling to any semi-infinite medium and thus no need for a Bloch wave series. The system is thus, 
 \begin{equation}
 \begin{pmatrix}% {cc|cc}
@@ -449,52 +421,78 @@ For the procedure that uses root-finding, the system is constructed following Eq
     \end{pmatrix} = 0,
 \end{equation}
 with $\mbf T = \left(\mbf M^t\right)^{-1} \mbf M^b$ corresponds to the transfer matrix of the system. The two first rows correspond to the Neumann boundary conditions applied to the system.
-with $\mbf T = \left(\mbf M^t\right)^{-1} \mbf M^b$ corresponds to the transfer matrix of the system. The two first rows correspond to the Neumann boundary conditions applied to the system.
-
+\begin{figure}[htbp]
+    \centering
+    \includegraphics{figures/rigid_rigid_fig.pdf}
+    \caption{Complex dispersion relation of the rigid-rigid porous unit cell with a $r=8$ mm rigid inclusion. a) $k_1'$ b) $k_1''$ planes of the dispersion relations. The two branches are denoted 1 and 2 and their path is highlighted with arrows. c) Absolute error of the Comsol (pink) and root-finding (blue) solutions w.r.t the GEP solution }
+    \label{fig:neum}
+\end{figure}
 For the rigid-rigid case, we therefore present results computed with Comsol as well as with our FEM approach solved using both root-finding and the eigenvalue formulation. All solutions were computed at the same frequencies with a mesh size $\lambda_{min}/10$. While the same size, the Comsol generated mesh might not be identical to that of the mesh generated for the root-finding and eigenproblem methods. In Fig.~\ref{fig:neum}, two modes are obtained: one with lower attenuation is the first propagating mode denoted as 1, and the other one is in-plane with a cut-on frequency denoted as 2. All approaches yield similar results. Moreover, these results are comparable to those obtained in Ref.~\cite{magliacano2020}. 
 
 In Fig.~\ref{fig:neum}c, the absolute error comparing Comsol results and the root-finding method with reference from the GEP is presented. It ensures that the method is able to converge properly to solutions coincinding with the eigenvalues. Note that the general matrices onto which both procedures are done are the same, hence the lower absolute error compared to Comsol which uses significantly different approach.
 
-\section{Sign of the complex transverse wavenumber in the presence of losses and limit values at low frequencies}
-\label{app:sign_k20}
-Keeping the focus on mode I and the proper mode II  from the results for the homogeneous layer in the lossless case depicted in Fig.~\ref{fig:lossless_porous}, we saw that $k_1 \rightarrow k_{eq}'$ at high frequencies. The expression for the transverse wavenumber becomes $k_{20} = -\sqrt{k_0^2 - k_{eq}'^2} \in - \im \mathbb R$ since $k_{eq}' > k_0$ and thus $\text{arg}(k_{20}) = -\pi/2$. As depicted in Fig.~\ref{fig:losses_porous} for the lossy case, the introduction of dissipation shifts the modes from zero real parts to negative real parts $k_{20}' < 0$ and $k_1' < 0$. In this lossy case, considering high frequencies again, $k_1 \rightarrow |k_{eq}'| - \im |k_{eq}''|$. Adding an imaginary part to $k_1$ leads to 
-\begin{equation}
-    k_{20} = -\sqrt{k_0^2 - |k_{eq}'|^2 + |k_{eq}''|^2 + 2i|k_{eq}'||k_{eq}''|}.
-\end{equation}
-It can be represented by $k_{20} = |-k_{20}|e^{i(\theta/2+\pi)}$ where $\theta$ is the argument of the complex number under the square root. Looking for the value of $\theta$, one has 
-\begin{equation}
-    \theta/2 = \pi+\arctan\left(\frac{|k_{eq}'||k_{eq}''|}{k_0^2 - |k_{eq}'|^2 + |k_{eq}''|^2}\right), 
-\end{equation}
-and $\theta/2 \rightarrow \pi/4$ because $|k_{eq}'||k_{eq}''| > 0, k_0^2 - |k_{eq}'|^2 + |k_{eq}''|^2 < 0$). Finally, $\text{arg}(k_{20}) \rightarrow - 3\pi/4$ which corresponds to the quadrant with $k_{20}' < 0$ and $k_{20}'' < 0$.
 
-\section{Additionnal results}
+\subsection{Scattering of the porous periodic cell: addition of an incident wave.}
+\label{app:direct_pb}
+Adapting the formulation of the problem to that of a forced configuration, the pressure of the bottom pressure field in Eq.~\ref{eq:out_waves} is rewritten to include an incident plane wave field such that, 
+\begin{equation}
+    p^b(\mbf x) = \sum_{q \in \mathbb Z} \left(\delta_{0q} e^{-\im k_{2, q} x_2} + R_q  e^{+ \im k_{2, q} x_2}\right) \psi_q(x_1),
+\end{equation}
+where $\delta_{0q}$ is the Kronecker symbol and denotes the amplitude of the incident wave acting only on the 0th Bloch wave. The $a^b$ coefficients are thus denoted as $R_q$, since they become reflection coefficients. The longitudinal wavenumber is thus imposed as $k_1=k_0\mathrm{sin}(\theta)$, with $\theta$ the incidence angle of the plane wave. The same procedure can be applied to derive the matrix system, and the incident wave term is added to Eq.~(\ref{eq:final_system}) as a right-hand side. By solving the system, the amplitude coefficients are obtained and the reflection coefficient is computed as, 
+\begin{equation}
+    \mathcal R = \sum_q \frac{k_{2,q}'}{k_{2, 0}} |R_q|^2.
+\end{equation}
+The absorption coefficient is thus expressed as $\alpha = 1 - \mathcal R$.
 
-\subsection{Transmission case}
+% \section{Sign of the complex transverse wavenumber in the presence of losses and limit values at low frequencies}
+% \label{app:sign_k20}
+% Keeping the focus on mode I and the proper mode II  from the results for the homogeneous layer in the lossless case depicted in Fig.~\ref{fig:lossless_porous}, we saw that $k_1 \rightarrow k_{eq}'$ at high frequencies. The expression for the transverse wavenumber becomes $k_{20} = -\sqrt{k_0^2 - k_{eq}'^2} \in - \im \mathbb R$ since $k_{eq}' > k_0$ and thus $\text{arg}(k_{20}) = -\pi/2$. As depicted in Fig.~\ref{fig:losses_porous} for the lossy case, the introduction of dissipation shifts the modes from zero real parts to negative real parts $k_{20}' < 0$ and $k_1' < 0$. In this lossy case, considering high frequencies again, $k_1 \rightarrow |k_{eq}'| - \im |k_{eq}''|$. Adding an imaginary part to $k_1$ leads to 
+% \begin{equation}
+%     k_{20} = -\sqrt{k_0^2 - |k_{eq}'|^2 + |k_{eq}''|^2 + 2i|k_{eq}'||k_{eq}''|}.
+% \end{equation}
+% It can be represented by $k_{20} = |-k_{20}|e^{i(\varphi/2+\pi)}$ where $\varphi$ is the argument of the complex number under the square root. Looking for the value of $\varphi$, one has 
+% \begin{equation}
+%     \varphi/2 = \pi+\arctan\left(\frac{|k_{eq}'||k_{eq}''|}{k_0^2 - |k_{eq}'|^2 + |k_{eq}''|^2}\right), 
+% \end{equation}
+% and $\varphi/2 \rightarrow \pi/4$ because $|k_{eq}'||k_{eq}''| > 0, k_0^2 - |k_{eq}'|^2 + |k_{eq}''|^2 < 0$). Finally, $\text{arg}(k_{20}) \rightarrow - 3\pi/4$ which corresponds to the quadrant with $k_{20}' < 0$ and $k_{20}'' < 0$.
+
+\subsection{Additionnal results}
+
+\subsubsection{Transmission case}
 \label{app:transmission}
-The transmission case is taken so that its unit cell corresponds to two of the unit cells used for the rigid-backing stacked together, with twice the thickness and two rigid inclusions. Thus, several modes should be identical since the rigid-backing acts as a symmetry plane. Figure \ref{fig:trans} shows the support for an additional propagation mode starting at wavenumber 0. It can be seen on Fig.~\ref{fig:trans}c that the pressure field corresponds to a minimum along $x_2 = 2$ cm, at the half-width cell, unsuitable in the case of a rigidly-backed layer, which would be the symmetry plane for this configuration where a no displacement condition is imposed, implying non-zero pressure. This additional mode does not seem to be affected strongly by the inclusion and does not show any notable property.
-
-\begin{figure}[htpb]
+\begin{figure}[h!]
+    \centering
     \includegraphics{figures/app_trans_refl.pdf}
     \caption{Dispersion relation for the symmetric configuration a) Overlaid rigid-backing $h$ and symmetric $2h$ with two inclusions configurations b) c) d) Mode shapes of each of the three modes represented at $f= 5$ kHz. }
     \label{fig:trans}
 \end{figure}
+The transmission case is taken so that its unit cell corresponds to two of the unit cells used for the rigid-backing stacked together, with twice the thickness and two rigid inclusions. Thus, several modes should be identical since the rigid-backing acts as a symmetry plane. Figure \ref{fig:trans} shows the support for an additional propagation mode starting at wavenumber 0. It can be seen on Fig.~\ref{fig:trans}c that the pressure field corresponds to a minimum along $x_2 = 2$ cm, at the half-width cell, unsuitable in the case of a rigidly-backed layer, which would be the symmetry plane for this configuration where a no displacement condition is imposed, implying non-zero pressure. This additional mode does not seem to be affected strongly by the inclusion and does not show any notable property.
 
-\subsection{Effect of the cell stretching in the perfect absorption case}
-We want to highlight more precisely the identified behaviour for the perfect absorption configuration. A similar configuration can therefore be studied, by a stretching effect applied to the original geometry, the inclusion becoming an ellipse and the square unit cell, a rectangle. The stretching is defined as increasing the thickness and the ellipse semi-major axis, respectively as $h+2\delta l$ and $b + \delta l$. Results are presented for the cases $\delta l = 0, 3$ and $5$ mm in Fig.~\ref{fig:stretch}. Figure \ref{fig:stretch}a to Fig.~ \ref{fig:stretch}d shows results identical to Fig~.\ref{fig:perfect_absorption}, Fig.~ \ref{fig:stretch}e to Fig.~ \ref{fig:stretch}h shows a cell with $h=26$ mm and an ellipsoid inclusion with a semi-minor axis $a=7.3$ mm, and a semi-major axis $b=10.3$ mm, and Fig.~ \ref{fig:stretch}i to l is a cell with $h=30$ mm and an ellipsoid inclusion with $a=7.3$ mm, $b=13.3$ mm..
 \begin{figure*}[htpb]
+    \centering
     \includegraphics{figures/app_stretched_cell.pdf}
-    \caption{a-d) $\delta l = 0$ mm, e-h) $\delta l = 3$ mm, i-l) $\delta l = 5$ mm. For each row are the wavenumbers $k_1'$, $k_1''$ and the absorption coefficient $\alpha$.}
+    \caption{Stretched cell results with, a-d) $\delta l = 0$ mm, e-h) $\delta l = 3$ mm, i-l) $\delta l = 5$ mm and for each row, the mode shape of the least-attenuated mode, the dispersion relation with the planes $k_1''$, $k_1'$ and the absorption coefficient $\alpha$}
     \label{fig:stretch}
 \end{figure*}
-The trapped mode shifts towards lower frequencies, explaining the frequency shift of the absorption coefficient. The mode shape remain similar, and the slope of the mode 1 becomes less steep and further from $k_1' = 0$, explaining the decrease in magnitude that appear for the absorption coefficient.  
 
-\begin{figure}[htpb]
+\subsubsection{Effect of the cell stretching in the perfect absorption case}
+\label{app:cell_stretch}
+We want to highlight more precisely the identified behaviour for the perfect absorption configuration in Section~\ref{ssec:perfect_absorption}. To do so, we can slightly modify the geometry and observe how this affects the modes of the dispersion relation. Applying a stretching effect to the original geometry, the cylindrical inclusion becomes an ellipsis with semi-minor axis $r$ (which does not change) and semi-major axis as $r_e$ and the square unit cell becomes a rectangular one with height $h_e$. The stretching is defined as increasing the thickness and the ellipsis semi-major axis, respectively as $h+2\delta l$ and $b + \delta l$. Results are presented for the cases $\delta l = 0, 3$ and $5$ mm in Fig.~\ref{fig:stretch}. Figure \ref{fig:stretch}a to Fig.~ \ref{fig:stretch}d shows results identical to Fig~.\ref{fig:perfect_absorption}.
+
+The same two modes as observed in Fig.~\ref{fig:perfect_absorption} can be seen for each dispersion relation in Figs.~\ref{fig:stretch}b and c (identical results as Fig.~\ref{fig:perfect_absorption}), a stretch with $\delta l = 3$ mm on Figs.~\ref{fig:stretch}f and g and a stretch of $\delta l = 5$ mm on Figs.~\ref{fig:stretch}j and k. From these results, it can be seen that the increase of the unit cell thickness affects mainly mode II which has a decreasing cut-off frequency with the thickness increase, since this in-plane mode is linked to the layer. Mode I is slightly modified as well. The trapped mode shifts towards lower frequencies as seen on the dispersion relation, This shift in frequency of the trapped mode in the dispersion relation. explains the frequency shift of the absorption coefficient peak. The mode shape is generally preserved with the stretched of the cell as seen on Fig.~\ref{fig:stretch}a, \ref{fig:stretch}e, and \ref{fig:stretch}i, each show a gradient of pressure with a maximum located close to the rigid-backing. The slope of mode I becomes less steep and further from $k_1' = 0$, explaining the decrease in magnitude of the absorption coefficient. As the unit cell is stretched, the range of frequencies for which the two coinciding mode exists become thinner explaining the decreasing width for the absorption coefficient peak. The dispersion relation for Figs.~\ref{fig:stretch}j and k shows the two branch crossing in imaginary parts of the wavenumber $k_1''$ and getting closer in $k_1'$ at the same frequency, suggesting that a slight variation of these geometrical parameters could lead to find an exceptional point for this configuration. 
+
+\subsection{Details on the split ring configurations}
+\label{app:split_ring_params}
+Below is provided a figure describing the parametrization of the resonator geometry, as well the various configurations presented in the paper. 
+
+\begin{table}
+\begin{minipage}[b]{.4\textwidth}
     \centering
-        \input{chapitres/article_DISP/tikzbuild/tikz_srr.tex}
-       \caption{Diagram of the split-ring geometry}
+    \input{chapitres/article_DISP/figures/tikz_srr.tex}
+    \captionof{figure}{Diagram of the split-ring geometry}
     \label{fig:srr}
-\end{figure}
-\begin{table}[htbp]
+\end{minipage}\hfill\begin{minipage}[b]{.48\textwidth}
+    \centering
     \begin{tabular}{cc|ccc}
     \hline 
     \hline
@@ -509,18 +507,13 @@ The trapped mode shifts towards lower frequencies, explaining the frequency shif
 \end{tabular}
 \caption{Parameters of the split-ring resonator configurations used in Section~\ref{sec:split_ring_resonator}}
 \label{tab:srr_params}
-\end{table}
+\end{minipage}
+\end{table} 
 
-\section{Details on the split ring configurations}
-\label{app:split_ring_params}
-Below is provided a figure describing the parametrization of the resonator geometry, as well the various configurations presented in the paper.  
 
 The resonance frequency is obtained by adapting the standard equation for the wavenumber at the resonance of an Helmholtz resonator \cite{bruneau2006} as $k_r = \sqrt{S/(LV)}$, where in this case $S=\theta_s/(2\pi)$ is the aperture width arc length, $L+\delta \approx r_{out}-r_{in}$ is the neck length and $V = \pi r_{in}^2$ is the cavity surface area. In the present case, the layer wave velocity depends on the frequency. The following expression for the resonance frequency is thus,
 \begin{equation}
-    \begin{aligned}
-        f_{res} &= \mathrm{min}\left| 1 - \frac{c_{eq}(\omega)W}{\omega} \right|, \\ &\quad \quad W = \sqrt{\frac{\left(r_{out} - \cfrac{r_{in}}2\right)\alpha_s}{2\pi (r_{out}- r_{in})r_{in}^2}}
-    \end{aligned}
+        f_{res} = \mathrm{min}\left| 1 - \frac{c_{eq}(\omega)W}{\omega} \right|, \quad W = \sqrt{\frac{\left(r_{out} - \cfrac{r_{in}}2\right)\alpha_s}{2\pi (r_{out}- r_{in})r_{in}^2}}
 \end{equation}
-
-% \bibliography{biblio}
-% \end{document}
+\endgroup
+\clearpage

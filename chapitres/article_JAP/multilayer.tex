@@ -2,19 +2,20 @@
 \chaptermark{SCM for computing the dispersion relations of guided acoustic waves }
 \label{chap:jap}
 
-    {\color{gray}\textsc{This chapter is based on the material published in \cite{marechal2025}, authored by \textit{Mathieu Maréchal, Alan Geslain, Jean-Philippe Groby, Vicent Romero-Garc\'ia and Olivier Dazel}. Minor modifications to the text and figures have been made to fit the format and notation of this thesis}}\footnote{While the remaining of the manuscript assumes a positive harmonic time-dependance, the reader should bear in mind that this entire chapter is written using a negative time-dependance, i.e. $e^{-\im \omega t}$.}
-
-\clearpage 
-
-
-\section{Foreword}
+    {\color{gray}{This chapter is based on the material published in \cite{marechal2025}, authored by \textit{Mathieu Maréchal, Alan Geslain, Jean-Philippe Groby, Vicent Romero-Garc\'ia and Olivier Dazel}. Minor modifications to the text and figures have been made to fit the format and notation of this thesis.}}
+    
+\section*{Foreword}
+\addcontentsline{toc}{section}{Foreword}
 \label{sec:foreword}
-There are fundamental differences between this chapter and the rest of the manuscript in how the leakage is treated in the approach. In this chapter, no questions were raised regarding the wave solutions in the surrounding media. As a first assumption, we considered that the leaky waves should be outgoing in order to satisfy some radiation condition as stated right before Eq.~\ref{eq:outgoing_pressure_field}. However, this matter is not so simple, and treated as part of the subsequent chapter. In that respect, the dispersion relation of the waves in this chapter show indiscriminately outgoing as well as incoming solution. Fortunately, in these configurations the solution spectrum in real parts of the transverse wavenumber are almost symmetrical for most cases, which is why we did not consider this aspect in this chapter. 
+There are fundamental differences between this chapter and the rest of the manuscript in how the leakage is treated in the approach. In this chapter, and at the time of publication of the paper, no questions were raised regarding the wave solutions in the surrounding media. As a first assumption, leaky waves were considered to be outgoing in order to satisfy some radiation condition as stated right in the paragraph before Eq.~\ref{eq:outgoing_pressure_field}. However, this matter is not so simple, and treated as part of Chapter~\ref{sec:prb}. In that respect, the dispersion relation of the waves in this chapter show indiscriminately outgoing as well as incoming solutions.
 
 Therefore, contrary to the indication given below Eq.~\ref{eq:outgoing_pressure_field} giving the expressions the pressure fields in the surrounding media, it is stated in the original article that the branch cut for the transverse wavenumber in the half-space is selected such that $\textrm{Re}\left( k_{2}^{(0)}\right)\geq 0$. As discussed in the above paragraph, the eigenvalue problem uncovers all solution without a requirement for a branch cut selection thanks to the $\gamma$ variable change. 
 
-\section{Abstract}
-A spectral collocation method is proposed to compute the complex wavenumber-real frequency dispersion relations of guided acoustic waves in multilayer structures involving dissipative materials. The nature of these dissipative materials is initially considered to be arbitrary, i.e., poroelastic, viscoelastic, or viscoacoustic. For a given frequency, the complex wavenumbers as well as the physical fields, which are further used to evaluate the Poynting vectors and analyze the energy flux, are obtained by solving a generalized eigenvalue problem. The latter arises from a set of discretized equations of motion and appropriate boundary (coupling) conditions. These equations of motion and boundary (coupling) conditions are imposed by the nature of the material composing each layer of the structure. A focus is made on poroelastic layers. The dispersion relation of a two-layer elastic-poroelastic structure is analyzed, as well as the energy flows in the structure. The results as calculated with the present spectral collocation method are validated against those obtained with a classical complex root-finding (M\"uller) method and experiments.
+While the remaining of the manuscript assumes a positive harmonic time-dependance, the reader should bear in mind that this entire chapter is written using a negative time-dependance, i.e. $e^{-\im \omega t}$.
+
+\begin{abstract}
+    A spectral collocation method is proposed to compute the complex wavenumber-real frequency dispersion relations of guided acoustic waves in multilayer structures involving dissipative materials. The nature of these dissipative materials is initially considered to be arbitrary, i.e., poroelastic, viscoelastic, or viscoacoustic. For a given frequency, the complex wavenumbers as well as the physical fields, which are further used to evaluate the Poynting vectors and analyze the energy flux, are obtained by solving a generalized eigenvalue problem. The latter arises from a set of discretized equations of motion and appropriate boundary (coupling) conditions. These equations of motion and boundary (coupling) conditions are imposed by the nature of the material composing each layer of the structure. A focus is made on poroelastic layers. The dispersion relation of a two-layer elastic-poroelastic structure is analyzed, as well as the energy flows in the structure. The results as calculated with the present spectral collocation method are validated against those obtained with a classical complex root-finding (M\"uller) method and experiments.
+\end{abstract}
 
 
 \section{Introduction}
