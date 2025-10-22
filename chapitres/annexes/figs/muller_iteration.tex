@@ -1,4 +1,4 @@
-\begin{tikzpicture}[scale=1.5,domain=-.5:1.2]
+\begin{tikzpicture}[scale=2.5,domain=-.5:1.2]
     \draw[thick] plot[samples=100] (
         \x, {0.3*(\x)^4 - 0.9*(\x)^3 + 0.2*(\x)^2 - 0.4*(\x) + 0.8});
     
@@ -21,7 +21,7 @@
     \pgfmathsetmacro{\b}{(\yzero*(\xone+\xtwo)/((\xzero-\xone)*(\xzero-\xtwo))) + (\yone*(\xzero+\xtwo)/((\xone-\xzero)*(\xone-\xtwo))) + (\ytwo*(\xzero+\xone)/((\xtwo-\xzero)*(\xtwo-\xone)))}
     \pgfmathsetmacro{\c}{(\yzero*\xone*\xtwo/((\xzero-\xone)*(\xzero-\xtwo))) + (\yone*\xzero*\xtwo/((\xone-\xzero)*(\xone-\xtwo))) + (\ytwo*\xzero*\xone/((\xtwo-\xzero)*(\xtwo-\xone)))}
     
-    \draw[dashed] plot[samples=50,domain=-.7:1.5] (
+    \draw[dashed] plot[samples=100,domain=-.7:1.5] (
         \x, {\a*(\x)^2 - \b*\x + \c}
     );
     \fill (\xthree,\ythree) circle (1pt) node[below left] {root};

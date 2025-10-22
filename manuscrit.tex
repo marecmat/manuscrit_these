@@ -1,5 +1,7 @@
 \documentclass[pretty]{src/thesis}
+
 \hbadness=20000
+\vbadness=20000
 
 \graphicspath{
     {src/}
@@ -19,19 +21,34 @@
 \input{src/commands.tex}
 
 \begin{document}
+\thispagestyle{empty}
+\tikz[remember picture,overlay] 
+    \node[opacity=1,inner sep=0pt] at (current page.center){
+            \includegraphics[width=\paperwidth,height=\paperheight]{src/page_de_garde_moche.pdf}
+    };
+\clearpage
 
-% \input{chapitres/title.tex}
+\input{chapitres/title.tex}
 % \input{chapitres/abstract_ack.tex}
 \input{chapitres/contents.tex}
 
 \input{chapitres/intro/intro.tex}
 \input{chapitres/chap1/chap1.tex}
 
-% \input{chapitres/article_JAP/multilayer.tex}
-% \input{chapitres/article_GM/main.tex}
-% \input{chapitres/article_DISP/main.tex}
+\input{chapitres/article_JAP/multilayer.tex}
+\input{chapitres/article_GM/main.tex}
+\input{chapitres/article_DISP/main.tex}
 
 \input{chapitres/conclusion.tex}
-% \input{chapitres/annexes/main_appendix.tex}
+\input{chapitres/annexes/main_appendix.tex}
 \input{chapitres/refs.tex}
+
+\newpage
+\thispagestyle{empty}
+\tikz[remember picture,overlay] 
+    \node[opacity=1,inner sep=0pt] at (current page.center){
+            \includegraphics[width=\paperwidth,height=\paperheight]{src/page_de_garde_moche_4ecouv.pdf}
+    };
+\clearpage
+
 \end{document}  

@@ -3,6 +3,7 @@
 % \newcommand{\ods}[1]{\color{red}\sout{#1}\color{black}}
 
 \chapter{Dispersion relations of leaky guided waves in metaporous layers}
+\label{sec:prb}
     {\color{gray}{This chapter is constituted from an article in preparation for publication in Physical Review B and is authored by \textit{Mathieu Maréchal, Olivier Dazel, Vicent Romero-Garc\'ia and Jean-Philippe Groby}. The contents of the paper will not submitted as is and will undergo minor changes, without affecting the core scientific content of this chapter.}}
 
     \vfill 
@@ -277,12 +278,11 @@ The next step is the addition of the full losses to the porous layer, with resul
 Mode I keeps the same trend to that of the lossless case with a small $k_1'' < 0$ value in Fig.~\ref{fig:losses_porous}c) and is shifted to negative $k_{20}'$. Mode II follows the same shift as mode I and remains \textit{improper} below its cutoff frequency, identified in this case by a change of sign in $k_1''$ and $k_{20}''$.
 Finally, Fig.~\ref{fig:losses_porous}g presents the error on the calculated dispersion solutions for modes I and II between the analytical results discussed previously and those obtained by the FE formulation of the presented method. While both depending on the developed root-finding algorithm, the solution show low error which is increasing with frequency, expected to be dependant on the mesh size. The error for both shown branches appear to be the same after mode II (in pink) is above the cut-off frequency.
 
-
 In the study of leaky modes in lossless layers, as has been done for elastic materials in several papers, both modes II and III could be selected equivalently, and corresponds to either a growing solution in the layer which implies an ingoing growing wave in the fluid (backward leaky waves), or an attenuated solution in the layer with outgoing growing wave in the fluid (forward leaky waves). In this configuration, the latter is chosen for its more physically meaningful behaviour. However, the desymmetrization of these two modes in the case of a porous layer with losses means that the selection of the branch cut is not straightforward. The choice of the branch cut is made so that mode II is selected as a proper solution, with $k_1'' < 0$ and $k_{20}'' < 0$, which is considered the physically meaningful solution in our case. Mode III will be thus discarded as a solution in upcoming results as it is always improper.
 
 \section{Results}
 \label{sec:results}
-\begin{figure}
+\begin{figure}[ht]
     \centering
     \includegraphics{figures/fig_var_incl.pdf}
     \caption{Dispersion relation for a periodic unit-cell with diameter $d/h = 1/2$, a) Complex $k_1$ plane view b) $k_1'$ view, c) Complex $k_{20}$ plane view and d)$k_{20}'$. The grey branches denote the modes originating from $k_1' = 2\pi/d$, and are reciprocal (and symmetric) solutions to those denoted in colors. The figure shares the same legend as Fig.~\ref{fig:lossless_porous}.} 
@@ -460,7 +460,7 @@ The absorption coefficient is thus expressed as $\alpha = 1 - \mathcal R$.
 
 \subsubsection{Transmission case}
 \label{app:transmission}
-\begin{figure}[h!]
+\begin{figure}[ht]
     \centering
     \includegraphics{figures/app_trans_refl.pdf}
     \caption{Dispersion relation for the symmetric configuration a) Overlaid rigid-backing $h$ and symmetric $2h$ with two inclusions configurations b) c) d) Mode shapes of each of the three modes represented at $f= 5$ kHz. }

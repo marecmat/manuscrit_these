@@ -7,6 +7,7 @@
 
 % \begin{document}
 \chapter[Numerics for the scattering of multilayer periodic structures]{Numerical models for the scattering properties of multilayered structures with periodic cells}
+\label{chap:pb_direct}
 % \author[1]{Mathieu Maréchal}
 % \author[1]{Olivier Dazel\footnote{Email: olivier.dazel@univ-lemans.fr}}
 % \author[2]{Vicente Romero-García}
@@ -40,6 +41,7 @@ For periodic structures, several works have focused on calculating dispersion cu
 
 The aim of this paper is therefore to extend these methods to the modelling of the acoustic scattering by stacks of possibly periodic layers. More specifically, we will first propose an approach slightly different from those presented in Refs.\cite{parrinelloGeneralizedTransferMatrix2020,parrinelloTransferMatrixRepresentation2016}. The proposed approach is compatible with higher-order finite elements. Secondly, we extend the Global Method (GM) and Transfer Matrix Method (TMM) for the case of grating stacks. The modularity of the method allows for the modelling of a wide range of configurations (arbitrary stack of layers with scatterers of arbitrary geometry). In Section 2, the problem will be presented along with the different quantities of interest. Section 3 focusses on the modelling of homogeneous and periodic layers and the coupling between them. The key to this coupling is to adapt the FE discretization of the problem so that the appropriate state vector can be expressed by relating the acoustic properties from one end of the layer to the other. The validation results for the extensions of the two methods are then presented and validated in Section 4, putting in perspective the GM and TMM performance with examples covering the range of configurations described in the literature. Section 5 is a conclusion.
 
+\newpage
 
 \section{Position of the problem}
 \begin{figure}[hbtp]
@@ -516,13 +518,14 @@ The error in the modulus of the transmission coefficient is presented in \cref{f
 \subsection{Validation on metaporous structures}
 In this subsection, we will compare the two methods with examples inspired by the literature on metaporous structures. The first is a periodic square unit cell with periodicity $D=H=2$ cm in which is embedded a cylindrical inclusion made of steel with a radius $r=8$ mm as studied in \cite{weisserAcousticBehaviorRigidly2016} and depicted in \cref{fig:schema_benchmark}a. The second consists in a poroelastic slab with rubber coating on both sides, in which a resonant air-filled rubber shell inclusion is embedded (case B presented in Fig.~2 of \cite{gaboritCouplingFEMBloch2018} and also depicted in \cref{fig:schema_benchmark}c).  A rigid backing is considered at the top of the unit cell for both of these configurations\\
 
-\begin{figure}[h]
+\begin{figure}[ht]
     \centering
     \includegraphics[width=\linewidth]{FIG/schema_benchmark.pdf}
     \caption{Diagram for the presented cases, each case is a poroelastic host layer, a) rigidly-backed and steel inclusions, b) transmission problem with embedded poroelastic inclusions, c) rigidly-backed with a rubber-coating and resonant air-filled rubber shell, d) transmission problem with a rubber-coating on each side and steel inclusion}
     \label{fig:schema_benchmark}
 \end{figure}
 
+\newpage
 \cref{fig:case1} presents the results for the first case. The number of Bloch waves is chosen as $N=2$ and the size of the mesh is $h=D/5=4~\mathrm{mm}$. The results are presented for two incident angles ($\theta=0^\circ$ and $\theta=30^\circ$). The absorption curves presented in \cref{fig:case1}a are superimposed to the Multiple Scattering Theory (MST) solutions which is the method implemented in Ref.~\cite{weisserAcousticBehaviorRigidly2016} and considered as the reference. In this figure, only the results obtained by the GM are presented but the TMM results are very close. More precisely, their error to the reference solution are presented in \cref{fig:case1}b. They exactly coincide for both angles above 2 kHz. It is worth noticing that the maximum error is around 4000 Hz (around $10^{-3}$) and is due to Biot effects. It can be reduced by refining the mesh. Below 2 kHz there is not a perfect match in the errors of both methods and oscillations are observed for the TMM. This is not a major problem as the value of the error is very small (around $10^{-5}$) but this indicate conditioning issues.
 
 % 3_case_1/main.py

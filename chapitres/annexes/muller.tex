@@ -1,15 +1,14 @@
 \section{Details on the root-finding algorithm}
+\label{sec:muller}
 \setcounter{equation}{0}
 In this appendix, we will give a few explanations on the root-finding procedure that has been developed throughout this thesis. Its core is based on the Müller root-finding method, but several procedure are used around in order to make the procedure efficient and reliable. 
 
 \subsection{The Müller method}
-\begin{figure}[ht!]
-    \centering
-    \input{chapitres/annexes/figs/muller_iteration.tex}
-    \caption{Illustration of the Müller iterative scheme: the root of function $f(x)$ (\soliddarkline) is approximated with an interpolation function (\dasheddarkline) by the $x_3$ point.}
-\end{figure}
-
-This method is a root-finding procedure that relies on a quadratic interpolation of the function, here denoted as $f$. From three initial guesses close to each other that are $x_0, x_1$ and $x_2$, a parabola is constructed by interpolating the function of interest at the three initial guesses. \cite{muller1956,chapra2010}. The parabola $p(x)$ has an expression written as $p(x_3) = a (x_3-x_2)^2 + b(x_3-x_2) + c$ and, denoting $f_i = f(x_i)$, passes through the points $(x_0, f_0)$, $(x_1, f_1)$ and $(x_2, f_2)$. The coefficients for this quadratic polynomial are thus given as,
+This method is a root-finding procedure that relies on a quadratic interpolation of the function, here denoted as $f$. From three initial guesses close to each other that are $x_0, x_1$ and $x_2$, a parabola is constructed by interpolating the function of interest at the three initial guesses. \cite{muller1956,chapra2010}. The parabola $p(x)$ is expressed as
+\begin{equation}
+    p(x_3) = a (x_3-x_2)^2 + b(x_3-x_2) + c
+\end{equation}
+which passes through the points $(x_0, f_0)$, $(x_1, f_1)$ and $(x_2, f_2)$, with $f_i = f(x_i)$. The coefficients for this quadratic polynomial are thus given as,
 \begin{equation}
     \begin{aligned}
         a &= \ddfrac{(x_1 - x_2)(f_0 - f_2) - (x_0 - x_2)(f_1 - f_2)}{\prod_{0 \le i < j \le 2} (x_j - x_i)},\\
@@ -22,16 +21,25 @@ The root of this polynomial is thus expressed as,
 \begin{equation}
     x_3 = x_2 - \cfrac{2c}{b + \mathrm{sign}(b) \sqrt{b^2 - 4 a c}},
 \end{equation}
-and chosen such that the denominator should be the biggest value, hence the $ \mathrm{sign}$ function. While not the classically written quadratic formula, this expression remains equivalent and allows to avoid round-off errors for small values of $a$ \cite{press1992}. This process is then run iteratively until the condition for finding the root is met, 
+and chosen such that the denominator should be the biggest value, hence the $ \mathrm{sign}$ function. While not the classically written quadratic formula, this expression remains equivalent and allows to avoid round-off errors for small values of $a$ \cite{press1992}. The parabola interpolation is illustrated on Fig.~\ref{fig:mulleriteration}.
+\begin{figure}[htpb]
+    \centering
+    \input{chapitres/annexes/figs/muller_iteration.tex}
+    \caption{Illustration of the Müller iterative scheme: the root of function $f(x)$ (\soliddarkline) is approximated with the interpolation function $p(x)$ (\dasheddarkline) at the current step by the $x_3$ point.}
+    \label{fig:mulleriteration}
+\end{figure}
+
+This process is then run iteratively until the condition for finding the root is met, 
 \begin{equation}
     \varepsilon_a=\left|\frac{x_3-x_2}{x_3}\right|,
 \end{equation}
 which means that the convergence is reached when the iteratively-found solution stops varying up to small values; we have usually chosen $\varepsilon_a \in \left[ 10^{-12}, 10^{-18} \right]$ depending on the nature of the problem and more importantly the numerical conditioning of the complex function $f$. It is possible to initialize the method with initial guesses that leads to a divergence of the method, or to location which never converge. To mitigate these two issues, a second criterion $\varepsilon_b \approx 10^6$ sets a threshold for the variance of $[x_0, x_1, x_2, x_3]$ for the first case, and to a parameter setting the maximum number of iterations set in the range $[100, 2000]$.
 
-\subsection{A complete routine for the automated solving of dispersion relations}
+\subsection{A complete routine for an automated computation of dispersion relations}
 \begin{figure}[htpb]
     \centering
     \input{chapitres/annexes/figs/muller_schema.tex}
+    \vspace*{2.5em}
     \caption{Description of the routine. Accented text corresponds to conditions and text not embedded in a box corresponds to the data obtained in the previous process. The map is shown in logarithmic scale of the absolute value of the function value depending on the complex coordinate of the wavenumber.}
     \label{fig:muller_schema}
 \end{figure}
@@ -44,4 +52,4 @@ Once the set of solutions has been finally obtained, each of the associated mode
 
 \subsection{Using the code}
 In order to use the developed method, one should write a Python class formulating the problem, the requirements are that there should exist an 
-\texttt{update\_frequency} method taking an angular frequency as the only input and should update all frequency-dependant parameters. Also, there should exist a \texttt{get\_matrix} method taking a complex wavenumber (or any parameter that needs to be root-found) and returns either a matrix or a scalar. The code is available on Github \comment{déposer sur zenodo} and more practical informations are given there. 
+\texttt{update\_frequency} method taking an angular frequency as the only input and should update all frequency-dependant parameters. Also, there should exist a \texttt{get\_matrix} method taking a complex wavenumber (or any parameter that needs to be root-found) and returns either a matrix or a scalar. The code is available on Github \comment{déposer sur zenodo?} and more practical informations are given there. \comment{écrire le readme}

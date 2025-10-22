@@ -12,7 +12,7 @@
 ]{book}
 
 %% Some parameters
-\setlength{\headheight}{15pt}
+\setlength{\headheight}{28pt}
 \everymath{\displaystyle}
 \RequirePackage{xcolor}     
 \definecolor{accent}{HTML}{620059} %{685494}% {a33c34}
@@ -160,7 +160,7 @@
             \tikz[remember picture,overlay] \fill[accent_title, inner sep=0pt] (current page.south east) rectangle (current page.north west);
             \tikz[remember picture,overlay] \node[opacity=.7,inner sep=0pt] at (current page.center){\includegraphics[width=\paperwidth,height=\paperheight]{background.png}};
         \begin{center}
-            \vspace*{-1.5cm}
+            \vspace*{-2.3cm}
             {\color{titletext}\fontsize{18}{18}\selectfont  
                 {Le Mans Université, Le Mans, France}
 
@@ -177,12 +177,12 @@
             {\color{titletext}\fontsize{22}{22}\titlestyle \@author}\\[.7em]
 
             {\color{titletext}\fontsize{18}{18}\selectfont submitted for the Doctoral degree}
-            \vskip 3.5cm
+            \vskip 4cm
 
             {\color{titletext}\fontsize{26}{26}\titlestyle\@title\par}
         \end{center}%
         \par
-        \vskip 1em}
+        \vskip -1em}
 
         % \renewcommand*{\cftsubsubsecindent}{2em} % reduce indent of subsubsection titles 
         % Write chapters as chapters in the toc

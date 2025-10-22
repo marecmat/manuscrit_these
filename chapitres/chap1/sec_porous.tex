@@ -1,4 +1,5 @@
-\clearpage
+\newpage 
+
 \section{Modelling of porous media}
 \label{sec:porous_models}
 Porous media is a category of materials which encompasses naturally occuring substances such as rocks, soils and biological tissues, and engineered materials like ceramics, metallic foams, rockwool or certain types of polymers. They are considered biphasic, that is constituted of two distinct domains: a pore network $\Omega_f$ filled by a saturating fluid embedded in an elastic matrix $\Omega_s$. A diagram of this microscopic structure is shown in Fig.~\ref{fig:poro_struct}. The porosity $\varphi$ is defined as the fraction of fluid over the total volume of the material. In the limit case, $\phi = 0$ the material becomes purely a solid while at $\phi = 1$, it becomes a fluid. At microscopic scales, the geometry of the fluid phase thus forms a complex microstructure. Fortunately, at airborne acoustic scales, these materials can often be considered at a meso-/macroscopic level and therefore models have been developed to describe the large-scale motion of these materials. In this context, they can be regarded as homogeneous and described by a set of effective parameters that accounts for their complex geometry. The porous structure of these materials causes the incoming acoustic energy to be dissipated through thermal exchanges and friction (viscous losses) along the duct/pore network, while elastic dissipation take place when the skeleton and the fluid phase are coupled. These losses are thus dependant on the geometry, which parametrized by the porosity, the saturating fluid properties, the pore network size, connectivity and shape, as well as the frame mechanical parameters. 
@@ -62,16 +63,14 @@ A different formulation, especially convenient for finite-elements discretizatio
             \hat A = \tilde P - 2\tilde N_s - \frac{ \tilde Q^2}{ \tilde R}, \quad \tilde \rho = \tilde{\rho_{11}} - \frac{ \tilde{\rho_{12}}^2}{\tilde{ \rho_{22}}},
             \quad \tilde \gamma = \phi \left( \frac{ \tilde{\rho_{12}}}{ \tilde{\rho_{22}}} - \frac{ \tilde Q}{ \tilde R} \right).
         \end{split}
-        \label{eq:biot_coefs}
     \end{equation}  
-$\gamma$ is another coupling coefficient, also denoted as $\tilde \beta$ in the derivations of Chapter~\ref{chap:jap}. Using the second row of Eq.~(\ref{eq:chap1_biot}) allows for the expression of the fluid displacement as, $\mbf u^f = \phi/(\tilde{\rho_{22}} \omega^2) \nabla p  - \tilde{\rho_{12}}/\tilde{\rho_{22}} \mbf u^s$ and using that in Eq.~(\ref{eq:motion_usuf}) and Eq.~(\ref{eq:stress_usuf}) allow to rewrite the coupled motion equations. 
+$\gamma$ is another coupling coefficient, also denoted as $\tilde \beta$ in the derivations of Chapter~\ref{chap:jap}. Using the second row of Eq.~(\ref{eq:chap1_biot}) allows for the expression of the fluid displacement as, $\mbf u^f = \phi/(\tilde{\rho_{22}} \omega^2) \nabla p  - \tilde{\rho_{12}}/\tilde{\rho_{22}} \mbf u^s$ and using that in Eq.~(\ref{eq:chap1_biot}) and Eq.~(\ref{eq:stress_usuf}) allow to rewrite the coupled motion equations. 
 Using these, the so-called $(\mbf u_s, p)$ formulation of the Biot theory~\cite{atalla1998} is expressed as,
     \begin{equation}
         \begin{aligned}
             \nabla \cdot \mbf{\hat{\sigma}}_s + \tilde \rho \omega^2 \mbf u_s +  \gamma \mbf \nabla p &= 0, \\
             \frac{\nabla^2 p}{\rho_{22} \omega^2} - \frac{\gamma }{\phi^2} \nabla \cdot \mbf u_s + \frac{1}{ \tilde R}p &= 0,
         \end{aligned}
-        \label{eq:up_motion_equations}
     \end{equation}
 where $\mbf{\hat{\sigma}}_s$ is the \emph{in vacuo} solid stress tensor,
 \begin{equation}
