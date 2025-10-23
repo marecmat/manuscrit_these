@@ -468,24 +468,31 @@ The absorption coefficient is thus expressed as $\alpha = 1 - \mathcal R$.
 \end{figure}
 The transmission case is taken so that its unit cell corresponds to two of the unit cells used for the rigid-backing stacked together, with twice the thickness and two rigid inclusions. Thus, several modes should be identical since the rigid-backing acts as a symmetry plane. Figure \ref{fig:trans} shows the support for an additional propagation mode starting at wavenumber 0. It can be seen on Fig.~\ref{fig:trans}c that the pressure field corresponds to a minimum along $x_2 = 2$ cm, at the half-width cell, unsuitable in the case of a rigidly-backed layer, which would be the symmetry plane for this configuration where a no displacement condition is imposed, implying non-zero pressure. This additional mode does not seem to be affected strongly by the inclusion and does not show any notable property.
 
-\begin{figure*}[htpb]
+
+\subsubsection{Effect of the cell stretching in the perfect absorption case}
+\label{app:cell_stretch}
+We want to highlight more precisely the identified behaviour for the perfect absorption configuration in Section~\ref{ssec:perfect_absorption}. To do so, we can slightly modify the geometry and observe how this affects the modes of the dispersion relation. Applying a stretching effect to the original geometry, the cylindrical inclusion becomes an ellipsis with semi-minor axis $r$ (which does not change) and semi-major axis as $r_e$ and the square unit cell becomes a rectangular one with height $h_e$. The stretching is defined as increasing the thickness and the ellipsis semi-major axis, respectively as $h+2\delta l$ and $b + \delta l$. Results are presented for the cases $\delta l = 0, 3$ and $5$ mm in Fig.~\ref{fig:stretch}. Figure \ref{fig:stretch}a to Fig.~ \ref{fig:stretch}d shows results identical to Fig~.\ref{fig:perfect_absorption}.
+
+\begin{figure*}
     \centering
     \includegraphics{figures/app_stretched_cell.pdf}
     \caption{Stretched cell results with, a-d) $\delta l = 0$ mm, e-h) $\delta l = 3$ mm, i-l) $\delta l = 5$ mm and for each row, the mode shape of the least-attenuated mode, the dispersion relation with the planes $k_1''$, $k_1'$ and the absorption coefficient $\alpha$}
     \label{fig:stretch}
 \end{figure*}
 
-\subsubsection{Effect of the cell stretching in the perfect absorption case}
-\label{app:cell_stretch}
-We want to highlight more precisely the identified behaviour for the perfect absorption configuration in Section~\ref{ssec:perfect_absorption}. To do so, we can slightly modify the geometry and observe how this affects the modes of the dispersion relation. Applying a stretching effect to the original geometry, the cylindrical inclusion becomes an ellipsis with semi-minor axis $r$ (which does not change) and semi-major axis as $r_e$ and the square unit cell becomes a rectangular one with height $h_e$. The stretching is defined as increasing the thickness and the ellipsis semi-major axis, respectively as $h+2\delta l$ and $b + \delta l$. Results are presented for the cases $\delta l = 0, 3$ and $5$ mm in Fig.~\ref{fig:stretch}. Figure \ref{fig:stretch}a to Fig.~ \ref{fig:stretch}d shows results identical to Fig~.\ref{fig:perfect_absorption}.
-
 The same two modes as observed in Fig.~\ref{fig:perfect_absorption} can be seen for each dispersion relation in Figs.~\ref{fig:stretch}b and c (identical results as Fig.~\ref{fig:perfect_absorption}), a stretch with $\delta l = 3$ mm on Figs.~\ref{fig:stretch}f and g and a stretch of $\delta l = 5$ mm on Figs.~\ref{fig:stretch}j and k. From these results, it can be seen that the increase of the unit cell thickness affects mainly mode II which has a decreasing cut-off frequency with the thickness increase, since this in-plane mode is linked to the layer. Mode I is slightly modified as well. The trapped mode shifts towards lower frequencies as seen on the dispersion relation, This shift in frequency of the trapped mode in the dispersion relation. explains the frequency shift of the absorption coefficient peak. The mode shape is generally preserved with the stretched of the cell as seen on Fig.~\ref{fig:stretch}a, \ref{fig:stretch}e, and \ref{fig:stretch}i, each show a gradient of pressure with a maximum located close to the rigid-backing. The slope of mode I becomes less steep and further from $k_1' = 0$, explaining the decrease in magnitude of the absorption coefficient. As the unit cell is stretched, the range of frequencies for which the two coinciding mode exists become thinner explaining the decreasing width for the absorption coefficient peak. The dispersion relation for Figs.~\ref{fig:stretch}j and k shows the two branch crossing in imaginary parts of the wavenumber $k_1''$ and getting closer in $k_1'$ at the same frequency, suggesting that a slight variation of these geometrical parameters could lead to find an exceptional point for this configuration. 
+
+\vfill 
+\clearpage
 
 \subsection{Details on the split ring configurations}
 \label{app:split_ring_params}
-Below is provided a figure describing the parametrization of the resonator geometry, as well the various configurations presented in the paper. 
+The parametrization of the resonator geometry is presented in Fig.~\ref{fig:srr}, and the parameters for the various configurations covered in the paper are given in Table~\ref{tab:srr_params}. The resonance frequency for each SRR is obtained by adapting the standard equation giving the wavenumber corresponding to the resonance of a Helmholtz resonator \cite{bruneau2006} as $k_r = \sqrt{S/(LV)}$, where $S=\theta_s/(2\pi)$ is the aperture width arc length, $L+\delta \approx r_{out}-r_{in}$ is the neck length and $V = \pi r_{in}^2$ is the cavity surface area. In the present case, the layer wave velocity depends on the frequency. The following expression for the resonance frequency is thus,
+\begin{equation}
+        f_{res} = \mathrm{min}\left| 1 - \frac{c_{eq}(\omega)W}{\omega} \right|, \quad W = \sqrt{\frac{\left(r_{out} - \cfrac{r_{in}}2\right)\alpha_s}{2\pi (r_{out}- r_{in})r_{in}^2}}.
+\end{equation}
 
-\begin{table}
+\begin{table}[h]
 \begin{minipage}[b]{.4\textwidth}
     \centering
     \input{chapitres/article_DISP/figures/tikz_srr.tex}
@@ -510,10 +517,5 @@ Below is provided a figure describing the parametrization of the resonator geome
 \end{minipage}
 \end{table} 
 
-
-The resonance frequency is obtained by adapting the standard equation for the wavenumber at the resonance of an Helmholtz resonator \cite{bruneau2006} as $k_r = \sqrt{S/(LV)}$, where in this case $S=\theta_s/(2\pi)$ is the aperture width arc length, $L+\delta \approx r_{out}-r_{in}$ is the neck length and $V = \pi r_{in}^2$ is the cavity surface area. In the present case, the layer wave velocity depends on the frequency. The following expression for the resonance frequency is thus,
-\begin{equation}
-        f_{res} = \mathrm{min}\left| 1 - \frac{c_{eq}(\omega)W}{\omega} \right|, \quad W = \sqrt{\frac{\left(r_{out} - \cfrac{r_{in}}2\right)\alpha_s}{2\pi (r_{out}- r_{in})r_{in}^2}}
-\end{equation}
 \endgroup
 \clearpage

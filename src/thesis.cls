@@ -101,7 +101,7 @@
             {0pt}
             {}[{\hypersetup{linkcolor=black}
                 \vspace*{2pc}{\color{accent}\titlerule\vspace*{1pc}}%
-                \startcontents\vbox{\Large\contentsname}\vskip1ex
+                \startcontents\vbox{\bfseries\Large\contentsname}\vskip1ex
                 \printcontents{l}{1}{\setcounter{tocdepth}{3}}\vspace*{1pc}{\color{accent}\titlerule}
             }]
         \titlespacing*{\chapter}{0pt}{0pt}{40pt}
