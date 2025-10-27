@@ -35,7 +35,7 @@ This process is then run iteratively until the condition for finding the root is
 \end{equation}
 which means that the convergence is reached when the iteratively-found solution stops varying up to small values; we have usually chosen $\varepsilon_a \in \left[ 10^{-12}, 10^{-18} \right]$ depending on the nature of the problem and more importantly the numerical conditioning of the complex function $f$. It is possible to initialize the method with initial guesses that leads to a divergence of the method, or to location which never converge. To mitigate these two issues, a second criterion $\varepsilon_b \approx 10^6$ sets a threshold for the variance of $[x_0, x_1, x_2, x_3]$ for the first case, and to a parameter setting the maximum number of iterations set in the range $[100, 2000]$.
 
-\subsection{A complete routine for an automated computation of dispersion relations}
+\subsection{A routine for the computation of dispersion relations}
 \begin{figure}[htpb]
     \centering
     \input{chapitres/annexes/figs/muller_schema.tex}
@@ -53,3 +53,5 @@ Once the set of solutions has been finally obtained, each of the associated mode
 \subsection{Using the code}
 In order to use the developed method, one should write a Python class formulating the problem, the requirements are that there should exist an 
 \texttt{update\_frequency} method taking an angular frequency as the only input and should update all frequency-dependant parameters. Also, there should exist a \texttt{get\_matrix} method taking a complex wavenumber (or any parameter that needs to be root-found) and returns either a matrix or a scalar. The code is available on Github \comment{déposer sur zenodo?} and more practical informations are given there. \comment{écrire le readme}
+
+\newpage

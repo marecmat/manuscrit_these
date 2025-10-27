@@ -197,8 +197,9 @@
         \fancyhead[RE]{\titlestyle\nouppercase{\leftmark}}
         \fancyhead[LO]{\titlestyle\nouppercase{\rightmark}}
         \fancyfoot[RE, LO]{\thepage}
+        \fancypagestyle{plain}{\fancyfoot{} \fancyhead{} \fancyfoot[RE, LO]{\thepage}}
         \RequirePackage{emptypage}
-
+        
         \pagestyle{fancy} 
         \RequirePackage[lining,semibold,scale=1.12]{ebgaramond}
         % \RequirePackage[scale=0.85]{sourcecodepro}
