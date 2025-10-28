@@ -37,9 +37,9 @@ Among these methods, we can highlight two. The first is the Transfer Matrix Meth
 
 For periodic layers, it is not possible to use these methods directly because the concept of waves is not applicable. In addition, contrary to the case of stacks of homogeneous structures, periodicity induces the presence of not only a single mode but also an infinity (called Bloch modes). Then an alternative is to predict the response using the Finite Element Method (FEM) \cite{petytIntroductionFiniteElement2010, geradinMechanicalVibrationsTheory2015,atalla2015}. The key advantage of FEM is its ability to handle complex geometries and material properties. Additionally, FEM is particularly well-suited to Floquet-Bloch relations. In recent years, higher-order FEM has been studied \cite{solin2004} and provides interesting capabilities in acoustics \cite{beriot2016,lieu2016} and especially for poroelastic materials (PEM) \cite{jonckheere2022}. However, its computational cost is a major drawback of this method. This is particularly true for sound packages, the full FEM model of which generally requires also discretising the homogeneous layers as well as the surrounding semi-infinite incident and transmitting half-spaces, which in most cases must themselves be coupled to Perfectly Matched Layers (PMLs) \cite{aberkane-gauthier2024, yangPredictionSoundAbsorption2022, kuznetsova2024,boulvert2020}. This not only generates a significant numerical overhead, but also does not concentrate the degrees of freedom (and then the computational resources) on the periodic cells. \\
 
-For periodic structures, several works have focused on calculating dispersion curves, whether using Semi-Analytical Finite-Elements (SAFE) or Wave Finite Elements Method (WFEM). These works have focused on mechanical structures \cite{colletFloquetBlochDecomposition2011, ichchouGuidedWavesGroup2007,rennoForcedResponseWaveguides2010,yangAnalysisVibroacousticCharacteristics2021}, even if some contributions involved porous materials that contain inclusions \cite{magliacano2020,magliacano2021} or not \cite{serraWavePropertiesPoroelastic2015}, or alternating materials \cite{wang2019}. A phononic crystal made up of a poroelastic host was investigated with cylindrical poroelastic inclusions \cite{wang2020} or with other inclusion material \cite{zhang2023}. However, these methods do not allow us to directly calculate the response of the structure because of the formulation of the underlying eigenvalue problem, which is often used for solving dispersion relations, and none of these works has focused on multilayer structures. Recently, pioneering contributions have proposed methods to determine the transfer matrix of periodic cells on the basis of a finite element model\cite{parrinelloGeneralizedTransferMatrix2020,parrinelloTransferMatrixRepresentation2016}. These contributions have paved the way for the modelling of wave propagation of layer stacks with periodic layers and constitute the starting point for this work. These articles focus on structures that involve a single unit cell and relied on a discretization with only quadratic elements. Strategies to couple them to homogeneous layers and stability issues were not studied.\\ 
+For periodic structures presenting dissipative properties, several works have focused on calculating dispersion curves, whether using Semi-Analytical Finite-Elements (SAFE) or Wave Finite Elements Method (WFEM). These works have focused on mechanical structures \cite{colletFloquetBlochDecomposition2011, ichchouGuidedWavesGroup2007,rennoForcedResponseWaveguides2010,yangAnalysisVibroacousticCharacteristics2021}, even if some contributions involved porous materials that contain inclusions \cite{magliacano2020,magliacano2021} or not \cite{serraWavePropertiesPoroelastic2015}, or alternating materials \cite{wang2019}. A phononic crystal made up of a poroelastic host was investigated with cylindrical poroelastic inclusions \cite{wang2020} or with other inclusion material \cite{zhang2023}. However, these methods do not allow us to directly calculate the response of the structure because of the formulation of the underlying eigenvalue problem, which is often used for solving dispersion relations, and none of these works has focused on multilayer structures. Recently, pioneering contributions have proposed methods to determine the transfer matrix of periodic cells on the basis of a finite element model\cite{parrinelloGeneralizedTransferMatrix2020,parrinelloTransferMatrixRepresentation2016}. These contributions have paved the way for the modelling of wave propagation of layer stacks with periodic layers and constitute the starting point for this work. These articles focus on structures that involve a single unit cell and relied on a discretisation with only quadratic elements. Strategies to couple them to homogeneous layers and stability issues were not studied.\\ 
 
-The aim of this paper is therefore to extend these methods to the modelling of the acoustic scattering by stacks of possibly periodic layers. More specifically, we will first propose an approach slightly different from those presented in Refs.\cite{parrinelloGeneralizedTransferMatrix2020,parrinelloTransferMatrixRepresentation2016}. The proposed approach is compatible with higher-order finite elements. Secondly, we extend the Global Method (GM) and Transfer Matrix Method (TMM) for the case of grating stacks. The modularity of the method allows for the modelling of a wide range of configurations (arbitrary stack of layers with scatterers of arbitrary geometry). In Section 2, the problem will be presented along with the different quantities of interest. Section 3 focusses on the modelling of homogeneous and periodic layers and the coupling between them. The key to this coupling is to adapt the FE discretization of the problem so that the appropriate state vector can be expressed by relating the acoustic properties from one end of the layer to the other. The validation results for the extensions of the two methods are then presented and validated in Section 4, putting in perspective the GM and TMM performance with examples covering the range of configurations described in the literature. Section 5 is a conclusion.
+The aim of this chapter is therefore to extend these methods to the modelling of the acoustic scattering by stacks of possibly periodic layers. More specifically, we will first propose an approach slightly different from those presented in Refs.\cite{parrinelloGeneralizedTransferMatrix2020,parrinelloTransferMatrixRepresentation2016}. The proposed approach is compatible with higher-order finite elements. Secondly, we extend the Global Method (GM) and Transfer Matrix Method (TMM) for the case of grating stacks. The modularity of the method allows for the modelling of a wide range of configurations (arbitrary stack of layers with scatterers of arbitrary geometry). In Section 2, the problem will be presented along with the different quantities of interest. Section 3 focusses on the modelling of homogeneous and periodic layers and the coupling between them. The key to this coupling is to adapt the FE discretisation of the problem so that the appropriate state vector can be expressed by relating the acoustic properties from one end of the layer to the other. The validation results for the extensions of the two methods are then presented and validated in Section 4, putting in perspective the GM and TMM performance with examples covering the range of configurations described in the literature. Section 5 is a conclusion.
 
 \newpage
 
@@ -50,7 +50,7 @@ The aim of this paper is therefore to extend these methods to the modelling of t
 \caption{\label{problem} Problem of interest}
 \end{figure}
 
-We are interested in the problem depicted in \cref{problem} corresponding to the acoustic scattering by a two-dimensional periodic multilayer system. This multilayer system is $D$-periodic along the $x$-direction and composed of a stack of homogeneous or periodic (layer with embedded inclusions), with total thickness $H$. The system is excited by a plane incident wave initially propagating in the lower half-space with angle $\theta$ with respect to the normal of the system, i.e. the $y$-direction. The top interface is either backed by a rigid boundary condition or by a termination condition (in this case a radiation boundary condition is accounted for). The surrounding medium is air. In all this paper, a positive Fourier transform convention is used, $e^{j\omega t}$, with $j^2=-1$ and $\omega$ is the angular frequency. This common term is omitted in all expressions. The unitary amplitude incident pressure field is expressed as
+We are interested in the problem depicted in \cref{problem} corresponding to the acoustic scattering by a two-dimensional periodic multilayer system. This multilayer system is $D$-periodic along the $x$-direction and composed of a stack of homogeneous or periodic (layer with embedded inclusions), with total thickness $H$. The system is excited by a plane incident wave initially propagating in the lower half-space with angle $\theta$ with respect to the normal of the system, i.e. the $y$-direction. The top interface is either backed by a rigid boundary condition or by a termination condition (in this case a radiation boundary condition is accounted for). The surrounding medium is air. In all this work, a positive Fourier transform convention is used, $e^{j\omega t}$. This common term is omitted in all expressions. The unitary amplitude incident pressure field is expressed as
 \begin{equation}
   p_i(x,y) = e^{-j(k_x x+k_y y)},
 \end{equation}
@@ -143,7 +143,7 @@ In homogeneous layers, each $\vc{S}_{w}$ can be written as a superposition of fo
 \be\label{eq:S_w forward-backward}
 \vc{S}_w(y) =\sum_{\tau \in\mc{T}}  \vc{S}_{w,\tau }^+e^{-jk_\tau ^{(w)} (y-y_b)}\,q_{\w,\tau }^+ +\vc{S}_{w,\tau }^- e^{jk_\tau ^{(w)} (y-y_t)}\, q_{w,\tau}^-.
 \ee 
-$\mc{T}$ is the set of plane waves (compressional, shear ...) travelling in the considered layer. $\vc{S}_{w,\tau}^+$ is the polarization vector associated with the forward wave of type $\tau$ and the Bloch mode $w$, while $\vc{S}_{w,\tau}^-$ is reciprocally the polarization vector associated to the backward wave. $k_\tau ^{(w)}$ is the projection of the wave vector along the $y$ direction and $q_{w,\tau}^\pm$ corresponds to the amplitudes. Similar definitions are introduced for backward waves but with the exponent $+$ replaced by $-$. Note that the origin of the forward waves (resp. backward) is chosen at $y=y_b$ (resp. $y=y_t$) so that this expression only involves exponentially decaying terms in the $y$ direction.\\
+$\mc{T}$ is the set of plane waves (compressional, shear ...) travelling in the considered layer. $\vc{S}_{w,\tau}^+$ is the polarisation vector associated with the forward wave of type $\tau$ and the Bloch mode $w$, while $\vc{S}_{w,\tau}^-$ is reciprocally the polarisation vector associated to the backward wave. $k_\tau ^{(w)}$ is the projection of the wave vector along the $y$ direction and $q_{w,\tau}^\pm$ corresponds to the amplitudes. Similar definitions are introduced for backward waves but with the exponent $+$ replaced by $-$. Note that the origin of the forward waves (resp. backward) is chosen at $y=y_b$ (resp. $y=y_t$) so that this expression only involves exponentially decaying terms in the $y$ direction.\\
 
 It is more convenient to write \cref{eq:S_w forward-backward} in matrix form as,
 \be
@@ -151,7 +151,7 @@ It is more convenient to write \cref{eq:S_w forward-backward} in matrix form as,
 \ee 
 where $\mat{S_{\textit w}}$ is a matrix that gathers the polarisation vectors, $\mat{E_{\textit w}(\textit y)}$ is a diagonal matrix associated with the exponential terms, and $\vc{q_w}$ is the vector of the amplitudes of waves associated with the $w$-th Bloch mode. \\
 
-The interface relations relate the state variables at the interfaces between two layers. In order to avoid confusion with $\vc{S}$, which is a function of space, a specific notation is considered for the values of state variables at the interface: $\vc{\Sigma}$. Throughout this paper, we will use the superscripts $t$ and $b$ to designate the quantities at the top and bottom interfaces of each layer (e.g. $y^t$ and $y^b$ will designate the coordinates of the top and bottom interfaces). We will also define a number of quantities whose expressions on the top and bottom interfaces only differ by superscript. To ease the reading, only the expressions associated with the top interface are presented in the following.\\
+The interface relations relate the state variables at the interfaces between two layers. In order to avoid confusion with $\vc{S}$, which is a function of space, a specific notation is considered for the values of state variables at the interface: $\vc{\Sigma}$. Throughout this chapter, we will use the superscripts $t$ and $b$ to designate the quantities at the top and bottom interfaces of each layer (e.g. $y^t$ and $y^b$ will designate the coordinates of the top and bottom interfaces). We will also define a number of quantities whose expressions on the top and bottom interfaces only differ by superscript. To ease the reading, only the expressions associated with the top interface are presented in the following.\\
 
 At the top interface, we have:
 \be\label{eq:state_top}
@@ -259,12 +259,12 @@ where $\Sigma^t_{k,w}$ is the component of the state vector associated with the 
 \\ 
 
 
-Let us come to the discretization of the system made up of Eq.~(\ref{eq:weak_form_decomposed_state}) and Eq.~(\ref{eq:rothogonality_pv}).
+Let us come to the discretisation of the system made up of Eq.~(\ref{eq:weak_form_decomposed_state}) and Eq.~(\ref{eq:rothogonality_pv}).
 The first is discretized with higher order finite-elements. This method has now been widely used in the literature; see, for instance, \cite{petytIntroductionFiniteElement2010,atalla2015,solin2004}, and is then not detailed in the present work. The primal variable is approximated as,
 \be
 \pv(M) = \mat{N(\textit M)}\vc{X}\esp \delta\pv(M) = \mat{N(\textit M)}\delta\vc{X},
 \ee 
-where $\mat{N(M)}\in \mb{R}^{n_w\times n}$ is the matrix of shape function and $\vc{X}\in\mb{R}^n$ is the vector of the finite-element unknowns. The term $a$ associated with the volumic term leads to a matrix $\mat{D_{\pi\pi}}\in \C^{n\times n}$. Let's now consider the surface term on the top boundary. The restriction of the variable $\pi_k$ on $\Gamma_t$ leads to
+where $\mat{N(M)}\in \mb{R}^{n_w\times n}$ is the matrix of shape function and $\vc{X}\in\mb{R}^n$ is the vector of the finite-element unknowns. The term $a$ associated with the volumic term leads to a matrix $\mat{D_{\pi\pi}}\in \C^{n\times n}$. Let us now consider the surface term on the top boundary. The restriction of the variable $\pi_k$ on $\Gamma_t$ leads to
 \be
 \pi_{k|y=y_t}(M) = \mat{N_t^k(\textit M)}\vc{X}\esp 
 \mat{N_t^k(\textit M)} \in\mb{R}^{1\times n}.
@@ -289,7 +289,7 @@ where $\mat{D_{\pi t}}$ is a matrix of dimension $n\times n_\Sigma$ that is not 
 \mat{N_t(\textit x)}\tp
  \mat{e(\textit x)} dx,
 \ee
-which contains all the integration of the products of the traces of finite element shape functions on $\Gamma_t$ by exponential Bloch modes functions. Note that the terms of the latter matrix can be computed analytically. The discretization of (\cref{eq:rothogonality_pv}) leads to $n_wn_B$ equations linking $\vc{X}$ and $\vc{\Sigma}^t$. The left-hand side is discretized as:
+which contains all the integration of the products of the traces of finite element shape functions on $\Gamma_t$ by exponential Bloch modes functions. Note that the terms of the latter matrix can be computed analytically. The discretisation of (\cref{eq:rothogonality_pv}) leads to $n_wn_B$ equations linking $\vc{X}$ and $\vc{\Sigma}^t$. The left-hand side is discretized as:
 \be
  \int_{\Gamma_t} \ov{\ew(x)} \pi_k(x)dx \approx \underbrace{
  \int_{\Gamma_t} \ov{\ew(x)} \mat{N_t^k(\textit x)}dx}_{ \mat{D^{k,w}_{t\pi}}} \vc{X},
@@ -355,7 +355,11 @@ The state vectors are, respectively, of length $2n_an_B$ and $2n_bn_B$ where $n_
 \ee
 where $\mat{C^a_i}\in\R^{n_a+n_b\times 2n_a}$ and $\mat{C^b_i}\in\C^{n_a+n_b\times 2n_b}$ are interface matrices. These matrices express the continuities between the stresses and displacements of the media in the two layers at the interface or the possible nullities of some fields. The expressions of these matrices are not given, but the reader can in particular consult Table IV of \cite{dazel2013}.
 
-\subsection{Methods to model the acoustic response of the multilayer structure\label{sec:multilayer_response}}
+\subsection[Methods to model the acoustic response of the multilayer structure]
+    {\texorpdfstring{Methods to model the acoustic response of the\\ multilayer structure}
+    {Methods to model the acoustic response of the multilayer structure}}
+\label{sec:multilayer_response}
+
 The GM and the TMM we want to compare are presented in this part. The proposed approach is rather general, but in the context of this section we present them in the case of a bilayer structure composed of a homogeneous layer (labelled 1) on top of a periodic cell (labelled 2) as presented in \cref{two_layers_problem}. \\ 
 
 A state vector $\vc{\Sigma_-}\in\C^{2n_B}$ is defined on the lower side of the incident interface. It can be written as a sum of a vector $\vc{E}$ associated to the incident field and a contribution of the reflected waves,
@@ -389,7 +393,7 @@ n_t = n_Bn_1+n_B(n_1+n_2) + n_B(n_2+1)=(1+2n_1+2n_2)n_B.
 \begin{center}
 \centering
 \includegraphics[trim={3cm 0cm 0cm 0cm, clip}, width=90mm]{FIG/two_layers_problem_woiags.pdf}
-\caption{\label{two_layers_problem} Two layers problem}
+\caption{\label{two_layers_problem} Two layers problem.}
 \end{center}
 \end{figure}
 
@@ -484,14 +488,14 @@ Three methods are compared in this example and are all associated to the same me
     Viscous characteristic length  $\Lambda\,[\mu m]$ 			& 214 & 15& / &/\\
     Thermal characteristic length  $\Lambda'\,[\mu m]$ 			& 214  & 45& /&/\\
     Density	 $\rho\,[kg.m^{-3}]$ & 6.1 & 126 & 1800&7800\\
-    Young's modulus $E \,[kPa]$ & 56.5 & 694.4& 1900&49.7$\times 10^6$\\
-    Poisson's ratio $\nu \,[\emptyset]$ 					& 0.24&0.24&0.48&0.45 \\
+    Young modulus $E \,[kPa]$ & 56.5 & 694.4& 1900&49.7$\times 10^6$\\
+    Poisson ratio $\nu \,[\emptyset]$ 					& 0.24&0.24&0.48&0.45 \\
     Frame loss model  &structural &structural &rubber&none\\
     Structural loss factor $\eta \,[\emptyset]$ 					& 0.02 & 0.05 &796&0\\
 	\hline
 	\end{tabular}
 	\end{center}
-	\caption{Physical parameters of the different media}
+	\caption{Physical parameters of the different media.}
 	\label{tab:param_mat}
 \end{table}
 
@@ -510,7 +514,7 @@ The error in the modulus of the transmission coefficient is presented in \cref{f
     \node at (-9, 2.5) {a)};
     \node at (-1.5, 2.5) {b)};
 \end{tikzpicture}
-\caption{a) Diagram of the coupled vibroacoustic sandwich problem. b)  Convergence curve for the global method for the problem of a sandwich structure computed by sweeping over mesh size from $h=2\cdot10^{-3}$ to $h=.5$ m. Legend: (+) poroelastic core, ($\triangledown$) sandwich structure, (o) entire structure }
+\caption{a) Diagram of the coupled vibroacoustic sandwich problem. b)  Convergence curve for the global method for the problem of a sandwich structure computed by sweeping over mesh size from $h=2\cdot10^{-3}$ to $h=.5$ m. Legend: (+) poroelastic core, (\smalltrianglemarker) sandwich structure, (\smallcirclemarker) entire structure.}
 \label{fig:sandwich}
 \end{figure}
 
@@ -521,7 +525,7 @@ In this subsection, we will compare the two methods with examples inspired by th
 \begin{figure}[ht]
     \centering
     \includegraphics[width=\linewidth]{FIG/schema_benchmark.pdf}
-    \caption{Diagram for the presented cases, each case is a poroelastic host layer, a) rigidly-backed and steel inclusions, b) transmission problem with embedded poroelastic inclusions, c) rigidly-backed with a rubber-coating and resonant air-filled rubber shell, d) transmission problem with a rubber-coating on each side and steel inclusion}
+    \caption{Diagram for the presented cases, each case is a poroelastic host layer, a) rigidly-backed and steel inclusions, b) transmission problem with embedded poroelastic inclusions, c) rigidly-backed with a rubber-coating and resonant air-filled rubber shell, d) transmission problem with a rubber-coating on each side and steel inclusion.}
     \label{fig:schema_benchmark}
 \end{figure}
 
@@ -541,7 +545,7 @@ Similar conclusions can be observed in the second case presented in \cref{fig:ca
 \begin{figure}[htpb]
 \centering
 \twopanelfigure{case13_abs}{case13_error}
-\caption{Case of a two-sided coated of a resonant inclusion in two side coated  material. Solid (resp. dashed) lines correspond to $\theta=0^\circ$ (resp. $\theta=30^\circ$) a) Absorption coefficient at two angles and b) Errors of the two methods \label{fig:case13}}
+\caption{Case of a two-sided coated of a resonant inclusion in two side coated  material. Solid (resp. dashed) lines correspond to $\theta=0^\circ$ (resp. $\theta=30^\circ$) a) Absorption coefficient at two angles and b) Errors of the two methods. \label{fig:case13}}
 \end{figure}
 
 \subsection{Stability issues}
@@ -552,19 +556,19 @@ However, as shown in \cref{fig:case10cond}, the TMM results compared to the same
 \begin{figure}[htpb]
 \centering
 \twopanelfigure{case10_abs_global}{case10_error_global}
-\caption{Prediction of the GM for two truncation of the Bloch modes a) Absorption coefficient. b) Error on the absorption \label{fig:case10}}
+\caption{Prediction of the GM for two truncation of the Bloch modes a) Absorption coefficient. b) Error on the absorption. \label{fig:case10}}
 \end{figure}
 
 \begin{figure}[htpb]
 \centering
 \twopanelfigure{case10_abs_TMM}{case10_condition_number}
-\caption{Prediction of the TMM for two truncation of the Bloch modes a) Absorption coefficient. b) Condition number \label{fig:case10cond}}
+\caption{Prediction of the TMM for two truncation of the Bloch modes a) Absorption coefficient. b) Condition number. \label{fig:case10cond}}
 \end{figure}
 
 \subsection{Automatic selection of Bloch wave numbers}
 \label{sec:truncation}
 
-In this last part, the truncation of the Bloch modes series that is required to model an accurate solution is discussed. Only results from the GM are presented since it was identified as the most stable method among the different numerical strategies discussed in previous results. The MST solution will be used as reference, its Bloch modes truncation not being at stake in this discussion. In the literature, the truncating of the series uses an empirical formula that is detailed e.g. in Appendix D from Ref.~\cite{weisser2016}. The influence on the error of the GM by varying the amount of accounted Bloch modes is shown in \cref{fig:case_7_influence_N}. The error is also presented for different orders of interpolation ranging from $p = 2$ to 5 and a varying mesh characteristic size. Refining the mesh quickly leads to a plateau, showing that the FEM has converged regarding the interpolation order and mesh size. By increasing the Bloch wave truncation, the plateau decreases significantly going from $N=0$ to 3. The main influence of the error is thus not due to the FEM discretization but rather is mainly due to the Bloch wave truncation.
+In this last part, the truncation of the Bloch modes series that is required to model an accurate solution is discussed. Only results from the GM are presented since it was identified as the most stable method among the different numerical strategies discussed in previous results. The MST solution will be used as reference, its Bloch modes truncation not being at stake in this discussion. In the literature, the truncating of the series uses an empirical formula that is detailed e.g. in Appendix D from Ref.~\cite{weisser2016}. The influence on the error of the GM by varying the amount of accounted Bloch modes is shown in \cref{fig:case_7_influence_N}. The error is also presented for different orders of interpolation ranging from $p = 2$ to 5 and a varying mesh characteristic size. Refining the mesh quickly leads to a plateau, showing that the FEM has converged regarding the interpolation order and mesh size. By increasing the Bloch wave truncation, the plateau decreases significantly going from $N=0$ to 3. The main influence of the error is thus not due to the FEM discretisation but rather is mainly due to the Bloch wave truncation.
 
 Finally, the influence of the number of accounted Bloch modes is investigated in the present section. By selecting the solution along the dashed line in \cref{fig:case_7_influence_N}, the variation of the relative error comparing a computation that accounts for $N$ Bloch waves to a computation using an additional mode at $N+1$ Bloch modes is presented in \cref{fig:case7_automatic}. A plateau is reached around $N=4$, meaning that the convergence of the Bloch wave series for all shown orders of interpolation has been reached. 
 This could be implemented as an automatic truncation criterion, as the evaluation of the full system accounting for additional Bloch waves is much less computationally intensive than evaluating the full system: the main FEM matrix does not have to be re-evaluated in this case and the LU factors of the main FEM matrix $\mat{D_{\pi\pi}}$ could be stored to evaluate the $\mat{R_b}$ and $\mat{R_t}$ from \cref{eq:rb_rt} with at a low computational cost, ensuring that the convergence is reached for the Bloch wave truncation.
@@ -572,12 +576,12 @@ This could be implemented as an automatic truncation criterion, as the evaluatio
 \begin{figure}[hbtp]
 \centering
 \begin{tikzpicture} \node at (-6, 0) {\includegraphics[width=.47\linewidth]{FIG/case_7_convergence_Bloch}}; \node at (2, 0) {\includegraphics[width=.48\linewidth]{FIG/case_7_convergence_Bloch_auto}}; \node at (-9.7, 2.7) {a)}; \node at (-1.8, 2.7) {b)};\end{tikzpicture}
-\caption{Automatic selection of the number of Bloch modes  \label{fig:case7} a) Influence of the number of Bloch modes\label{fig:case_7_influence_N} b) Differences on the errors\label{fig:case7_automatic}}
+\caption{Automatic selection of the number of Bloch modes  \label{fig:case7} a) Influence of the number of Bloch modes\label{fig:case_7_influence_N} b) Differences on the errors. \label{fig:case7_automatic}}
 \end{figure}
 
 \section{Conclusion}
 
-In this paper, two methods for modelling the acoustic response of grating stacks with homogeneous and periodic layers have been proposed. Each layer in the stack is coupled to its neighbours using the appropriate state vectors, thus allowing for the coupling of different materials  as well as non-coinciding finite elements meshes. 
+In this chapter, two methods for modelling the acoustic response of grating stacks with homogeneous and periodic layers have been proposed. Each layer in the stack is coupled to its neighbours using the appropriate state vectors, thus allowing for the coupling of different materials  as well as non-coinciding finite elements meshes. 
 These methods have also been benchmarked against a large variety of problems. The TMM has been successfully coupled to higher-order finite elements when modelling some of the tackled configurations spanning previous results from the literature, they exhibited limitations due to their instability for several of the selected cases. The GM produced satisfactory results for all presented cases, demonstrating its robustness. A criterion for the automatic evaluation of the number of required Bloch modes has been proposed as well. 
 
-This work could be extended by proposing a full 3D formulation. A similar method for the stabilization of the recursive method could also be interesting, but more work is needed. Even though for this work the same extension as TMM was operated on the RM, the observed results remained unsatisfactory compared to the GM. Other prospects for this work include the declination of the methods to other physics: electromagnetics to compute the scattering properties of different types of grating stacks.
+This work could be extended by proposing a full 3D formulation. A similar method for the stabilisation of the recursive method could also be interesting, but more work is needed. Even though for this work the same extension as TMM was operated on the RM, the observed results remained unsatisfactory compared to the GM. Other prospects for this work include the declination of the methods to other physics: electromagnetics to compute the scattering properties of different types of grating stacks.

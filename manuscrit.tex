@@ -21,14 +21,14 @@
 
 \begin{document}
 \thispagestyle{empty}
-\tikz[remember picture, overlay] 
-    \node[opacity=1,inner sep=0pt] at (current page.center){
-            \includegraphics[width=\paperwidth,height=\paperheight]{src/title_ed.pdf}
-    };
-\clearpage
+% \tikz[remember picture, overlay] 
+%     \node[opacity=1,inner sep=0pt] at (current page.center){
+%             \includegraphics[width=\paperwidth,height=\paperheight]{src/title_ed.pdf}
+%     };
+% \clearpage
 
 \input{chapitres/title.tex}
-% \input{chapitres/abstract_ack.tex}
+\input{chapitres/abstract_ack.tex}
 \input{chapitres/contents.tex}
 
 \clearpage
@@ -44,12 +44,12 @@
 \input{chapitres/annexes/main_appendix.tex}
 \input{chapitres/refs.tex}
 
-\newpage
-\thispagestyle{empty}
-\tikz[remember picture, overlay] 
-    \node[opacity=1,inner sep=0pt] at (current page.center){
-            \includegraphics[width=\paperwidth,height=\paperheight]{src/couv4_ed.pdf}
-    };
-\clearpage
+% \newpage
+% \thispagestyle{empty}
+% \tikz[remember picture, overlay] 
+%     \node[opacity=1,inner sep=0pt] at (current page.center){
+%             \includegraphics[width=\paperwidth,height=\paperheight]{src/couv4_ed.pdf}
+%     };
+% \clearpage
 
 \end{document}  
