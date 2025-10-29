@@ -1,5 +1,3 @@
-\newpage
-
 \section{Methods for modelling metaporous surfaces and interfaces}
 
 Following the presentation of the theoretical background for porous media modeling, homogeneous (possibly multilayer) systems and introducing the challenges behind the modeling of surrounding air media, we focus in this section on introducing periodicity into the system. A few elementary notions on periodic are first presented before a discussion on existing for the computation of wave propagation characteristics in such structures with a focus on tools allowing for dispersion curve evaluation. 
@@ -26,7 +24,7 @@ The complexity of the system we want to consider prohibits the use of such semi-
 \subsection{Scattering of waves by periodic structures}
 
 \subsubsection{Multiple scattering}
-Analytical methods for the evaluation of the wave propagation in periodic structures often require tedious derivations, as the frequency regimes of interest is usually high enough to require the description of the multiple scattering happening in the structure. Simply explained, the scatterer in the unit cell onto which the incident wave impinges acts as a secondary source, which scattered field is successively scattered by each neighbouring obstacles and so on. This theoretical framework is called the \acrlong{mst} has been developed to account for these phenomena in various disciplines. \cite{martin2006, jimenez2021}. Considering an array of periodic cylindrical scatterers onto which a plane wave impinges, the form of the pressure field is,
+Analytical methods for the evaluation of the wave propagation in periodic structures often require tedious derivations, as the frequency regimes of interest is usually high enough to require the description of the multiple scattering happening in the structure. Simply explained, the scatterer in the unit cell onto which the incident wave impinges acts as a secondary source, which scattered field is successively scattered by each neighbouring obstacles and so on. This theoretical framework is called the \acrlong{mst} has been developed to account for these phenomena in various disciplines \cite{martin2006, jimenez2021}. Considering an array of periodic cylindrical scatterers onto which a plane wave impinges, the form of the pressure field is,
 \begin{equation}
     p(\mbf r) = \sum_q A_q G_q + \underbrace{\sum_j \sum_q B_q^{(j)} G_{jq}(\mbf r_j)}_{\mathrm{scattered\,field}},
 \end{equation} 

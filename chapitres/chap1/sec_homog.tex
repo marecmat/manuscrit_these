@@ -111,9 +111,9 @@ Considering a rigidly-backed layer, and thus $u_2(h) = 0$, we obtain a reflectio
     R_b =\frac{T_{11}-Z_{eq}T_{21}}{T_{11}+Z_{eq}T_{21}}.
 \end{equation}
 
-In the case of the symmetric layer, the reflection and transmission coefficients are determined from the scattering matrix as well, \comment{vérifier expr.}
+In the case of the symmetric layer, the reflection and transmission coefficients are determined from the scattering matrix as well,
 \begin{equation}
-    T_s = \frac{e^{-ikL}}{T_{11}+T_{12}/Z_{eq}+Z_{eq}T_{21}+T_{22}}, \quad
+    T_s = \frac{2e^{ikL}}{T_{11}+T_{12}/Z_{eq}+Z_{eq}T_{21}+T_{22}}, \quad
     R_s = \frac{T_{12}/Z_{eq}-Z_{eq}T_{21}}{T_{11}+T_{12}/Z_{eq}+Z_{eq}T_{21}+T_{22}}.
 \end{equation}
 which is only valid for reciprocal and linear assumptions. The absorption coefficient for the same two configurations are calculated as $\alpha_b = 1 - |R_b^2|$ and $\alpha_s = 1 - |R_s^2| - |T_s^2|$ and are shown in Fig.~\ref{fig:poroelastic_scattering_ex}with markers. It can be seen that the same results (up to the respective numerical precision of each method) are obtained. No absorption peak is observed in the results since the frequency range is way below the quarter-wavelength resonance (which should lie around 1.5 kHz for these 5 cm-thick homogeneous layers). The equivalent fluid and the full Biot theory results follow generally the same trend for the results of the rigidly-backed layer in Fig.~\ref{fig:poroelastic_scattering_ex}a, except for a peak around 200 Hz shown with the poroelastic model. This is known as the Biot peak and corresponds to an elastic resonance, a strong vibration of the skeleton leading to increased structural dissipations, hence the reflection coefficient dip. \cite{zielinski2011, weisser2016}.
